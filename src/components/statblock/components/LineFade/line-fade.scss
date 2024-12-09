@@ -1,0 +1,9 @@
+@use '../../../../styles/variables' as *;
+
+.line-break {
+    height: 5px;
+    background: linear-gradient(to right, $highlight, transparent 70%, transparent 100%);
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+}

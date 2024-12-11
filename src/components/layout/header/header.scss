@@ -1,0 +1,13 @@
+@use '../../../styles/variables' as *;
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 50px;
+    max-width: 100%;
+    background-color: $primary-background;
+    opacity: 70%;
+    display: flex;
+    justify-content: space-between;
+}

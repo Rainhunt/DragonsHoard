@@ -5,10 +5,10 @@ import './header.scss';
 
 const Header: React.FC = () => {
     return (
-        <header>
+        <nav>
             <LeftNav />
             <RightNav />
-        </header>
+        </nav>
     )
 }
 

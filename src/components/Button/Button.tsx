@@ -1,9 +1,9 @@
-import React from 'react'
-import './button.css'
+import React, { MouseEventHandler } from 'react'
+import './button.scss'
 
 type ButtonProps = {
     text: string,
-    onClick?: () => void
+    onClick?: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
 const Button: React.FC<ButtonProps> = ({ text, onClick }) => {

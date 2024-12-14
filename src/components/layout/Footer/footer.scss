@@ -1,15 +1,13 @@
 @use '../../../styles/variables' as *;
 
-nav {
-    position: fixed;
-    top: 0;
+footer {
+    bottom: 0;
     width: 100vw;
     height: 50px;
     max-width: 100%;
     padding: 0 150px;
     background-color: $primary-background;
-    opacity: 70%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }

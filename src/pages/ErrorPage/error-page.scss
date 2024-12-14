@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+
+h1 {
+    margin-top: 60px;
+    font-size: 6em;
+    font-weight: 700;
+}
+
+h2 {
+    margin: 30px 0;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #00000080;
+    font-size: 2em;
+    font-weight: 400;
+    color: $highlight;
+}
+
+button {
+    font-weight: 700;
+}

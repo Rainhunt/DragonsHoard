@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+
+h1 {
+    padding-top: 30px;
+    font-size: 6em;
+    font-weight: 700;
+}
+
+h2 {
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #00000080;
+    font-size: 2em;
+    font-weight: 400;
+    color: $highlight;
+}

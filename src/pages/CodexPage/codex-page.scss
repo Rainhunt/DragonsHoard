@@ -1,0 +1,17 @@
+@use '../../styles/variables' as *;
+
+h1 {
+    margin-top: 60px;
+    font-size: 6em;
+    font-weight: 700;
+}
+
+.rows-container {
+    width: 22%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}

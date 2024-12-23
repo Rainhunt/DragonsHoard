@@ -3,12 +3,13 @@ import './button.scss'
 
 type ButtonProps = {
     text: string,
-    onClick?: MouseEventHandler<HTMLButtonElement> | undefined
+    onClick?: MouseEventHandler<HTMLButtonElement>
+    className?: string
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick, className }) => {
     return (
-        <button onClick={onClick}>
+        <button className={className || "classic-button"} onClick={onClick}>
             {text}
         </button>
     )

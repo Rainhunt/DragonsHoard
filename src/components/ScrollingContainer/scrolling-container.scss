@@ -1,0 +1,42 @@
+@use '../../styles/variables' as *;
+
+.scrolling-container {
+    max-height: 200px;
+    padding: 10px;
+    border: 1px solid $highlight-outline;
+    border-radius: 8px;
+    overflow-y: auto;
+    background-color: $parchment-background;
+
+    .scrolling-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .empty-container {
+        color: rgb(138, 136, 108);
+    }
+}
+
+// .scrolling-item {
+//     margin-right: 8px;
+//     margin-bottom: 4px;
+//     font-size: 1em;
+//     color: #333;
+//     /* Text color */
+//     white-space: normal;
+//     /* Ensure text wraps properly */
+//     display: inline-block;
+//     /* Keep items inline */
+//     background-color: #f3f3f3;
+//     /* Light background color for the items */
+//     padding: 4px 8px;
+//     /* Padding inside the items */
+//     border-radius: 4px;
+//     /* Rounded corners for items */
+//     font-weight: 500;
+//     /* Font weight for the items */
+// }

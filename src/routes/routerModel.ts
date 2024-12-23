@@ -1,5 +1,6 @@
 export enum ROUTES {
-    ROOT = "/"
+    ROOT = "/",
+    CODEX = "/codex"
 }
 
 export type RoutePaths = ROUTES;

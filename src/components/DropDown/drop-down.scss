@@ -1,0 +1,53 @@
+@use '../../styles/variables' as *;
+
+.drop-down-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+
+    .drop-down-label {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $highlight;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        pointer-events: none;
+    }
+
+    .drop-down-select {
+        width: 100%;
+        padding: 10px 10px 10px 40px;
+        border: 1px solid $highlight-background;
+        border-radius: 4px;
+        background-color: $header-color;
+        font-size: 14px;
+        appearance: none;
+        outline: none;
+        font-weight: 700;
+        color: $highlight-background;
+
+
+        &:focus {
+            border-color: $highlight-outline;
+        }
+    }
+
+    .drop-down-select:focus+.drop-down-label,
+    .drop-down-empty {
+        font-weight: 700;
+        color: $highlight;
+        top: 0px;
+        font-size: 12px;
+        transform: translateY(-100%);
+    }
+
+    .drop-down-option {
+        color: $primary-background;
+
+        &:hover {
+            background-color: green;
+        }
+    }
+}

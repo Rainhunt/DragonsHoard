@@ -4,9 +4,9 @@ import Button from '../../../Button/Button';
 const RightNav: React.FC = () => {
     return (
         <div>
-            <Button text="Sign In" />
+            <Button text="Sign Up" />
             <Button text="Log In" />
-            <Button text="Profile In" />
+            <Button text="Profile Icon" />
         </div>
     )
 }

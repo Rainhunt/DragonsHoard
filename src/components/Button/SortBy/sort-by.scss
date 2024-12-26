@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as *;
+
+.sort-by-button {
+    width: 1em;
+    border: none;
+    background: none;
+    color: $highlight;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+    line-height: 0.9;
+    cursor: pointer;
+
+    &:active {
+        transform: scale(0.9);
+    }
+}

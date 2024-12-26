@@ -1,0 +1,18 @@
+/* App.css or any CSS file */
+.slider-container {
+    position: relative;
+    width: 100%;
+
+    input[type="range"] {
+        position: absolute;
+        width: 100%;
+
+        &::-webkit-slider-runnable-track {
+            pointer-events: visible;
+        }
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+        pointer-events: none;
+    }
+}

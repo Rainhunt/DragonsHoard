@@ -10,6 +10,7 @@ const Router: React.FC = () => {
         <Routes>
             <Route path={ROUTES.ROOT} element={<HomePage />} />
             <Route path={ROUTES.CODEX} element={<CodexPage />} />
+            <Route path={ROUTES.MONSTER_STATBLOCK + "/:id"} element={<CodexPage />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     )

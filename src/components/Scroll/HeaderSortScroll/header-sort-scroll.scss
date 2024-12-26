@@ -1,0 +1,43 @@
+@use '../../../styles/variables' as *;
+
+table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    text-align: center;
+    cursor: default;
+
+    th {
+        border: none;
+        color: $highlight;
+        cursor: default;
+    }
+
+    td {
+        height: 50px;
+        padding: 10px 15px;
+        border-top: 1px solid #00000025;
+        border-bottom: 1px solid #00000025;
+    }
+
+    tbody tr {
+        background-color: $header-color;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), inset 0 0 2px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+        transition: background-color 0.5s ease;
+
+        &:hover {
+            background-color: $text-color;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        td:first-child {
+            border-left: 1px solid #00000025;
+        }
+
+        td:last-child {
+            border-right: 1px solid #00000025;
+        }
+    }
+}

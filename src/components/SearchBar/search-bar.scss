@@ -1,0 +1,18 @@
+@use '../../styles/variables' as *;
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $highlight-background;
+    border-radius: 4px;
+    background-color: $header-color;
+    appearance: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: $highlight-background;
+
+    &:focus {
+        border-color: $highlight-outline;
+    }
+}

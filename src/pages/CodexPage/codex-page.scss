@@ -10,7 +10,7 @@ h1 {
     margin-bottom: 30px;
 
     .filters-column {
-        width: 30%;
+        width: 22%;
 
         .row {
             display: flex;
@@ -19,9 +19,31 @@ h1 {
         }
     }
 
-    .cr {
-        width: 5%;
+    .advanced-filter-button {
+        width: 100%;
+        padding: 10px;
+        background-color: $highlight;
+        color: $header-color;
+        font-weight: bold;
+        border: 1px solid $highlight-outline;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+            background-color: #c30303;
+            transform: scale(1.02);
+        }
+
+        &:active {
+            background-color: #5e0000;
+            transform: scale(1);
+        }
     }
+}
+
+
+.display-scroll {
+    margin-bottom: 30px;
 }
 
 .view-more-button {
@@ -32,9 +54,6 @@ h1 {
     border: 2px solid $highlight;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     &:hover {
         background-color: #f2d1a1;

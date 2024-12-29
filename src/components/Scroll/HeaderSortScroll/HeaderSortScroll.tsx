@@ -5,11 +5,12 @@ import SortByButton from '../../Button/SortBy/SortBy';
 
 type HeaderSortScrollProps<T extends Record<string, string | number | React.ReactNode>> = {
     headers: { label: ReactNode, id: string, noSort?: boolean }[]
-    data: T[]
+    data: T[] | [];
     setData: React.Dispatch<React.SetStateAction<T[]>>
+    className?: string
 }
 
-const HeaderSortScroll = <T extends Record<string, string | number | React.ReactNode>>({ headers, data, setData }: HeaderSortScrollProps<T>) => {
+const HeaderSortScroll = <T extends Record<string, string | number | React.ReactNode>>({ headers, data, setData, className }: HeaderSortScrollProps<T>) => {
     const [sortOrder, setSortOrder] = useState<Record<string, "ascending" | "descending">>({})
 
     const sortByColumn = useCallback((id: string) => {
@@ -32,8 +33,9 @@ const HeaderSortScroll = <T extends Record<string, string | number | React.React
 
         setData(newData); // Update state with sorted data
     }, [data, setData]);
+
     return (
-        <Scroll width={"100%"} backgroundColor={"#F1E5D1"}>
+        <Scroll width={"100%"} backgroundColor={"#F1E5D1"} className={className}>
             <table width={"100%"}>
                 <thead>
                     <tr>

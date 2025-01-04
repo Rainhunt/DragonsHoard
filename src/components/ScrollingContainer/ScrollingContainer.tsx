@@ -1,13 +1,13 @@
+import './scrolling-container.scss'
 import React, { ReactNode } from 'react'
-import './scrolling-container.scss';
-
-type ScrollingContainerProps = {
-    items: ListItem[]
-}
 
 export interface ListItem {
     id: string;
-    node: ReactNode
+    node: ReactNode;
+}
+
+type ScrollingContainerProps = {
+    items: ListItem[];
 }
 
 const ScrollingContainer: React.FC<ScrollingContainerProps> = ({ items }) => {

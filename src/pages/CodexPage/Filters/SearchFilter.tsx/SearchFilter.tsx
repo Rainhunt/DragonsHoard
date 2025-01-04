@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Monster } from '../../../../services/responseValidators/getMonster'
 import SearchBar from '../../../../components/SearchBar/SearchBar';
+import { useSearchData } from '../../../../context/SearchableDataProvider';
 
-type SearchFilterProps = {
-    setFilterParameters: React.Dispatch<React.SetStateAction<Record<string, (monsters: Monster[]) => Monster[]>>>;
-}
-
-const SearchFilter: React.FC<SearchFilterProps> = ({ setFilterParameters }) => {
+const SearchFilter: React.FC = () => {
+    const { setFilterParameters } = useSearchData();
     const [searchField, setSearchField] = useState<string>("");
 
     const searchFilter = useCallback((monsters: Monster[]) => {

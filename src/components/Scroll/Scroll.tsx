@@ -1,5 +1,5 @@
+import './scroll.scss'
 import React, { CSSProperties, ReactNode } from 'react'
-import './scroll.scss';
 
 type ScrollProps = {
     width: CSSProperties["width"];

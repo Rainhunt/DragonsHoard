@@ -1,9 +1,9 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { ROUTES } from "./routerModel";
-import HomePage from "../pages/HomePage/HomePage";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
-import CodexPage from "../pages/CodexPage/CodexPage";
+import React from "react"
+import { Route, Routes } from "react-router-dom"
+import { ROUTES } from "./routerModel"
+import HomePage from "../pages/HomePage/HomePage"
+import ErrorPage from "../pages/ErrorPage/ErrorPage"
+import CodexPage from "../pages/CodexPage/CodexPage"
 
 const Router: React.FC = () => {
     return (

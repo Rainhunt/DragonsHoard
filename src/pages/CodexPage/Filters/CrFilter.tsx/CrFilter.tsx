@@ -1,13 +1,11 @@
+import './cr-filter.scss'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Monster } from '../../../../services/responseValidators/getMonster'
 import Slider from '../../../../components/Slider/Slider'
-import './cr-filter.scss';
+import { useSearchData } from '../../../../context/SearchableDataProvider'
 
-type CrFilterProps = {
-    setFilterParameters: React.Dispatch<React.SetStateAction<Record<string, (monsters: Monster[]) => Monster[]>>>;
-}
-
-const CrFilter: React.FC<CrFilterProps> = ({ setFilterParameters }) => {
+const CrFilter: React.FC = () => {
+    const { setFilterParameters } = useSearchData();
     const valueArray = [1 / 2, 1 / 4, 1 / 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
     const displayArray = ["\u215B", "\u00BC", "\u00BD", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40"]
     const [leftIndex, setLeftIndex] = useState<number>(0);

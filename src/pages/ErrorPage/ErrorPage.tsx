@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import Button from '../../components/Button/Button';
 import './error-page.scss'
-import { useLayout } from '../../context/LayoutProvider';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes/routerModel';
+import React, { useEffect } from 'react'
+import Button from '../../components/Button/Button'
+import { useLayout } from '../../context/LayoutProvider'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../routes/routerModel'
 
 const ErrorPage: React.FC = () => {
     const { setBackgroundImage, setMainMarginPx } = useLayout();

@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { z } from "zod";
+import { ReactNode } from "react"
+import { z } from "zod"
 
 export const monsterSchema = z.object({
     _id: z.string(),

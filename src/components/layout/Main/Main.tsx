@@ -1,10 +1,9 @@
-import React, { ReactNode } from 'react'
 import './main.scss'
+import React, { ReactNode } from 'react'
 import { useLayout } from '../../../context/LayoutProvider'
 
 type MainProps = {
-    children: ReactNode
-    backgroundImage?: string
+    children: ReactNode;
 }
 
 const Main: React.FC<MainProps> = ({ children }) => {

@@ -1,9 +1,9 @@
+import './sort-by.scss'
 import React, { MouseEventHandler } from 'react'
 import Button from '../Button'
-import './sort-by.scss';
 
 type SortByButtonProps = {
-    onClick: MouseEventHandler<HTMLButtonElement> | undefined
+    onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const SortByButton: React.FC<SortByButtonProps> = ({ onClick }) => {

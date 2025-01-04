@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
 import './home-page.scss'
+import React, { useEffect } from 'react'
 import { useLayout } from '../../context/LayoutProvider'
 
 const HomePage: React.FC = () => {

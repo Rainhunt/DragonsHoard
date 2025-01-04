@@ -1,16 +1,16 @@
-import React, { useState, CSSProperties, MouseEventHandler, useRef, useEffect } from 'react';
-import './slider.scss';
+import './slider.scss'
+import React, { useState, CSSProperties, MouseEventHandler, useRef, useEffect } from 'react'
 
 type SliderProps = {
     values: string[]
     onChange?: (leftIndex: number, rightIndex: number) => void;
-    className?: string;
     trackHeight?: CSSProperties["height"];
     thumbSize?: CSSProperties["width"];
     color?: CSSProperties["color"];
+    className?: string;
 };
 
-const Slider: React.FC<SliderProps> = ({ values, onChange, className, trackHeight, thumbSize }) => {
+const Slider: React.FC<SliderProps> = ({ values, onChange, trackHeight, thumbSize, className }) => {
     const [leftIndex, setLeftIndex] = useState<number>(0);
     const [rightIndex, setRightIndex] = useState<number>(values.length - 1);
 

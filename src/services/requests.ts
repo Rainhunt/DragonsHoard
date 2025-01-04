@@ -1,4 +1,4 @@
-import { servicesConfig } from "../config/servicesConfig";
+import { servicesConfig } from "../config/servicesConfig"
 
 export class Request {
     private url = servicesConfig.apiUrl;

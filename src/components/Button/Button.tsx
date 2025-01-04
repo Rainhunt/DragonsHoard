@@ -1,15 +1,15 @@
-import React, { MouseEventHandler } from 'react'
 import './button.scss'
+import React, { MouseEventHandler } from 'react'
 
 type ButtonProps = {
-    text: string,
-    onClick?: MouseEventHandler<HTMLButtonElement>
-    className?: string
+    text: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick, className }) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick, className = "classic-button" }) => {
     return (
-        <button className={className || "classic-button"} onClick={onClick}>
+        <button className={className} onClick={onClick}>
             {text}
         </button>
     )

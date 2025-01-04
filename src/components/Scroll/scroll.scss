@@ -4,20 +4,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
 
-.scroll-border {
-    width: 100%;
-    height: 8px;
-    border: 1px solid #000;
-    background-color: $highlight-outline;
-}
+    .scroll-border {
+        width: 100%;
+        height: 8px;
+        border: 1px solid #000;
+        background-color: $highlight-outline;
+    }
 
-.scroll-body {
-    width: calc(100% - min(6px, 1%));
-    background-color: $parchment-background;
-    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5), 5px 0 10px rgba(0, 0, 0, 0.5);
-    color: #000;
-    display: flex;
-    justify-content: space-between;
+    .scroll-body {
+        width: calc(100% - min(6px, 1%));
+        background-color: $parchment-background;
+        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5), 5px 0 10px rgba(0, 0, 0, 0.5);
+        color: #000;
+        display: flex;
+        justify-content: space-between;
+    }
 }

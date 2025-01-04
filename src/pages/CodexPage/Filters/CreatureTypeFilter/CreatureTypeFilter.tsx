@@ -5,13 +5,10 @@ import AddButton from '../../../../components/Button/AddButton/AddButton'
 import ScrollingContainer from '../../../../components/ScrollingContainer/ScrollingContainer'
 import RemovableItem from '../../../../components/ScrollingContainer/RemovableItem/RemovableItem'
 import { Monster } from '../../../../services/responseValidators/getMonster'
+import { useSearchData } from '../../../../context/SearchableDataProvider'
 
-type CreatureTypeFilterProps = {
-    setFilterParameters: React.Dispatch<React.SetStateAction<Record<string, (monsters: Monster[]) => Monster[]>>>;
-    unfilteredMonsters: Monster[]
-}
-
-const CreatureTypeFilter: React.FC<CreatureTypeFilterProps> = ({ unfilteredMonsters, setFilterParameters }) => {
+const CreatureTypeFilter: React.FC = () => {
+    const { rootData, setFilterParameters } = useSearchData();
     const [dropDownSelected, setDropDownSelected] = useState<Record<string, string>>({
         creatureType: ""
     });
@@ -20,14 +17,14 @@ const CreatureTypeFilter: React.FC<CreatureTypeFilterProps> = ({ unfilteredMonst
     const [selectedCreatureTypes, setSelectedCreatureTypes] = useState<string[]>([]);
     useEffect(() => {
         const uniqueCreatureTypes: string[] = [];
-        for (const monster of unfilteredMonsters) {
+        for (const monster of rootData) {
             const creatureType = monster.type;
             if (!uniqueCreatureTypes.includes(creatureType)) uniqueCreatureTypes.push(creatureType);
         }
         uniqueCreatureTypes.sort();
         setUnselectedCreatureTypes(uniqueCreatureTypes);
         setSelectedCreatureTypes([]);
-    }, [unfilteredMonsters]);
+    }, [rootData]);
 
     const creatureTypeFilter = useCallback((monsters: Monster[]) => {
         return monsters.filter(monster => selectedCreatureTypes.length === 0 || selectedCreatureTypes.includes(monster.type));

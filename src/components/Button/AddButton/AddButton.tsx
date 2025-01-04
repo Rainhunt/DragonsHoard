@@ -1,9 +1,9 @@
+import './add-button.scss'
 import React, { MouseEventHandler } from 'react'
 import Button from '../Button'
-import './add-button.scss';
 
 type AddButtonProps = {
-    onClick: MouseEventHandler<HTMLButtonElement> | undefined
+    onClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const AddButton: React.FC<AddButtonProps> = ({ onClick }) => {

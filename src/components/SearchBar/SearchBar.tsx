@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import './search-bar.scss';
+import './search-bar.scss'
+import React, { useState, useCallback } from 'react'
 
 interface SearchBarProps {
     onSearch?: (query: string) => void;

@@ -5,13 +5,10 @@ import AddButton from '../../../../components/Button/AddButton/AddButton'
 import ScrollingContainer from '../../../../components/ScrollingContainer/ScrollingContainer'
 import RemovableItem from '../../../../components/ScrollingContainer/RemovableItem/RemovableItem'
 import { Monster } from '../../../../services/responseValidators/getMonster'
+import { useSearchData } from '../../../../context/SearchableDataProvider'
 
-type BiomeFilterProps = {
-    setFilterParameters: React.Dispatch<React.SetStateAction<Record<string, (monsters: Monster[]) => Monster[]>>>;
-    unfilteredMonsters: Monster[]
-}
-
-const BiomeFilter: React.FC<BiomeFilterProps> = ({ unfilteredMonsters, setFilterParameters }) => {
+const BiomeFilter: React.FC = () => {
+    const { rootData, setFilterParameters } = useSearchData();
     const [dropDownSelected, setDropDownSelected] = useState<Record<string, string>>({
         biome: ""
     });
@@ -20,14 +17,14 @@ const BiomeFilter: React.FC<BiomeFilterProps> = ({ unfilteredMonsters, setFilter
     const [selectedBiomes, setSelectedBiomes] = useState<string[]>([]);
     useEffect(() => {
         const uniqueBiomes: string[] = [];
-        for (const monster of unfilteredMonsters) {
+        for (const monster of rootData) {
             const biome = monster.biome;
             if (!uniqueBiomes.includes(biome)) uniqueBiomes.push(biome);
         }
         uniqueBiomes.sort();
         setUnselectedBiomes(uniqueBiomes);
         setSelectedBiomes([]);
-    }, [unfilteredMonsters]);
+    }, [rootData]);
 
     const biomeFilter = useCallback((monsters: Monster[]) => {
         return monsters.filter(monster => selectedBiomes.length === 0 || selectedBiomes.includes(monster.biome));

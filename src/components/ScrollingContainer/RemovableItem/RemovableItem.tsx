@@ -1,9 +1,9 @@
+import './removable-item.scss'
 import React, { MouseEventHandler } from 'react'
-import './removable-item.scss';
 
 type RemovableItemProps = {
-    text: string
-    removeItem: MouseEventHandler<HTMLButtonElement>
+    text: string;
+    removeItem: MouseEventHandler<HTMLButtonElement>;
 }
 
 const RemovableItem: React.FC<RemovableItemProps> = ({ text, removeItem }) => {

@@ -1,12 +1,12 @@
 @use '../../styles/variables' as *;
 
-h1 {
+.home-header {
     padding-top: 30px;
     font-size: 6em;
     font-weight: 700;
 }
 
-h2 {
+.home-subheader {
     padding: 15px;
     border-radius: 20px;
     background-color: #00000080;

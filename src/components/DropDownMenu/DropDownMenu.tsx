@@ -24,12 +24,9 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({ label, items, openOnHover, 
 
     const handleClick = useCallback(() => {
         setIsMenuOpen(true);
-        console.log(isMenuOpen);
     }, []);
     const handleLeave = useCallback(() => {
         setIsMenuOpen(false);
-        console.log(isMenuOpen);
-
     }, []);
 
     return (

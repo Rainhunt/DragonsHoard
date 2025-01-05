@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Monster } from '../../../../services/responseValidators/getMonster'
+import { Monster } from '../../../../services/responseValidators/getMonsters'
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import { useSearchData } from '../../../../context/SearchableDataProvider';
 

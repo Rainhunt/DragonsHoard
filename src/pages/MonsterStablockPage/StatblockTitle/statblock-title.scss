@@ -1,0 +1,16 @@
+@use '../../../styles/variables' as *;
+
+.statblock-name {
+    margin-top: 0;
+    color: $highlight;
+    font-size: 3em;
+}
+
+.statblock-subheader {
+    margin-top: -10px;
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 1em;
+    font-weight: 400;
+    font-style: italic;
+}

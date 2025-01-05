@@ -1,0 +1,55 @@
+@use '../../styles/variables' as *;
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+
+    .tooltip-content-wrapper {
+        transition: text-shadow 0.3s ease;
+    }
+
+    .tooltip {
+        position: absolute;
+        bottom: 110%;
+        right: 10%;
+        display: none;
+        width: max-content;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: $secondary-background;
+        opacity: 90%;
+        color: $text-color;
+        font-size: 0.7em;
+        font-style: italic;
+    }
+
+    .tooltip-left::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $secondary-background transparent transparent;
+    }
+
+    .tooltip-right::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: $secondary-background transparent transparent;
+    }
+
+    &:hover {
+        .tooltip-content-wrapper {
+            text-shadow: 2px 2px 5px rgba($highlight, 0.5);
+        }
+
+        .tooltip {
+            display: block;
+        }
+    }
+}

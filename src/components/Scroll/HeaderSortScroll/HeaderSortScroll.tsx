@@ -1,8 +1,8 @@
+import './header-sort-scroll.scss'
 import React, { ReactNode, useCallback, useState } from 'react'
-import Scroll from '../Scroll';
-import './header-sort-scroll.scss';
-import SortByButton from '../../Button/SortBy/SortBy';
-import { useSearchData } from '../../../context/SearchableDataProvider';
+import Scroll from '../Scroll'
+import SortByButton from '../../Button/SortBy/SortBy'
+import { useSearchData } from '../../../context/SearchableDataProvider'
 
 type HeaderSortScrollProps<T extends Record<string, string | number | React.ReactNode>> = {
     headers: { label: ReactNode, id: string, noSort?: boolean }[];

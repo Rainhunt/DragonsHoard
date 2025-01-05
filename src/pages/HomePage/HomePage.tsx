@@ -12,8 +12,8 @@ const HomePage: React.FC = () => {
 
     return (
         <>
-            <h1>Dragon's Hoard</h1>
-            <h2>The complete home of homebrew</h2>
+            <h1 className="home-header">Dragon's Hoard</h1>
+            <h2 className="home-subheader">The complete home of homebrew</h2>
         </>
     )
 }

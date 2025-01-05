@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+
+.monster-statblock {
+    margin-top: 100px;
+    cursor: default;
+
+    .statblock-column {
+        width: 48%;
+
+        .stat-title {
+            margin-right: 5px;
+            font-size: 1em;
+            font-weight: 700;
+            color: $highlight;
+        }
+
+        .stat-details {
+            color: $highlight;
+        }
+    }
+}

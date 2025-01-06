@@ -57,7 +57,7 @@ const SearchableDataProvider = <T extends Record<string, any>>({ children, fetch
 export function useSearchData(): SearchableDataContextType<any> {
     const context = useContext(SearchableDataContext);
     if (!context) {
-        throw new Error("useLayout must be used within a LayoutProvider");
+        throw new Error("useSearchData must be used within a SearchableDataProvider");
     } else {
         return context;
     }

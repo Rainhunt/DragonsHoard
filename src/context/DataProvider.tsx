@@ -35,7 +35,7 @@ const DataProvider = <T extends Record<string, any>>({ children, fetch }: DataPr
 export function useData<T extends Record<string, any>>(): DataContextType<T> {
     const context = useContext(DataContext);
     if (!context) {
-        throw new Error("useLayout must be used within a LayoutProvider");
+        throw new Error("useData must be used within a DataProvider");
     } else {
         return context;
     }

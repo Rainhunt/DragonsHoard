@@ -1,0 +1,100 @@
+@use '../../styles/variables' as *;
+
+form {
+    .form-field-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .form-field {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid $highlight-background;
+            border-radius: 4px;
+            background-color: $header-color;
+            appearance: none;
+            outline: none;
+            font-size: 14px;
+            font-weight: 700;
+            color: $highlight-background;
+
+            &::placeholder {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: $highlight;
+                transition: all 0.3s ease;
+                font-size: 14px;
+                pointer-events: none;
+            }
+
+            &:focus {
+                border-color: $highlight-outline;
+
+                &::placeholder {
+                    font-weight: 700;
+                    color: $highlight;
+                    top: 0;
+                    font-size: 12px;
+                    transform: translateY(-100%);
+                }
+            }
+        }
+
+        .form-field-errors {
+            color: $highlight-outline;
+        }
+    }
+
+    .form-submit-tip {
+        width: 100%;
+    }
+
+    .form-submit-button {
+        width: 100%;
+        padding: 10px;
+        background-color: $highlight;
+        color: $header-color;
+        font-weight: bold;
+        border: 1px solid $highlight-background;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: #c30303;
+                transform: scale(1.02);
+            }
+
+            &:active {
+                background-color: #5e0000;
+                transform: scale(1);
+            }
+        }
+    }
+
+    .form-reset-button {
+        width: 100%;
+        padding: 10px;
+        background-color: $subheader-color;
+        color: $highlight;
+        font-weight: bold;
+        border: 1px solid $highlight-background;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+            background-color: #ffd493;
+            transform: scale(1.02);
+        }
+
+        &:active {
+            background-color: #fcb345;
+            transform: scale(1);
+        }
+    }
+}

@@ -1,15 +1,17 @@
 import './button.scss'
-import React, { MouseEventHandler } from 'react'
+import React, { ButtonHTMLAttributes, MouseEventHandler } from 'react'
 
 type ButtonProps = {
     text: string;
+    type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
     onClick?: MouseEventHandler<HTMLButtonElement>;
+    disabled?: boolean;
     className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick, className = "classic-button" }) => {
+const Button: React.FC<ButtonProps> = ({ text, type, onClick, disabled, className = "classic-button" }) => {
     return (
-        <button className={className} onClick={onClick}>
+        <button disabled={disabled} className={className} type={type} onClick={onClick}>
             {text}
         </button>
     )

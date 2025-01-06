@@ -12,7 +12,7 @@ const MonsterDisplay: React.FC = () => {
 
     //display data
     const sortedSet = ["cr", "name", "size", "type", "hitpoints", "alignment", "biome"];
-    const [selectedColumns, setSelectedColumns] = useState([{ label: "CR", id: "CR" }, { label: "Name", id: "name" }, { label: "Type", id: "type" }, { label: "Environment", id: "biome" }, { label: <DropDownMenu label={"\u2630"} items={[<li>Item 1</li>, <li>Item 2</li>]} right />, id: "view", noSort: true }]);
+    const [selectedColumns, setSelectedColumns] = useState([{ label: "CR", id: "CR" }, { label: "Name", id: "name" }, { label: "Type", id: "type" }, { label: "Environment", id: "biome" }, { label: <DropDownMenu label={"\u2630"} items={[<li key="1">Item 1</li>, <li key="2">Item 2</li>]} right />, id: "view", noSort: true }]);
     const [unselectedColumns, setUnselectedColumns] = useState(["Humanoid", "Beast", "Ooze"]);
 
     return (

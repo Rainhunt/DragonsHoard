@@ -10,7 +10,7 @@ const LeftNav: React.FC = () => {
 
     return (
         <div>
-            <DropDownMenu label={"\u2630"} items={[<a>test 1</a>, <a>test 2</a>]} left openOnHover />
+            <DropDownMenu label={"\u2630"} items={[<a key="1">test 1</a>, <a key={"2"}>test 2</a>]} left openOnHover />
             <Button text="Home" onClick={() => navigate(ROUTES.ROOT)} />
             <Button text="Codex" onClick={() => navigate(ROUTES.CODEX)} />
             <Button text="Games" />

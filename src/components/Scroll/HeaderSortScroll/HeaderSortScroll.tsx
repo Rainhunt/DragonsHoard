@@ -46,7 +46,7 @@ const HeaderSortScroll = <T extends Record<string, string | number | React.React
                 </thead>
                 <tbody>
                     {errors?.isEmpty && filteredData.length === 0 ? <tr><td colSpan={headers.length}>{errors.isEmpty}</td></tr> : (mutateDisplay ? mutateDisplay(filteredData) : filteredData).map((row) => (
-                        <tr>
+                        <tr key={row["_id"]}>
                             {headers.map((header) => (
                                 <td key={header.id}>{row[header.id as keyof T]}</td>
                             ))}

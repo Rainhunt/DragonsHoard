@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 interface ToolTipBasics {
     tooltip: ReactNode;
     children: ReactNode;
+    disabled?: boolean;
     className?: string;
 }
 
@@ -19,15 +20,15 @@ interface ToolTipsRight extends ToolTipBasics {
 
 type ToolTipProps = ToolTipsLeft | ToolTipsRight;
 
-export default function ToolTip({ children, tooltip, right, className }: ToolTipProps) {
+export default function ToolTip({ children, tooltip, right, disabled, className }: ToolTipProps) {
     return (
         <div className={`tooltip-container ${className}`}>
             <div className="tooltip-content-wrapper">
                 {children}
             </div>
-            <div className={`tooltip ${right ? "tooltip-right" : "tooltip-left"}`} style={right ? { right: "10%" } : { left: "10%" }}>
+            {!disabled && <div className={`tooltip ${right ? "tooltip-right" : "tooltip-left"}`} style={right ? { right: "10%" } : { left: "10%" }}>
                 {tooltip}
-            </div>
+            </div>}
         </div>
     )
 }

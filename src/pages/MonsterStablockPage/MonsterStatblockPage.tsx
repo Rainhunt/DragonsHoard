@@ -48,8 +48,8 @@ const MonsterStatblockPage: React.FC = () => {
                     <CombatStats />
                 </div>
                 <div className="statblock-column">
-                    <ToolTip tooltip="HAHA TEST 23456" right>
-                        HarHar
+                    <ToolTip tooltip="TEST 123" right>
+                        Hello World
                     </ToolTip>
                 </div>
             </Scroll>

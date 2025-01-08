@@ -9,7 +9,7 @@ type MainProps = {
 const Main: React.FC<MainProps> = ({ children }) => {
     const { backgroundImage, mainMarginPx } = useLayout();
     return (
-        <main style={{ padding: `0 ${mainMarginPx || 0}px`, backgroundImage: `url(${backgroundImage})` }} >
+        <main style={{ padding: `50px ${mainMarginPx || 0}px 0`, backgroundImage: `url(${backgroundImage})` }} >
             {children}
         </main >
     )

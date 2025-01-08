@@ -1,10 +1,11 @@
 import { servicesConfig } from "../config/servicesConfig"
+import { NestedStringRecord } from "../types";
 
 export class Request {
     private url = servicesConfig.apiUrl;
     private _endpoint: string;
     private _Headers?: Record<string, string>;
-    private _Body?: Record<string, string>;
+    private _Body?: NestedStringRecord;
 
     constructor(endpoint: string) {
         this._endpoint = endpoint;
@@ -18,7 +19,7 @@ export class Request {
         this._Headers = value;
     }
 
-    set Body(value: Record<string, string>) {
+    set Body(value: NestedStringRecord) {
         this._Body = value;
     }
 

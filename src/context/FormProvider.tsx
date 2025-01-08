@@ -1,11 +1,13 @@
 import { createContext, ReactNode, useCallback, useContext, useState } from "react";
-import { TypeOf, ZodError, ZodObject, ZodRawShape, ZodType } from "zod";
+import { TypeOf, ZodError, ZodObject, ZodRawShape } from "zod";
 import { useUser } from "./UserProvider";
+import { useLayout } from "./LayoutProvider";
 
 interface FormContextType<T extends ZodObject<ZodRawShape>> {
     data: T;
     errors: Record<keyof T['shape'], string>;
     status: "rest" | "awaitResponse" | "receivedResponse" | "noResponse";
+    initializeField: (name: string, placeholder?: string) => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     validateForm: () => boolean | TypeOf<T> | false;
     onSubmit: () => void;
@@ -16,16 +18,25 @@ const FormContext = createContext<FormContextType<any> | undefined>(undefined);
 
 interface FormProviderProps<T extends ZodObject<ZodRawShape>> {
     schema: T;
+    map?: (flatData: TypeOf<T>) => Partial<TypeOf<T>>;
     handleSubmit: (data: TypeOf<T>, token: string | undefined) => Promise<boolean>;
     children: ReactNode;
 }
 
-const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, handleSubmit, children }: FormProviderProps<T>) => {
+const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, map, handleSubmit, children }: FormProviderProps<T>) => {
     const { jwt } = useUser();
+    const { createSnack } = useLayout();
 
     const [data, setData] = useState<Partial<Zod.infer<typeof schema>>>({});
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [status, setStatus] = useState<"rest" | "awaitResponse" | "receivedResponse" | "noResponse">("rest");
+
+    const initializeField = useCallback((name: string, placeholder?: string) => {
+        setErrors((prev) => ({
+            ...prev,
+            [name]: `Required field ${placeholder ? placeholder : name} is empty`
+        }));
+    }, []);
 
     const validateField = useCallback((name: string, value: string | boolean) => {
         try {
@@ -70,10 +81,10 @@ const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, handleSubmit, 
             const validatedData = validateForm();
             if (validatedData) {
                 setStatus("awaitResponse");
-                const response = await handleSubmit(validatedData, jwt);
+                const response = await handleSubmit(map ? map(validatedData) : validatedData, jwt);
                 setStatus(response ? "receivedResponse" : "noResponse");
             } else {
-                console.log("Error submitting form: Data does not conform to schema");
+                createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: "Error submitting form: Data does not conform to schema" });
             }
         }
         submit();
@@ -85,7 +96,7 @@ const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, handleSubmit, 
     }, [setData, setErrors]);
 
     return (
-        <FormContext.Provider value={{ data, errors, status, handleChange, validateForm, onSubmit, onReset }}>
+        <FormContext.Provider value={{ data, errors, status, initializeField, handleChange, validateForm, onSubmit, onReset }}>
             <form onReset={onReset} onSubmit={(e) => {
                 e.preventDefault();
                 onSubmit();

@@ -4,11 +4,15 @@ import { Request } from "../services/requests";
 import { jwtDecode } from "jwt-decode";
 import { UserPayload, userPayloadSchema } from "../services/responseValidators/userPayload";
 import { servicesConfig } from "../config/servicesConfig";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../routes/routerModel";
+import { SignupRequest } from "../services/requestValidators/signup";
 
 interface UserContextType {
     jwt: string | undefined;
     user: UserPayload | undefined;
-    handleLogin: (userInfo: LoginRequest) => Promise<void>;
+    handleSignup: (userInfo: SignupRequest) => Promise<void | string>
+    handleLogin: (userInfo: LoginRequest) => Promise<void | string>;
     handleLogout: () => void;
 }
 
@@ -19,6 +23,8 @@ interface UserProviderProps {
 }
 
 const UserProvider = ({ children }: UserProviderProps) => {
+    const navigate = useNavigate();
+
     const [jwt, setJwt] = useState<string>();
     useEffect(() => {
         const token = localStorage.getItem(servicesConfig.jwtKey);
@@ -37,14 +43,26 @@ const UserProvider = ({ children }: UserProviderProps) => {
         }
     }, [jwt]);
 
+    const handleSignup = useCallback(async (userInfo: SignupRequest) => {
+        try {
+            const request = new Request("users/signup");
+            request.Body = userInfo;
+            await request.post();
+            handleLogin({ email: userInfo.email, password: userInfo.password });
+        } catch (err) {
+            return String(err)
+        }
+    }, [setJwt]);
+
     const handleLogin = useCallback(async (userInfo: LoginRequest) => {
         try {
             const request = new Request("users/login");
             request.Body = userInfo;
             const response = await request.post() as string;
             setJwt(response);
+            navigate(ROUTES.ROOT);
         } catch (err) {
-            console.log(`Error logging in: ${err}`);
+            return String(err)
         }
     }, [setJwt]);
 
@@ -53,7 +71,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ jwt, user, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ jwt, user, handleSignup, handleLogin, handleLogout }}>
             {children}
         </UserContext.Provider>
     )

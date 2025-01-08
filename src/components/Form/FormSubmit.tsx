@@ -8,14 +8,14 @@ interface FormSubmitProps {
 }
 
 export default function FormSubmit({ text }: FormSubmitProps) {
-    const { errors, data } = useForm();
+    const { errors } = useForm();
     return (
         <ToolTip className="form-submit-tip" tooltip={errors[Object.keys(errors)[0]]} disabled={Object.keys(errors).length === 0} left>
             <Button
                 className="form-submit-button"
                 type="submit"
                 text={text ?? "Submit"}
-                disabled={Object.keys(errors).length !== 0 || Object.keys(data).length === 0}
+                disabled={Object.keys(errors).length !== 0}
             />
         </ToolTip>
     )

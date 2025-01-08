@@ -36,7 +36,7 @@ const CodexPage: React.FC = () => {
 
     return (
         <SearchableDataProvider fetch={getMonsters}>
-            <h1>Monster Codex</h1>
+            <h1 className="codex-header">Monster Codex</h1>
             <Scroll className="filters" width={"100%"}>
                 <BiomeFilter />
                 <CreatureTypeFilter />

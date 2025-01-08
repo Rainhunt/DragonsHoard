@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-function useRelativeComplement() {
+export default function useRelativeComplement() {
     const relativeComplementArray = useCallback((array: string[], complement: string[], id: string) => {
         const index = array.indexOf(id);
         if (index !== -1) {
@@ -32,5 +32,3 @@ function useRelativeComplement() {
 
     return { handleRelativeComplement };
 }
-
-export default useRelativeComplement;

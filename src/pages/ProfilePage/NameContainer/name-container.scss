@@ -1,0 +1,19 @@
+@use '../../../styles/variables' as *;
+
+.name-container {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+    div {
+        padding: 10px;
+        border-radius: 10px;
+        background-color: $parchment-background;
+        color: $highlight;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

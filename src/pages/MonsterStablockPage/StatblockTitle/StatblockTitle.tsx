@@ -1,7 +1,7 @@
-import './statblock-title.scss'
-import React from "react"
-import { useData } from "../../../context/DataProvider"
-import { MonsterFullStatblock } from "../../../services/responseValidators/getMonster"
+import './statblock-title.scss';
+import React from "react";
+import { useData } from "../../../context/DataProvider";
+import { MonsterFullStatblock } from "../../../services/responseValidators/monsters/getMonster";
 
 const StatblockTitle: React.FC = () => {
     const { data } = useData<MonsterFullStatblock>();

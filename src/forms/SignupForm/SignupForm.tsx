@@ -7,9 +7,10 @@ import FormField from '../../components/Form/FormField';
 import FormSubmit from '../../components/Form/FormSubmit';
 import FormReset from '../../components/Form/FormReset';
 import { useCallback } from 'react';
+import useSignUp from '../../services/userRequests/useSignup';
 
 export default function SignupForm() {
-    const { handleSignup } = useUser();
+    const signup = useSignUp();
     const { createSnack } = useLayout();
     const map = useCallback((signupForm: SignupRequest) => ({
         name: {
@@ -23,7 +24,7 @@ export default function SignupForm() {
 
     return (
         <FormProvider schema={signupSchema} map={map} handleSubmit={async (data) => {
-            const signupError = await handleSignup(data);
+            const signupError = await signup(data);
             if (signupError) createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: signupError });
             return true;
         }}>

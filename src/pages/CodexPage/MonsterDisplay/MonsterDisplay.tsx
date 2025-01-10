@@ -1,6 +1,6 @@
 import './monster-display.scss'
 import React, { useState } from 'react'
-import { Monster } from '../../../services/responseValidators/getMonsters'
+import { Monster } from '../../../services/responseValidators/monsters/getMonsters'
 import HeaderSortScroll from '../../../components/Scroll/HeaderSortScroll/HeaderSortScroll'
 import Button from '../../../components/Button/Button'
 import { useNavigate } from 'react-router-dom'

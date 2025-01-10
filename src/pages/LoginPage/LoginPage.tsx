@@ -4,11 +4,10 @@ import { useLayout } from "../../context/LayoutProvider";
 import LoginForm from "../../forms/LoginForm/LoginForm";
 
 export default function LoginPage() {
-    const { setBackgroundImage } = useLayout();
+    const { setPagePerms, setBackgroundImage } = useLayout();
     useEffect(() => {
-        if (setBackgroundImage) {
-            setBackgroundImage("./background-placeholder.png")
-        }
+        setPagePerms("notLogged");
+        setBackgroundImage("/background-placeholder.png");
     }, []);
 
     return (

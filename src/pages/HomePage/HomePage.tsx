@@ -3,11 +3,10 @@ import { useEffect } from 'react'
 import { useLayout } from '../../context/LayoutProvider'
 
 const HomePage: React.FC = () => {
-    const { setBackgroundImage } = useLayout();
+    const { setPagePerms, setBackgroundImage } = useLayout();
     useEffect(() => {
-        if (setBackgroundImage) {
-            setBackgroundImage("./background-placeholder.png")
-        }
+        setPagePerms("all");
+        setBackgroundImage("/background-placeholder.png");
     }, [])
 
     return (

@@ -1,4 +1,4 @@
-import { Monster } from '../../../services/responseValidators/getMonsters'
+import { Monster } from '../../../services/responseValidators/monsters/getMonsters'
 import Scroll from '../../Scroll/Scroll'
 import './statblock-classic.scss'
 

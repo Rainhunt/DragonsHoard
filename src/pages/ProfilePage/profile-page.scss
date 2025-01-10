@@ -1,0 +1,42 @@
+@use '../../styles/variables' as *;
+
+.profile-page {
+    width: 100%;
+    height: calc(100vh - 100px - 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .profile-container {
+        background-color: $primary-background;
+        width: 50%;
+        padding: 35px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .edit-profile-button {
+            width: 100%;
+            padding: 10px;
+            background-color: $highlight;
+            color: $header-color;
+            font-weight: bold;
+            border: 1px solid $highlight-outline;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: #c30303;
+                transform: scale(1.02);
+            }
+
+            &:active {
+                background-color: #5e0000;
+                transform: scale(1);
+            }
+        }
+    }
+}

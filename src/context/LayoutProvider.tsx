@@ -1,9 +1,14 @@
 import React, { createContext, ReactNode, useCallback, useContext, useState } from "react";
 import Snack, { SnackShape } from "../components/Snack/Snack";
+import { PagePerms } from "../types";
 
 interface LayoutContextType {
+    pagePerms: PagePerms;
+    whitelist: string[];
     backgroundImage: string;
     mainMarginPx: number;
+    setPagePerms: (perms: PagePerms) => void;
+    setWhitelist: (userIds: string[]) => void;
     setBackgroundImage: (imageUrl: string) => void;
     setMainMarginPx: (marginPx: number) => void;
     createSnack: (snack: SnackShape) => void;
@@ -16,7 +21,9 @@ interface LayoutProviderProps {
 }
 
 const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
-    const [backgroundImage, setBackgroundImage] = useState<string>("./background-placeholder.png");
+    const [pagePerms, setPagePerms] = useState<PagePerms>("all");
+    const [whitelist, setWhitelist] = useState<string[]>([]);
+    const [backgroundImage, setBackgroundImage] = useState<string>("/background-placeholder.png");
     const [mainMarginPx, setMainMarginPx] = useState<number>(300);
     const [snacks, setSnacks] = useState<SnackShape[]>([]);
 
@@ -29,7 +36,7 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     }, [setSnacks]);
 
     return (
-        <LayoutContext.Provider value={{ backgroundImage, mainMarginPx, setBackgroundImage, setMainMarginPx, createSnack }}>
+        <LayoutContext.Provider value={{ pagePerms, whitelist, backgroundImage, mainMarginPx, setPagePerms, setWhitelist, setBackgroundImage, setMainMarginPx, createSnack }}>
             {children}
             {snacks.map((snack) =>
                 <Snack

@@ -1,0 +1,15 @@
+@use '../../styles/variables' as *;
+
+.create-monster-page {
+    width: 100%;
+    height: calc(100vh - 100px - 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-size: 3rem;
+        margin: 0;
+    }
+}

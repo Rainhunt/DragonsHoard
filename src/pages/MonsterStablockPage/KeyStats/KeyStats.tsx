@@ -1,7 +1,7 @@
 import './key-stats.scss'
 import React from "react"
 import { useData } from "../../../context/DataProvider"
-import { MonsterFullStatblock } from "../../../services/responseValidators/getMonster"
+import { MonsterFullStatblock } from "../../../services/responseValidators/monsters/getMonster"
 import ToolTip from '../../../components/ToolTip/ToolTip'
 
 const KeyStats: React.FC = () => {

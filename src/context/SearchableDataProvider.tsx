@@ -24,11 +24,11 @@ const SearchableDataProvider = <T extends Record<string, any>>({ children, fetch
                 const response = await fetch();
                 if (response) setRootData(response);
             } catch (err) {
-                console.log(`Error fetching monsters: ${err}`);
+                console.log(`Error fetching data: ${err}`);
             }
         }
         getRootData();
-    }, []);
+    }, [fetch]);
     const [sortedData, setSortedData] = useState<T[]>([]);
     useEffect(() => {
         setSortedData(rootData);

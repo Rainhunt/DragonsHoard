@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import DropDown from '../../../../components/DropDown/DropDown'
-import useRelativeComplement from '../../../../hooks/handleRelativeComplement'
-import AddButton from '../../../../components/Button/AddButton/AddButton'
-import ScrollingContainer from '../../../../components/ScrollingContainer/ScrollingContainer'
-import RemovableItem from '../../../../components/ScrollingContainer/RemovableItem/RemovableItem'
-import { Monster } from '../../../../services/responseValidators/getMonsters'
-import { useSearchData } from '../../../../context/SearchableDataProvider'
+import React, { useCallback, useEffect, useState } from 'react';
+import DropDown from '../../../../components/DropDown/DropDown';
+import useRelativeComplement from '../../../../hooks/handleRelativeComplement';
+import AddButton from '../../../../components/Button/AddButton/AddButton';
+import ScrollingContainer from '../../../../components/ScrollingContainer/ScrollingContainer';
+import RemovableItem from '../../../../components/ScrollingContainer/RemovableItem/RemovableItem';
+import { Monster } from '../../../../services/responseValidators/monsters/getMonsters';
+import { useSearchData } from '../../../../context/SearchableDataProvider';
 
 const CreatureTypeFilter: React.FC = () => {
     const { rootData, setFilterParameters } = useSearchData();

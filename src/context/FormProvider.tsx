@@ -2,6 +2,7 @@ import { createContext, ReactNode, useCallback, useContext, useState } from "rea
 import { TypeOf, ZodError, ZodObject, ZodRawShape } from "zod";
 import { useUser } from "./UserProvider";
 import { useLayout } from "./LayoutProvider";
+import { NestedSchemaRecord } from "../types";
 
 interface FormContextType<T extends ZodObject<ZodRawShape>> {
     data: T;
@@ -18,7 +19,7 @@ const FormContext = createContext<FormContextType<any> | undefined>(undefined);
 
 interface FormProviderProps<T extends ZodObject<ZodRawShape>> {
     schema: T;
-    map?: (flatData: TypeOf<T>) => Partial<TypeOf<T>>;
+    map?: (flatData: TypeOf<T>) => NestedSchemaRecord;
     handleSubmit: (data: TypeOf<T>, token: string | undefined) => Promise<boolean>;
     children: ReactNode;
 }

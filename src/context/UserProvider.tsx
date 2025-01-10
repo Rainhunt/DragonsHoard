@@ -2,16 +2,14 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useState 
 import { LoginRequest } from "../services/requestValidators/login";
 import { Request } from "../services/requests";
 import { jwtDecode } from "jwt-decode";
-import { UserPayload, userPayloadSchema } from "../services/responseValidators/userPayload";
+import { UserPayload, userPayloadSchema } from "../services/responseValidators/users/userPayload";
 import { servicesConfig } from "../config/servicesConfig";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes/routerModel";
-import { SignupRequest } from "../services/requestValidators/signup";
 
 interface UserContextType {
     jwt: string | undefined;
     user: UserPayload | undefined;
-    handleSignup: (userInfo: SignupRequest) => Promise<void | string>
     handleLogin: (userInfo: LoginRequest) => Promise<void | string>;
     handleLogout: () => void;
 }
@@ -43,17 +41,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
         }
     }, [jwt]);
 
-    const handleSignup = useCallback(async (userInfo: SignupRequest) => {
-        try {
-            const request = new Request("users/signup");
-            request.Body = userInfo;
-            await request.post();
-            handleLogin({ email: userInfo.email, password: userInfo.password });
-        } catch (err) {
-            return String(err)
-        }
-    }, [setJwt]);
-
     const handleLogin = useCallback(async (userInfo: LoginRequest) => {
         try {
             const request = new Request("users/login");
@@ -71,7 +58,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ jwt, user, handleSignup, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ jwt, user, handleLogin, handleLogout }}>
             {children}
         </UserContext.Provider>
     )

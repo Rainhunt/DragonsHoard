@@ -23,7 +23,7 @@ const DataProvider = <T extends Record<string, any>>({ children, fetch }: DataPr
             }
         }
         getData();
-    }, []);
+    }, [fetch]);
 
     return (
         <DataContext.Provider value={{ data }}>

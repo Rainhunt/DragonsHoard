@@ -4,7 +4,7 @@ import { useLayout } from '../../context/LayoutProvider'
 import { Request } from '../../services/requests'
 import Scroll from '../../components/Scroll/Scroll'
 import { useParams } from 'react-router-dom'
-import { MonsterFullStatblock, monsterFullStatblockSchema } from '../../services/responseValidators/getMonster'
+import { MonsterFullStatblock, monsterFullStatblockSchema } from '../../services/responseValidators/monsters/getMonster'
 import DataProvider from '../../context/DataProvider'
 import StatblockTitle from './StatblockTitle/StatblockTitle'
 import LineBreak from '../../components/LineBreak/LineBreak'
@@ -13,16 +13,13 @@ import CombatStats from './CombatStats/CombatStats'
 import KeyStats from './KeyStats/KeyStats'
 
 const MonsterStatblockPage: React.FC = () => {
-    const { setBackgroundImage, setMainMarginPx } = useLayout();
+    const { setPagePerms, setBackgroundImage, setMainMarginPx } = useLayout();
     const { id } = useParams();
 
     useEffect(() => {
-        if (setBackgroundImage) {
-            setBackgroundImage("./download.jpeg");
-        }
-        if (setMainMarginPx) {
-            setMainMarginPx(300);
-        }
+        setPagePerms("all");
+        setBackgroundImage("/download.jpeg");
+        setMainMarginPx(300);
     }, []);
 
     const getMonster = useCallback(async (id: string) => {

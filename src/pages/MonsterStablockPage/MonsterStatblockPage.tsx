@@ -12,6 +12,8 @@ import LineBreak from '../../components/LineBreak/LineBreak';
 import CombatStats from './CombatStats/CombatStats';
 import KeyStats from './KeyStats/KeyStats';
 import AbilityScores from './AbilityScores/AbilityScores';
+import Button from '../../components/Button/Button';
+import DeleteMonsterButton from './DeleteMonsterButton/DeleteMonsterButton';
 
 export default function MonsterStatblockPage() {
     const { setPagePerms, setBackgroundImage, setMainMarginPx } = useLayout();
@@ -52,10 +54,8 @@ export default function MonsterStatblockPage() {
                     <CombatStats />
 
                 </div>
-                {/* <div className="statblock-column">
-
-                </div> */}
             </Scroll>
+            <DeleteMonsterButton />
         </DataProvider>
     )
 }

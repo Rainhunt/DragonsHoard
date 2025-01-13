@@ -2,6 +2,7 @@ export enum ROUTES {
     ROOT = "/",
     ABOUT = "/about",
     CODEX = "/codex",
+    MY_MONSTERS = "/codex/homebrew",
     MONSTER_STATBLOCK = "/monsters/statblock",
     CREATE_MONSTER = "/monsters/create",
     SIGNUP = "/signup",

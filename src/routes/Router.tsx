@@ -12,6 +12,7 @@ import EditUserPage from "../pages/EditUserPage/EditUserPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import ManageUsersPage from "../pages/ManageUsersPage/ManageUsersPage"
 import AboutPage from "../pages/AboutPage/AboutPage"
+import MyMonstersPage from "../pages/MyMonstersPage/MyMonstersPage"
 
 const Router: React.FC = () => {
     return (
@@ -19,6 +20,7 @@ const Router: React.FC = () => {
             <Route path={ROUTES.ROOT} element={<HomePage />} />
             <Route path={ROUTES.ABOUT} element={<AboutPage />} />
             <Route path={ROUTES.CODEX} element={<CodexPage />} />
+            <Route path={ROUTES.MY_MONSTERS} element={<MyMonstersPage />} />
             <Route path={ROUTES.MONSTER_STATBLOCK + "/:id"} element={<MonsterStatblockPage />} />
             <Route path={ROUTES.CREATE_MONSTER} element={<CreateMonsterPage />} />
             <Route path={ROUTES.SIGNUP} element={<SignupPage />} />

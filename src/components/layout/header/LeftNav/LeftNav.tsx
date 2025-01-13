@@ -19,7 +19,11 @@ export default function LeftNav() {
             <Button key="games" text="Games" />,
         ];
         const navBar = dropDown.splice(0, breakpoint === "phone" ? 0 : breakpoint === "tablet" ? 2 : 3);
-        if (user) dropDown.push(<Button key="create" text="Create Monster" onClick={() => navigate(ROUTES.CREATE_MONSTER)} />);
+        if (user) dropDown.push(
+            <Button key="create" text="Create Monster" onClick={() => navigate(ROUTES.CREATE_MONSTER)} />,
+            <Button key="myMonsters" text="My Monsters" onClick={() => navigate(ROUTES.MY_MONSTERS)} />
+        );
+        if (user?.isAdmin) dropDown.push(<Button key="manage" text="Manage Users" onClick={() => navigate(ROUTES.MANAGE_USERS)} />);
         return { dropDown, navBar }
     }, [breakpoint, user]);
 

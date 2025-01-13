@@ -1,0 +1,72 @@
+@use '../../styles/index.module.scss' as *;
+
+section.about-page {
+    margin: 50px 0;
+
+    .scroll-body {
+        background-color: $background-paragraph;
+        flex-direction: column;
+
+        h1 {
+            width: 100%;
+            text-align: center;
+            font-size: 4rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        span {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+    }
+
+    @include tablet {
+        .scroll-body {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            span,
+            p {
+                font-size: 0.8rem;
+            }
+        }
+    }
+
+    @include phone {
+        .scroll-body {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 0.8rem;
+            }
+
+            span,
+            p {
+                font-size: 0.6rem;
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .manage-users-header {
     margin-top: 30px;
@@ -6,11 +6,11 @@
     font-weight: 700;
 }
 
-.filters {
+.manage-users-filters {
     margin-bottom: 30px;
 
     .scroll-body {
-        gap: 10px;
+        gap: 20px;
     }
 
     .column {
@@ -18,17 +18,12 @@
     }
 }
 
-
-.display-scroll {
-    margin-bottom: 30px;
-}
-
 .view-user-button {
     padding: 10px;
-    background-color: $highlight;
-    color: $subheader-color;
+    background-color: $text-label;
+    color: $background-reset;
     font-weight: bold;
-    border: 2px solid $highlight-outline;
+    border: 2px solid $background-hover;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 
@@ -45,10 +40,10 @@
 
 .edit-user-button {
     padding: 10px;
-    background-color: $parchment-background;
-    color: $highlight;
+    background-color: $background-parchment;
+    color: $text-label;
     font-weight: bold;
-    border: 2px solid $highlight;
+    border: 2px solid $text-label;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 

@@ -1,11 +1,10 @@
-import React from 'react'
-import Button from '../../../Button/Button'
-import { useNavigate } from 'react-router-dom'
+import Button from '../../../Button/Button';
+import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../../routes/routerModel';
 import { useUser } from '../../../../context/UserProvider';
 import ProfileIcon from './ProfileIcon/ProfileIcon';
 
-const RightNav: React.FC = () => {
+export default function RightNav() {
     const navigate = useNavigate();
     const { jwt } = useUser();
 
@@ -23,5 +22,3 @@ const RightNav: React.FC = () => {
         </>
     )
 }
-
-export default RightNav;

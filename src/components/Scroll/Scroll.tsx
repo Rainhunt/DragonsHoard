@@ -1,4 +1,4 @@
-import './scroll.scss'
+import './scroll.scss';
 import React, { CSSProperties, ReactNode } from 'react'
 
 type ScrollProps = {
@@ -7,17 +7,21 @@ type ScrollProps = {
     padding?: CSSProperties["padding"];
     backgroundColor?: CSSProperties["backgroundColor"];
     children: ReactNode
-    className?: string;
+    classNames?: {
+        body?: string;
+        border?: string;
+        container?: string;
+    };
 }
 
-const Scroll: React.FC<ScrollProps> = ({ width, height, padding = 20, backgroundColor, children, className }) => {
+const Scroll: React.FC<ScrollProps> = ({ width, height, padding = 20, backgroundColor, children, classNames }) => {
     return (
-        <section className={`scroll ${className}`} style={{ width: width }}>
-            <hr className="scroll-border" />
-            <div className="scroll-body" style={{ height: height, padding: padding, backgroundColor: backgroundColor }}>
+        <section className={`scroll ${classNames?.container || ""}`} style={{ width: width }}>
+            <hr className={`scroll-border ${classNames?.border || ""}`} />
+            <div className={`scroll-body ${classNames?.body || ""}`} style={{ height: height, padding: padding, backgroundColor: backgroundColor }}>
                 {children}
             </div>
-            <hr className="scroll-border" />
+            <hr className={`scroll-border ${classNames?.border || ""}`} />
         </section>
     )
 }

@@ -1,14 +1,14 @@
-@use '../../../../styles/variables' as *;
+@use '../../../../styles/index.module.scss' as *;
 
 a {
     width: 300px;
     height: 30px;
-    background-color: $primary-background;
-    color: $text-color;
+    background-color: $background-primary;
+    color: $text-buttons;
     text-align: center;
 
     &:hover {
-        background-color: $header-color;
-        color: $highlight;
+        background-color: $background-paragraph;
+        color: $text-label;
     }
 }

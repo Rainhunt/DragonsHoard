@@ -1,14 +1,15 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
 .sort-by-button {
-    width: 1em;
-    border: none;
+    width: 1px;
+    margin-left: 5px;
+    padding: 0;
     background: none;
-    color: $highlight;
-    font-size: 0.8em;
-    font-weight: bold;
-    transition: transform 0.2s ease;
+    color: $text-label;
     line-height: 0.9;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: transform 0.2s ease;
     cursor: pointer;
 
     &:active {

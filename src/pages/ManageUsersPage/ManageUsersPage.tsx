@@ -22,7 +22,7 @@ const ManageUsersPage: React.FC = () => {
     return (
         <SearchableDataProvider fetch={getUsers}>
             <h1 className="manage-users-header">Manage Users</h1>
-            <Scroll className="filters" width={"100%"}>
+            <Scroll classNames={{ container: "manage-users-filters" }} width={"100%"}>
                 <FirstNameFilter />
                 <LastNameFilter />
                 <EmailFilter />

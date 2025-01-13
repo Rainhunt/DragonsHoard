@@ -1,5 +1,6 @@
 export enum ROUTES {
     ROOT = "/",
+    ABOUT = "/about",
     CODEX = "/codex",
     MONSTER_STATBLOCK = "/monsters/statblock",
     CREATE_MONSTER = "/monsters/create",

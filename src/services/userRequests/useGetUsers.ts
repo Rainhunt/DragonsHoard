@@ -7,8 +7,6 @@ export default function useGetUsers() {
     const { jwt } = useUser();
 
     return useCallback(async () => {
-        console.log(jwt);
-
         try {
             if (jwt) {
                 const request = new Request("users");

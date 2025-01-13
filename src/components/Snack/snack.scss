@@ -1,11 +1,11 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .snack {
     position: fixed;
     padding: 10px;
     border-radius: 10px;
-    background-color: $primary-background;
-    color: $text-color;
+    background-color: $background-primary;
+    color: $text-buttons;
     display: flex;
     flex-direction: column;
     justify-content: center;

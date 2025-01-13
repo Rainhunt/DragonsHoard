@@ -1,0 +1,30 @@
+@use '../../../styles/index.module.scss' as *;
+
+.ability-scores-wrapper {
+    width: 100%;
+    margin: 0.6rem 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    justify-items: center;
+
+    .ability-scores-column {
+        color: $text-label;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .score-title {
+            font-weight: 700;
+        }
+    }
+
+    @include phone {
+        .ability-scores-column {
+
+            .score-title,
+            .score-value {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

@@ -1,17 +1,17 @@
-import './header-sort-scroll.scss'
-import React, { ReactNode, useCallback, useState } from 'react'
-import Scroll from '../Scroll'
-import SortByButton from '../../Button/SortBy/SortBy'
-import { useSearchData } from '../../../context/SearchableDataProvider'
+import './header-sort-scroll.scss';
+import { ReactNode, useCallback, useState } from 'react';
+import Scroll from '../Scroll';
+import SortByButton from '../../Button/SortBy/SortBy';
+import { useSearchData } from '../../../context/SearchableDataProvider';
 
-type HeaderSortScrollProps<T extends Record<string, string | number | React.ReactNode>> = {
+type HeaderSortScrollProps<T extends Record<string, string | number | ReactNode>> = {
     headers: { label: ReactNode, id: string, noSort?: boolean }[];
     mutateDisplay?: (filteredData: T[]) => T[];
     errors?: { failToFetch?: string, isEmpty?: string };
     className?: string;
 }
 
-const HeaderSortScroll = <T extends Record<string, string | number | React.ReactNode>>({ headers, mutateDisplay, errors, className }: HeaderSortScrollProps<T>) => {
+export default function HeaderSortScroll<T extends Record<string, string | number | ReactNode>>({ headers, mutateDisplay, errors, className }: HeaderSortScrollProps<T>) {
     const { rootData, setSortedData, filteredData } = useSearchData()
     const [sortOrder, setSortOrder] = useState<Record<string, "ascending" | "descending">>({})
 
@@ -37,11 +37,16 @@ const HeaderSortScroll = <T extends Record<string, string | number | React.React
     }, [rootData, setSortedData]);
 
     return (
-        <Scroll width={"100%"} backgroundColor={"#F1E5D1"} className={className}>
+        <Scroll width={"100%"} backgroundColor={"#F1E5D1"} classNames={{ container: className }}>
             <table width={"100%"}>
                 <thead>
                     <tr>
-                        {headers.map(header => (<th key={header.id}>{header.label} {header.noSort ? <></> : <SortByButton onClick={() => sortByColumn(header.id)} />}</th>))}
+                        {headers.map(header => (<th key={header.id}>
+                            <div className="header-container">
+                                {header.label}
+                                {header.noSort ? <></> : <SortByButton onClick={() => sortByColumn(header.id)} />}
+                            </div>
+                        </th>))}
                     </tr>
                 </thead>
                 <tbody>
@@ -57,5 +62,3 @@ const HeaderSortScroll = <T extends Record<string, string | number | React.React
         </Scroll>
     )
 }
-
-export default HeaderSortScroll;

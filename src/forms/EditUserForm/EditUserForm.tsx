@@ -25,7 +25,7 @@ export default function EditUserForm() {
     return (
         <FormProvider schema={editUserSchema} map={map} handleSubmit={async (data) => {
             const editUserError = await editProfile(data);
-            if (editUserError) createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: editUserError });
+            if (editUserError) createSnack({ id: Date.now(), time: 10, right: "10%", top: "10%", style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: editUserError });
             return true;
         }}>
             <FormReset />

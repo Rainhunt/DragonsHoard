@@ -1,16 +1,24 @@
-import React, { createContext, ReactNode, useCallback, useContext, useState } from "react";
+import React, { createContext, CSSProperties, ReactNode, useCallback, useContext, useState } from "react";
 import Snack, { SnackShape } from "../components/Snack/Snack";
 import { PagePerms } from "../types";
+
+export type Breakpoints = {
+    desktop?: CSSProperties["width"];
+    tablet?: CSSProperties["width"];
+    phone?: CSSProperties["width"];
+}
 
 interface LayoutContextType {
     pagePerms: PagePerms;
     whitelist: string[];
+    lastPath: string;
     backgroundImage: string;
-    mainMarginPx: number;
+    mainMarginPx: Breakpoints;
     setPagePerms: (perms: PagePerms) => void;
     setWhitelist: (userIds: string[]) => void;
+    setLastPath: (path: string) => void;
     setBackgroundImage: (imageUrl: string) => void;
-    setMainMarginPx: (marginPx: number) => void;
+    setMainMarginPx: (marginPx: Breakpoints) => void;
     createSnack: (snack: SnackShape) => void;
 }
 
@@ -23,8 +31,9 @@ interface LayoutProviderProps {
 const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     const [pagePerms, setPagePerms] = useState<PagePerms>("all");
     const [whitelist, setWhitelist] = useState<string[]>([]);
+    const [lastPath, setLastPath] = useState(location.pathname);
     const [backgroundImage, setBackgroundImage] = useState<string>("/background-placeholder.png");
-    const [mainMarginPx, setMainMarginPx] = useState<number>(300);
+    const [mainMarginPx, setMainMarginPx] = useState<Breakpoints>({ desktop: 300, tablet: 150, phone: 50 });
     const [snacks, setSnacks] = useState<SnackShape[]>([]);
 
     const onSnackRemove = useCallback((id: number) => {
@@ -36,7 +45,7 @@ const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     }, [setSnacks]);
 
     return (
-        <LayoutContext.Provider value={{ pagePerms, whitelist, backgroundImage, mainMarginPx, setPagePerms, setWhitelist, setBackgroundImage, setMainMarginPx, createSnack }}>
+        <LayoutContext.Provider value={{ pagePerms, whitelist, lastPath, backgroundImage, mainMarginPx, setPagePerms, setWhitelist, setLastPath, setBackgroundImage, setMainMarginPx, createSnack }}>
             {children}
             {snacks.map((snack) =>
                 <Snack

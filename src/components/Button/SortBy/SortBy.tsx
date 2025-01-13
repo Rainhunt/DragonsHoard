@@ -1,15 +1,13 @@
-import './sort-by.scss'
-import React, { MouseEventHandler } from 'react'
-import Button from '../Button'
+import './sort-by.scss';
+import { MouseEventHandler } from 'react';
+import Button from '../Button';
 
 type SortByButtonProps = {
     onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SortByButton: React.FC<SortByButtonProps> = ({ onClick }) => {
+export default function SortBy({ onClick }: SortByButtonProps) {
     return (
         <Button className="sort-by-button" onClick={onClick} text={`\u25B2 \n \u25BC`} />
     )
 }
-
-export default SortByButton;

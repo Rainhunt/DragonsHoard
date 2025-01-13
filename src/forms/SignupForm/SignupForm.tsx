@@ -25,7 +25,7 @@ export default function SignupForm() {
     return (
         <FormProvider schema={signupSchema} map={map} handleSubmit={async (data) => {
             const signupError = await signup(data);
-            if (signupError) createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: signupError });
+            if (signupError) createSnack({ id: Date.now(), time: 10, right: "10%", top: "10%", style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: signupError });
             return true;
         }}>
             <FormReset />

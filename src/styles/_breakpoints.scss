@@ -1,0 +1,19 @@
+$tablet: 1200px;
+$phone: 768px;
+
+@mixin tablet {
+    @media (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (max-width: $phone) {
+        @content;
+    }
+}
+
+:export {
+    tablet: $tablet;
+    phone: $phone;
+}

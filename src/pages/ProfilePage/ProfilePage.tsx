@@ -20,7 +20,11 @@ export default function ProfilePage() {
         setPagePerms("whitelist");
         id ? setWhitelist([id]) : setWhitelist([]);
         setBackgroundImage("/background-placeholder.png");
-        setMainMarginPx(300);
+        setMainMarginPx({
+            desktop: "15%",
+            tablet: "10%",
+            phone: "7%"
+        });
     }, []);
 
     return (

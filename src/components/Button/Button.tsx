@@ -1,20 +1,29 @@
-import './button.scss'
-import React, { ButtonHTMLAttributes, MouseEventHandler } from 'react'
+import './button.scss';
+import { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 
-type ButtonProps = {
-    text: string;
+interface ButtonPropBasics {
     type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
     onClick?: MouseEventHandler<HTMLButtonElement>;
-    disabled?: boolean;
+    disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
     className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, type, onClick, disabled, className = "classic-button" }) => {
+interface ButtonTextProps extends ButtonPropBasics {
+    text: string
+    children?: never;
+}
+
+interface ButtonChildrenProps extends ButtonPropBasics {
+    children: ReactNode;
+    text?: never;
+}
+
+type ButtonProps = ButtonTextProps | ButtonChildrenProps;
+
+export default function Button({ type, onClick, disabled, className, text, children }: ButtonProps) {
     return (
-        <button disabled={disabled} className={className} type={type} onClick={onClick}>
-            {text}
+        <button type={type} onClick={onClick} disabled={disabled} className={`default ${className || ""}`}>
+            {children || text}
         </button>
     )
 }
-
-export default Button;

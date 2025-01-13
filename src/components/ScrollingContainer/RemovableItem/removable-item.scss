@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
 .removable-item {
     margin-right: 8px;
@@ -6,7 +6,7 @@
     padding-left: 4px;
     border: 1px solid #000;
     border-radius: 10px;
-    background-color: $header-color;
+    background-color: $background-paragraph;
     font-size: 0.75em;
     display: flex;
     align-items: center;

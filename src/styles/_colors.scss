@@ -1,0 +1,27 @@
+$background-primary: #1C1C1C;
+$background-secondary: #333333;
+$background-paragraph: #F1E5D1;
+$background-parchment: #E7D6A2E0;
+$background-parchment-hover: #F2D1A1;
+$background-parchment-active: #F0C29F;
+$background-reset: #FFB84D;
+$background-hover: #C28B3B;
+$text-default: #000000;
+$text-buttons: #E7D1B1;
+$text-label: #800000;
+$text-label-hover: #C30303;
+$text-label-active: #5E0000;
+$text-select: #5E2129;
+
+:export {
+    backgroundPrimary: $background-primary;
+    backgroundSecondary: $background-secondary;
+    backgroundParagraph: $background-paragraph;
+    backgroundParchment: $background-parchment;
+    backgroundReset: $background-reset;
+    backgroundHover: $background-hover;
+    textDefault: $text-default;
+    textButtons: $text-buttons;
+    textLabel: $text-label;
+    textSelect: $text-select;
+}

@@ -1,13 +1,11 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .signup-page {
-    width: 500px;
-    height: 500px;
-    margin-top: 200px;
-    padding: 20px;
-    border: 1px solid $secondary-background;
-    border-radius: 30px;
-    background-color: $primary-background;
+    margin: 50px 0;
+    padding: 4rem;
+    border: 1px solid $background-secondary;
+    border-radius: 2rem;
+    background-color: $background-primary;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -16,5 +14,25 @@
 
     h1 {
         margin: 0;
+    }
+
+    .signup-name-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+    }
+
+    .form-field-container,
+    .form-reset-button {
+        margin-bottom: 0.5rem;
+    }
+
+    @include phone {
+        padding: 2rem;
+
+        .signup-name-container {
+            flex-direction: column;
+            gap: 0;
+        }
     }
 }

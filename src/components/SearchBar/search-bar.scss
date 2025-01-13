@@ -1,18 +1,18 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .search-bar {
     width: 100%;
     padding: 10px;
-    border: 1px solid $highlight-background;
+    border: 1px solid $text-select;
     border-radius: 4px;
-    background-color: $header-color;
+    background-color: $background-paragraph;
     appearance: none;
     outline: none;
     font-size: 14px;
     font-weight: 700;
-    color: $highlight-background;
+    color: $text-select;
 
     &:focus {
-        border-color: $highlight-outline;
+        border-color: $background-hover;
     }
 }

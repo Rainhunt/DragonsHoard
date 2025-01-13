@@ -1,5 +1,5 @@
 import './drop-down-menu.scss';
-import React, { ReactNode, useCallback, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react';
 
 interface DropDownMenuBasics {
     label: string;
@@ -19,7 +19,7 @@ interface DropDownMenuRight extends DropDownMenuBasics {
 
 type DropDownMenuProps = DropDownMenuLeft | DropDownMenuRight;
 
-const DropDownMenu: React.FC<DropDownMenuProps> = ({ label, items, openOnHover, right }) => {
+export default function DropDownMenu({ label, items, openOnHover, right }: DropDownMenuProps) {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const handleClick = useCallback(() => {
@@ -32,11 +32,9 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({ label, items, openOnHover, 
     return (
         <div className="drop-down-menu-container">
             <div className="drop-down-menu-label" onClick={handleClick} onMouseLeave={handleLeave}>{label}</div>
-            <div className={`drop-down-menu-content ${openOnHover && "open-on-hover"} ${isMenuOpen && "is-open"}`} style={right ? { right: 0 } : { left: 0 }}>
+            <div className={`drop-down-menu-content${openOnHover ? " open-on-hover" : ""}${isMenuOpen ? " is-open" : ""}`} style={right ? { right: 0 } : { left: 0 }}>
                 {items}
             </div>
         </div>
     )
 }
-
-export default DropDownMenu;

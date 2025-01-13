@@ -1,8 +1,8 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
 .statblock-name {
     margin-top: 0;
-    color: $highlight;
+    color: $text-label;
     font-size: 3em;
 }
 

@@ -29,8 +29,6 @@ export default function useFormUnion(name: string, template: string, required?: 
         })
         e.target.name = name;
         e.target.value = value.join();
-        console.log(templateArray);
-        console.log(value);
 
         // handleChange(e, true);
     }

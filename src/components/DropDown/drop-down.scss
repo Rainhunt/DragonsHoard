@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .drop-down-container {
     position: relative;
@@ -7,43 +7,42 @@
 
     .drop-down-label {
         position: absolute;
-        left: 10px;
+        left: 0.6rem;
         top: 50%;
+        color: $text-label;
+        font-size: 1rem;
         transform: translateY(-50%);
-        color: $highlight;
         transition: all 0.3s ease;
-        font-size: 14px;
         pointer-events: none;
     }
 
     .drop-down-select {
         width: 100%;
         padding: 10px 10px 10px 40px;
-        border: 1px solid $highlight-background;
-        border-radius: 4px;
-        background-color: $header-color;
-        font-size: 14px;
+        border: 1px solid $text-select;
+        border-radius: 0.5rem;
+        background-color: $background-paragraph;
+        font-size: 1rem;
+        font-weight: 700;
+        color: $text-select;
         appearance: none;
         outline: none;
-        font-weight: 700;
-        color: $highlight-background;
-
 
         &:focus {
-            border-color: $highlight-outline;
+            border-color: $background-hover;
         }
     }
 
     .drop-down-select:focus+.drop-down-label,
     .drop-down-empty {
-        font-weight: 700;
-        color: $highlight;
         top: 0px;
-        font-size: 12px;
+        color: $text-label;
+        font-size: 0.75rem;
+        font-weight: 700;
         transform: translateY(-100%);
     }
 
     .drop-down-option {
-        color: $primary-background;
+        color: $text-default;
     }
 }

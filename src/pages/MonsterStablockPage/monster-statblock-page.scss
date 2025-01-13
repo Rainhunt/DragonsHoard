@@ -1,21 +1,24 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .monster-statblock {
     margin-top: 100px;
-    cursor: default;
 
-    .statblock-column {
-        width: 48%;
+    .scroll-body {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
 
-        .stat-title {
-            margin-right: 5px;
-            font-size: 1em;
-            font-weight: 700;
-            color: $highlight;
-        }
+        .statblock-column {
 
-        .stat-details {
-            color: $highlight;
+            .stat-title {
+                margin-right: 5px;
+                font-size: 1em;
+                font-weight: 700;
+                color: $text-label;
+            }
+
+            .stat-details {
+                color: $text-label;
+            }
         }
     }
 }

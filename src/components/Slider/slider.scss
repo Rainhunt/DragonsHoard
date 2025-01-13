@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .slider {
     position: relative;
@@ -11,14 +11,14 @@
         top: 50%;
         width: 100%;
         height: 4px;
-        background-color: $text-color;
+        background-color: $text-buttons;
         transform: translateY(-50%);
 
         .slider-range {
             position: absolute;
             top: 50%;
             height: 100%;
-            background-color: $highlight;
+            background-color: $text-label;
             transform: translateY(-50%);
         }
     }
@@ -28,7 +28,7 @@
         top: 50%;
         width: 20px;
         aspect-ratio: 1/1;
-        background-color: $highlight;
+        background-color: $text-label;
         border-radius: 50%;
         cursor: pointer;
         transform: translateY(-50%);

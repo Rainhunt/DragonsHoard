@@ -5,12 +5,17 @@ import EditUserForm from '../../forms/EditUserForm/EditUserForm';
 import { useParams } from 'react-router-dom';
 
 export default function EditUserPage() {
-    const { setPagePerms, setWhitelist, setBackgroundImage } = useLayout();
+    const { setPagePerms, setWhitelist, setBackgroundImage, setMainMarginPx } = useLayout();
     const { id } = useParams();
     useEffect(() => {
         id ? setWhitelist([id]) : setWhitelist([]);
         setPagePerms("whitelist");
         setBackgroundImage("/background-placeholder.png");
+        setMainMarginPx({
+            desktop: "15%",
+            tablet: "10%",
+            phone: "7%"
+        })
     }, []);
 
     return (

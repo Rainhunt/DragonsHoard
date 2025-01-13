@@ -1,4 +1,4 @@
-@use './styles/variables' as *;
+@use './styles/index.module.scss' as *;
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
 * {
@@ -6,8 +6,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Cinzel', 'Georgia', 'Times New Roman', serif;
+  cursor: default;
 }
 
 body {
-  color: $header-color;
+  color: $text-default;
+
+  h1,
+  h2,
+  h3 {
+    color: $text-label;
+  }
 }

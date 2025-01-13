@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .tooltip-container {
     position: relative;
@@ -16,9 +16,9 @@
         width: max-content;
         padding: 5px 10px;
         border-radius: 5px;
-        background-color: $secondary-background;
+        background-color: $background-secondary;
         opacity: 90%;
-        color: $text-color;
+        color: $text-buttons;
         font-size: 0.7em;
         font-style: italic;
     }
@@ -30,7 +30,7 @@
         left: 5px;
         border-width: 5px;
         border-style: solid;
-        border-color: $secondary-background transparent transparent;
+        border-color: $background-secondary transparent transparent;
     }
 
     .tooltip-right::after {
@@ -40,12 +40,12 @@
         right: 5px;
         border-width: 5px;
         border-style: solid;
-        border-color: $secondary-background transparent transparent;
+        border-color: $background-secondary transparent transparent;
     }
 
     &:hover {
         .tooltip-content-wrapper {
-            text-shadow: 2px 2px 5px rgba($highlight, 0.5);
+            text-shadow: 2px 2px 5px rgba($text-label, 0.5);
         }
 
         .tooltip {

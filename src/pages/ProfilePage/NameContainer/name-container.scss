@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
 .name-container {
     width: 100%;
@@ -7,13 +7,19 @@
     justify-content: space-between;
 
     div {
-        padding: 10px;
-        border-radius: 10px;
-        background-color: $parchment-background;
-        color: $highlight;
+        padding: 0.6rem;
+        border-radius: 0.6rem;
+        background-color: $background-parchment;
+        color: $text-label;
         flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: auto;
+        word-wrap: break;
+    }
+
+    @include phone {
+        flex-direction: column;
     }
 }

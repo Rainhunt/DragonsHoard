@@ -1,34 +1,50 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .drop-down-menu-container {
     position: relative;
     display: inline-block;
 
     .drop-down-menu-label {
-        padding: 0.6em 1.2em;
+        padding: 0.6rem 1.2rem;
+        color: $text-buttons;
         cursor: pointer;
     }
 
     .drop-down-menu-content {
-        display: none;
         position: absolute;
+        border-radius: 0.5rem;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        display: none;
+        flex-direction: column;
 
         * {
-            display: block;
+            border-radius: 0;
             cursor: pointer;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:first-child {
+                border-top-left-radius: 0.5rem;
+                border-top-right-radius: 0.5rem;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+            }
         }
+
+
 
         &:hover {
-            display: block;
+            display: flex;
         }
     }
 
-    &:hover .open-on-hover {
-        display: block;
-    }
-
+    &:hover .open-on-hover,
     .is-open {
-        display: block;
+        display: flex;
     }
 }

@@ -1,21 +1,22 @@
-import './drop-down.scss'
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import './drop-down.scss';
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 type DropDownProps = {
     id: string;
     label: string;
     options: string[];
-    setState: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    setState: Dispatch<SetStateAction<Record<string, string>>>;
 }
 
-const DropDown: React.FC<DropDownProps> = ({ id, label, options, setState }) => {
+export default function DropDown({ id, label, options, setState }: DropDownProps) {
     const [selectedItem, setSelectedItem] = useState<string>("");
     const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedItem(e.target.value)
+        setSelectedItem(e.target.value);
     }, []);
     useEffect(() => {
         setState((previous) => ({ ...previous, [id]: selectedItem }));
     }, [selectedItem, id, setState]);
+
     return (
         <div className="drop-down-container">
             <select
@@ -35,5 +36,3 @@ const DropDown: React.FC<DropDownProps> = ({ id, label, options, setState }) => 
         </div>
     )
 }
-
-export default DropDown;

@@ -1,4 +1,3 @@
-import './login-form.scss';
 import FormField from "../../components/Form/FormField";
 import FormReset from "../../components/Form/FormReset";
 import FormSubmit from "../../components/Form/FormSubmit";
@@ -13,14 +12,12 @@ export default function LoginForm() {
     return (
         <FormProvider schema={loginSchema} handleSubmit={async (data) => {
             const logError = await handleLogin(data);
-            if (logError) createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: logError });
+            if (logError) createSnack({ id: Date.now(), time: 10, right: "10%", top: "10%", style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: logError });
             return true;
         }}>
             <FormReset />
-            <div className="login-fields">
-                <FormField name="email" placeholder="Email" required />
-                <FormField name="password" type="password" placeholder="Password" required />
-            </div>
+            <FormField name="email" placeholder="Email" required />
+            <FormField name="password" type="password" placeholder="Password" required />
             <FormSubmit />
         </FormProvider>
     )

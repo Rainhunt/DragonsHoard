@@ -50,6 +50,7 @@ const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, map, handleSub
             });
         } catch (err) {
             if (err instanceof ZodError) {
+
                 setErrors((prev) => ({
                     ...prev,
                     [name]: err.errors[0].message
@@ -85,7 +86,7 @@ const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, map, handleSub
                 const response = await handleSubmit(map ? map(validatedData) : validatedData, jwt);
                 setStatus(response ? "receivedResponse" : "noResponse");
             } else {
-                createSnack({ id: Date.now(), time: 10, right: 100, top: 100, style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: "Error submitting form: Data does not conform to schema" });
+                createSnack({ id: Date.now(), time: 10, right: "10%", top: "10%", style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: "Error submitting form: Data does not conform to schema" });
             }
         }
         submit();

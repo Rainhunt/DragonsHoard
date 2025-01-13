@@ -8,14 +8,16 @@ import MonsterStatblockPage from "../pages/MonsterStablockPage/MonsterStatblockP
 import LoginPage from "../pages/LoginPage/LoginPage"
 import SignupPage from "../pages/SignupPage/SignupPage"
 import CreateMonsterPage from "../pages/CreateMonsterPage/CreateMonsterPage"
-import EditUserPage from "../pages/EditUser/EditUser"
+import EditUserPage from "../pages/EditUserPage/EditUserPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import ManageUsersPage from "../pages/ManageUsersPage/ManageUsersPage"
+import AboutPage from "../pages/AboutPage/AboutPage"
 
 const Router: React.FC = () => {
     return (
         <Routes>
             <Route path={ROUTES.ROOT} element={<HomePage />} />
+            <Route path={ROUTES.ABOUT} element={<AboutPage />} />
             <Route path={ROUTES.CODEX} element={<CodexPage />} />
             <Route path={ROUTES.MONSTER_STATBLOCK + "/:id"} element={<MonsterStatblockPage />} />
             <Route path={ROUTES.CREATE_MONSTER} element={<CreateMonsterPage />} />

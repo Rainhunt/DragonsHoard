@@ -2,7 +2,7 @@ import './slider.scss'
 import React, { useState, CSSProperties, MouseEventHandler, useRef, useEffect } from 'react'
 
 type SliderProps = {
-    values: string[]
+    values: readonly string[]
     onChange?: (leftIndex: number, rightIndex: number) => void;
     trackHeight?: CSSProperties["height"];
     thumbSize?: CSSProperties["width"];

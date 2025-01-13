@@ -1,28 +1,28 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
-.add-button {
-    height: 40px;
-    margin-left: 10px;
-    padding: 0;
+button.add-button {
+    height: 2.5rem;
     aspect-ratio: 1/1;
-    background-color: $parchment-background;
-    color: $highlight;
-    font-size: 3em;
-    font-weight: bold;
-    border: 2px solid $highlight;
+    margin-left: 0.6rem;
+    padding: 0;
+    border: 2px solid $text-label;
     border-radius: 8px;
+    background-color: $background-parchment;
+    color: $text-label;
+    font-size: 3rem;
+    font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &:hover {
-        background-color: #f2d1a1;
+        background-color: $background-parchment-hover;
         transform: scale(1.1);
     }
 
     &:active {
-        background-color: #f0c29f;
+        background-color: $background-parchment-active;
         transform: scale(1);
     }
 }

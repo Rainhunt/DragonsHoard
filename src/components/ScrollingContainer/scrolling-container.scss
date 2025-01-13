@@ -1,12 +1,12 @@
-@use '../../styles/variables' as *;
+@use '../../styles/index.module.scss' as *;
 
 .scrolling-container {
     max-height: 200px;
     padding: 10px;
-    border: 1px solid $highlight-outline;
+    border: 1px solid $background-hover;
     border-radius: 8px;
     overflow-y: auto;
-    background-color: $parchment-background;
+    background-color: $background-parchment;
 
     .scrolling-list {
         margin: 0;

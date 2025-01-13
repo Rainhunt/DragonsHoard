@@ -5,10 +5,15 @@ import CreateMonsterForm from '../../forms/CreateMonsterForm/CreateMonsterForm';
 import Scroll from '../../components/Scroll/Scroll';
 
 export default function CreateMonsterPage() {
-    const { setPagePerms, setBackgroundImage } = useLayout();
+    const { setPagePerms, setBackgroundImage, setMainMarginPx } = useLayout();
     useEffect(() => {
         setPagePerms("user");
         setBackgroundImage("/background-placeholder.png");
+        setMainMarginPx({
+            desktop: "15%",
+            tablet: "10%",
+            phone: "7%"
+        });
     }, []);
 
     return (

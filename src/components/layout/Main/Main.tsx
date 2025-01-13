@@ -1,19 +1,21 @@
-import './main.scss'
-import React, { ReactNode, useEffect, useMemo } from 'react'
-import { useLayout } from '../../../context/LayoutProvider'
+import './main.scss';
+import { ReactNode, useEffect, useMemo } from 'react';
+import { useLayout } from '../../../context/LayoutProvider';
 import { useUser } from '../../../context/UserProvider';
 import ErrorPage from '../../../pages/ErrorPage/ErrorPage';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../routes/routerModel';
+import useBreakpoint from '../../../hooks/useBreakpoints';
 
 type MainProps = {
     children: ReactNode;
 }
 
-const Main: React.FC<MainProps> = ({ children }) => {
+export default function Main({ children }: MainProps) {
     const { whitelist, backgroundImage, mainMarginPx, pagePerms } = useLayout();
-    const navigate = useNavigate();
+    //page perms
     const { user } = useUser();
+    const navigate = useNavigate();
     const render = useMemo(() => {
         switch (pagePerms) {
             case "all":
@@ -36,11 +38,12 @@ const Main: React.FC<MainProps> = ({ children }) => {
         }
     }, [pagePerms, user, navigate]);
 
+    //page margins
+    const activeBreakpoint = useBreakpoint();
+
     return (
-        <main style={{ padding: `50px ${mainMarginPx || 0}px 0`, backgroundImage: `url(${backgroundImage})` }} >
+        <main style={{ padding: `50px ${mainMarginPx[activeBreakpoint] || 0} 0`, backgroundImage: `url(${backgroundImage})` }} >
             {render}
         </main >
     )
 }
-
-export default Main;

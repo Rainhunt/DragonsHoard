@@ -1,8 +1,8 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/index.module.scss' as *;
 
 table {
     width: 100%;
-    margin: 20px 0;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0 10px;
     text-align: center;
@@ -10,26 +10,30 @@ table {
 
     th {
         border: none;
-        color: $highlight;
-        cursor: default;
-    }
+        color: $text-label;
 
-    td {
-        height: 50px;
-        padding: 10px 15px;
-        border-top: 1px solid #00000025;
-        border-bottom: 1px solid #00000025;
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     tbody tr {
-        background-color: $header-color;
+        background-color: $background-paragraph;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), inset 0 0 2px rgba(0, 0, 0, 0.2);
-        transition: box-shadow 0.3s ease;
-        transition: background-color 0.5s ease;
+        transition: box-shadow 0.3s ease, background-color 0.5s ease;
 
         &:hover {
-            background-color: $text-color;
+            background-color: $text-buttons;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        td {
+            height: 50px;
+            padding: 0.6rem 1rem;
+            border-top: 1px solid #00000025;
+            border-bottom: 1px solid #00000025;
         }
 
         td:first-child {

@@ -34,6 +34,7 @@ export default function Footer() {
             <div className="footer-credits">
                 <p>
                     {"\u00A9"} 2025 Dragon's Hoard. All Rights Reserved | Crafted by <a href="https://rainhunt.github.io/webPortfolio/" target="_blank">Rain Made Studios</a>
+                    <img src="/icon-placeholder.png" alt="Logo" aria-label="head of a dragon in deep red" />
                 </p>
             </div>
         </footer>

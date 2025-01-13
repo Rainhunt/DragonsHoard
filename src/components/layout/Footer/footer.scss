@@ -56,6 +56,12 @@ footer {
             background: none;
             cursor: pointer;
         }
+
+        img {
+            height: 1.5rem;
+            padding-left: 1rem;
+            transform: translateY(20%);
+        }
     }
 
     @include tablet {

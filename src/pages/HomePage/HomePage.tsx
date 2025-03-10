@@ -1,78 +1,109 @@
-import './home-page.scss';
-import styles from '../../styles/index.module.scss';
-import { useEffect } from 'react';
-import { useLayout } from '../../context/LayoutProvider';
-import Scroll from '../../components/Scroll/Scroll';
-import useBreakpoint from '../../hooks/useBreakpoints';
-import LineBreak from '../../components/LineBreak/LineBreak';
-import Button from '../../components/Button/Button';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes/routerModel';
+import { useEffect } from "react";
+import Button from "../../components/Button/Button";
+import DropDown from "../../components/DropDown/DropDown";
+import Input from "../../components/Input/Input";
+import LineBreak from "../../components/LineBreak/LineBreak";
+import Scroll from "../../components/Scroll/Scroll";
+import ScrollingContainer from "../../components/ScrollingContainer/ScrollingContainer";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Slider from "../../components/Slider/Slider";
+import Tooltip from "../../components/Tooltip/Tooltip";
+import { useLayout } from "../../layout/Layout";
 
-const HomePage: React.FC = () => {
-    const { setPagePerms, setBackgroundImage, setMainMarginPx } = useLayout();
-    const navigate = useNavigate();
-
-    const breakpoint = useBreakpoint();
-    useEffect(() => {
-        setPagePerms("all");
-        setBackgroundImage("/background-placeholder.png");
-        setMainMarginPx({
-            desktop: "15%",
-            tablet: "10%",
-            phone: "7%"
-        });
-    }, []);
+export default function HomePage() {
+    const { theme } = useLayout();
 
     return (
-        <div className="home-page">
-            <Scroll classNames={{ container: "header-scroll" }} width="100%" padding={
-                breakpoint === "desktop" ? "20px 50px 30px" : "10px 25px 15px"}>
-                <h1 className="home-header">Dragon's Hoard</h1>
-                <h2 className="home-subheader">The complete D&D toolbox</h2>
-                <LineBreak height="1px" margin="20px 0" color={styles.textLabel} />
-                <p>
-                    Welcome to Dragon's Hoard, your ultimate D&D toolbox, designed to streamline your gameplay and enhance your adventures. With powerful tools, a growing collection of SRD content, and a customizable experience, Dragon's Hoard is your all-in-one hub for creating, managing, and exploring your Dungeons & Dragons world.
-                </p>
-                <LineBreak height="1px" margin="20px 0" color={styles.textLabel} />
-                <div className="links-container">
-                    <Scroll width="100%" padding={breakpoint !== "phone" ? "20px" : "10px"}>
-                        <h3>Codex</h3>
-                        <p>
-                            Find any resource in the 5e SRD! The most powerful tool for finding the monsters and rules you need.
-                        </p>
-                        <Button text="Codex" onClick={() => navigate(ROUTES.CODEX)} />
-                    </Scroll>
-                    <Scroll width="100%">
-                        <h3>Play a Game</h3>
-                        <p>
-                            Use our VTT to easily create and run your games, using our intuitive, powerful UI.
-                        </p>
-                        <Button text="Games" />
-                    </Scroll>
+        <>
+            <Input id="test" label={{
+                text: "My Incredibly Loooooooooooooongggggg Label"
+            }} error={{
+                validators: [
+                    {
+                        message: "Name must be longer than 2 characters",
+                        condition: (input) => input.length > 2
+                    },
+                    {
+                        message: "Name must contain a 'w'",
+                        condition: (input) => input.includes("w")
+                    },
+                ]
+            }} />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <Button text="My Button" onClick={() => theme.hideHeaderOnScroll = !theme.hideHeaderOnScroll} />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <Scroll justifyContent="center">
+                <div>
+                    Ha
                 </div>
             </Scroll>
-            <Scroll classNames={{ container: "coming-soon" }} width="100%" padding={
-                breakpoint === "desktop" ? "20px 50px 30px" : "10px 25px 15px"}>
-                <h2>Coming Soon</h2>
-                <p>
-                    Exciting things are on the way for Dragon's Hoard! We're working hard to bring you the ultimate D&D toolbox, and here's a sneak peek at what's coming soon:
-                </p>
-                <ul>
-                    <li>
-                        <span>VTT (Virtual Tabletop)</span> - Our VTT is under development and will soon provide a seamless, interactive experience for your campaigns.
-                    </li>
-                    <li>
-                        <span>Full SRD Access</span> - Currently featuring monsters, we'll soon expand to include the full SRD for spells, items, races, classes, and more!
-                    </li>
-                    <li>
-                        <span>Customizable Site Themes</span> - Personalize your Dragon's Hoard experience with new themes to match your playstyle and preferences.
-                    </li>
-                </ul>
-                <p> Stay tuned as we continue to build the ultimate companion for your adventures! </p>
-            </Scroll>
-        </div>
+            <ScrollingContainer items={[
+            ]} onEmpty={"Nothing to see here"} />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <SearchBar onEnter={(value) => console.log(value)} placeholder="Search..." />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <Slider min={1} max={200} thumbSize="1rem" init={{ leftIndex: 100, rightIndex: 205 }} />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <DropDown label={<label>Butt</label>} openOn="hover">
+                {[
+                    <Tooltip key={"test"} tooltip="A Cool Tooltip" position="bottom" alignPercent={50} tailAlignPercent={50}>
+                        <Scroll width="500px">Ha</Scroll>
+                    </Tooltip>
+                ]}
+            </DropDown >
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <Input id="garb" label={{
+                text: "Number?",
+                isIdle: "hidden",
+                isActive: "floatAbove"
+            }} error={{
+                display: "first",
+                validators: [
+                    {
+                        message: "Name must low red",
+                        condition: (input) => {
+                            console.log(input);
+                            return input.startsWith("#ff");
+                        }
+                    }
+                ]
+            }} attributes={{ type: "date" }} />
+        </>
     )
 }
-
-export default HomePage;

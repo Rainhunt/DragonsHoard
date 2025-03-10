@@ -1,9 +1,0 @@
-@use '../../../styles/index.module.scss' as *;
-
-.key-stats-wrapper {
-    margin: 0.6rem 0;
-
-    @include phone {
-        font-size: 0.8rem;
-    }
-}

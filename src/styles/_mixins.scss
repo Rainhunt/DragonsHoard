@@ -1,0 +1,59 @@
+@mixin interactive($hover-bgc, $active-bgc: null, $hover-scale: null) {
+    transition: transform 0.6s ease;
+
+    &:hover {
+        @if $hover-bgc !=null {
+            background-color: $hover-bgc;
+
+            @if $hover-scale !=null {
+                transform: scale($hover-scale);
+            }
+        }
+    }
+
+    &:active {
+        @if $active-bgc !=null {
+            background-color: $active-bgc;
+        }
+    }
+}
+
+@mixin overflow-ellipses {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin position-align($name) {
+    &.#{$name}-position-top {
+        bottom: 100%;
+    }
+
+    &.#{$name}-position-right {
+        left: 100%;
+    }
+
+    &.#{$name}-position-bottom {
+        top: 100%;
+    }
+
+    &.#{$name}-position-left {
+        right: 100%;
+    }
+
+    &.#{$name}-align-top {
+        top: 0;
+    }
+
+    &.#{$name}-align-right {
+        right: 0;
+    }
+
+    &.#{$name}-align-bottom {
+        bottom: 0;
+    }
+
+    &.#{$name}-align-left {
+        left: 0;
+    }
+}

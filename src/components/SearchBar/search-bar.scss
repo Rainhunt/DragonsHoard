@@ -2,15 +2,14 @@
 
 .search-bar {
     width: 100%;
-    padding: 10px;
+    padding: 0.6rem 1.2rem;
     border: 1px solid $text-select;
-    border-radius: 4px;
+    border-radius: 0.5rem;
     background-color: $background-paragraph;
-    appearance: none;
-    outline: none;
-    font-size: 14px;
-    font-weight: 700;
     color: $text-select;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
 
     &:focus {
         border-color: $background-hover;

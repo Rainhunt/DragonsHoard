@@ -1,14 +1,7 @@
-export enum ROUTES {
+enum ROUTES {
     ROOT = "/",
-    ABOUT = "/about",
-    CODEX = "/codex",
-    MONSTER_STATBLOCK = "/monsters/statblock",
-    CREATE_MONSTER = "/monsters/create",
-    SIGNUP = "/signup",
-    LOGIN = "/login",
-    PROFILE = "/profile",
-    EDIT_USER = "/profile/update",
-    MANAGE_USERS = "/admin/users"
+    HOME = "/",
+    SIGNUP = "/signup"
 }
 
-export type RoutePaths = ROUTES;
+export default ROUTES;

@@ -1,38 +1,38 @@
-import './search-bar.scss'
-import React, { useState, useCallback } from 'react'
+import './search-bar.scss';
+import { ChangeEvent, KeyboardEvent, useCallback, useMemo } from "react";
+import classNameConstructor from "../../utils/classNameConstructor";
 
-interface SearchBarProps {
-    onSearch?: (query: string) => void;
-    onEnterSearch?: (query: string) => void;
+type SearchBarProps = {
+    className?: string;
     placeholder?: string;
     ariaLabel?: string;
-    className?: string;
+    value?: string;
+    onChange?: (value: string) => void;
+    onEnter?: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onEnterSearch, placeholder = "Search...", ariaLabel = "Search bar", className }) => {
-    const [query, setQuery] = useState<string>("");
+export default function SearchBar({ className, placeholder, ariaLabel, value, onChange, onEnter }: SearchBarProps) {
+    const inputClass = useMemo(() => classNameConstructor(
+        "search-bar",
+        className
+    ), [className]);
 
-    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const newQuery = event.target.value;
-        setQuery(newQuery);
-        if (onSearch) onSearch(newQuery);
-    }, [onSearch]);
-
-    const handleKeyPress = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (onEnterSearch && event.key === "Enter") onEnterSearch(query);
-    }, [query, onEnterSearch]);
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        if (onChange) onChange(e.currentTarget.value);
+    }, [onChange]);
+    const handlePressEnter = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+        if (onEnter && e.key === "Enter") onEnter(e.currentTarget.value);
+    }, [onEnter]);
 
     return (
         <input
+            className={inputClass}
             type="text"
-            value={query}
-            onChange={handleChange}
-            onKeyDown={handleKeyPress}
             placeholder={placeholder}
             aria-label={ariaLabel}
-            className={`search-bar ${className}`}
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handlePressEnter}
         />
-    );
-};
-
-export default SearchBar;
+    )
+}

@@ -1,121 +1,113 @@
-import { createContext, ReactNode, useCallback, useContext, useState } from "react";
-import { TypeOf, ZodError, ZodObject, ZodRawShape } from "zod";
-import { useUser } from "./UserProvider";
-import { useLayout } from "./LayoutProvider";
-import { NestedSchemaRecord } from "../types";
+import { ChangeEvent, createContext, FormEvent, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { AnyZodObject, z, ZodAny, ZodError, ZodObject, ZodRawShape } from "zod";
+import { ZodObjectPaths } from "../types/zodTypes";
+import { getValueFromPath, setValueFromPath } from "../utils/stringPathIndexing";
 
-interface FormContextType<T extends ZodObject<ZodRawShape>> {
-    data: T;
-    errors: Record<keyof T['shape'], string>;
-    status: "rest" | "awaitResponse" | "receivedResponse" | "noResponse";
-    initializeField: (name: string, placeholder?: string) => void;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    validateForm: () => boolean | TypeOf<T> | false;
-    onSubmit: () => void;
-    onReset: () => void;
+type FormValue<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown> = {
+    isAwait: boolean;
+    formData: Partial<z.infer<T>>;
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string, path: ZodObjectPaths<T>) => void;
+    isFormValid: boolean;
+    errors: Record<string, ZodError>;
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<R>;
+    handleReset: () => void;
 }
 
-const FormContext = createContext<FormContextType<any> | undefined>(undefined);
+const FormContext = createContext<FormValue | null>(null);
 
-interface FormProviderProps<T extends ZodObject<ZodRawShape>> {
-    schema: T;
-    map?: (flatData: TypeOf<T>) => NestedSchemaRecord;
-    handleSubmit: (data: TypeOf<T>, token: string | undefined) => Promise<boolean>;
+type FormProviderProps<T extends ZodObject<ZodRawShape>, R> = {
+    schema: ZodObject<ZodRawShape>;
     children: ReactNode;
+    onSubmit: (formData: z.infer<T>, e?: FormEvent<HTMLFormElement>) => Promise<R>;
 }
 
-const FormProvider = <T extends ZodObject<ZodRawShape>>({ schema, map, handleSubmit, children }: FormProviderProps<T>) => {
-    const { jwt } = useUser();
-    const { createSnack } = useLayout();
+export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>({ schema, children, onSubmit }: FormProviderProps<T, R>) {
+    const [isAwait, setIsAwait] = useState(false);
+    const [formData, setFormData] = useState<Partial<z.infer<typeof schema>>>({});
+    const [isFormValid, setIsValid] = useState(false);
+    const [errors, setErrors] = useState<Record<string, ZodError>>({});
 
-    const [data, setData] = useState<Partial<Zod.infer<typeof schema>>>({});
-    const [errors, setErrors] = useState<Record<string, string>>({});
-    const [status, setStatus] = useState<"rest" | "awaitResponse" | "receivedResponse" | "noResponse">("rest");
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string, target: string) => {
+        const value = typeof e === "string" ? e : e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        const schemaPath = target.split(".").join(".shape.");
+        const fieldSchema = getValueFromPath(schemaPath, schema) as ZodAny | undefined;
+        if (!fieldSchema) {
+            //error message: No field 'path' found
+            console.log(`No field '${target}' found`);
+        } else {
+            setFormData(prev => {
+                const data = { ...prev };
+                setValueFromPath(target, value, data);
+                return data;
+            });
+            try {
+                fieldSchema.parse(value);
+                setErrors(prev => {
+                    const { [target]: _, ...rest } = prev;
+                    return rest;
+                });
+            } catch (err) {
+                if (err instanceof ZodError) {
+                    setErrors(prev => ({
+                        ...prev,
+                        [target]: err
+                    }));
+                } else {
+                    //error message: No field 'path' found
+                    console.log(`No field '${target}' found`);
+                }
+            }
+        }
+    }, [schema]);
 
-    const initializeField = useCallback((name: string, placeholder?: string) => {
-        setErrors((prev) => ({
-            ...prev,
-            [name]: `Required field ${placeholder ? placeholder : name} is empty`
-        }));
+    useEffect(() => {
+        try {
+            schema.parse(formData);
+            setIsValid(true)
+        } catch (err) {
+            //error message: Form is not valid
+            console.log("Form failed validation");
+            setIsValid(false);
+        }
+    }, [schema, formData]);
+
+    const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (isFormValid) {
+            setIsAwait(true);
+            const response = await onSubmit(formData, e);
+            setIsAwait(false);
+            return response;
+        } else {
+            //error message: Form is not valid
+            console.log("Form failed validation");
+        }
+    }, [isFormValid, onSubmit, formData]);
+
+    const handleReset = useCallback(() => {
+        setFormData({});
+        setErrors({});
     }, []);
 
-    const validateField = useCallback((name: string, value: string | boolean) => {
-        try {
-            const fieldSchema = schema.shape[name]
-            fieldSchema.parse(value);
-            setErrors((prev) => {
-                const newErrors = { ...prev };
-                delete newErrors[name];
-                return newErrors
-            });
-        } catch (err) {
-            if (err instanceof ZodError) {
-
-                setErrors((prev) => ({
-                    ...prev,
-                    [name]: err.errors[0].message
-                }));
-            }
-        }
-    }, [schema, setErrors]);
-
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const name = e.target.name;
-        const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-        validateField(name, value);
-        setData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    }, [validateField, setData]);
-
-    const validateForm = useCallback(() => {
-        try {
-            const validatedData = schema.parse(data);
-            return validatedData;
-        } catch (err) {
-            return false;
-        }
-    }, [schema, data]);
-
-    const onSubmit = useCallback(() => {
-        const submit = async () => {
-            const validatedData = validateForm();
-            if (validatedData) {
-                setStatus("awaitResponse");
-                const response = await handleSubmit(map ? map(validatedData) : validatedData, jwt);
-                setStatus(response ? "receivedResponse" : "noResponse");
-            } else {
-                createSnack({ id: Date.now(), time: 10, right: "10%", top: "10%", style: { backgroundColor: "#800000", color: "#F1E5D1", fontSize: "1.5rem" }, children: "Error submitting form: Data does not conform to schema" });
-            }
-        }
-        submit();
-    }, [validateForm, setStatus, handleSubmit, data, jwt]);
-
-    const onReset = useCallback(() => {
-        setData({});
-        setErrors({});
-    }, [setData, setErrors]);
-
     return (
-        <FormContext.Provider value={{ data, errors, status, initializeField, handleChange, validateForm, onSubmit, onReset }}>
-            <form onReset={onReset} onSubmit={(e) => {
-                e.preventDefault();
-                onSubmit();
-            }}>
+        <FormContext.Provider value={{ isAwait, formData, handleChange, isFormValid, errors, handleSubmit, handleReset }}>
+            <form onReset={handleReset} onSubmit={handleSubmit}>
                 {children}
             </form>
         </FormContext.Provider>
     )
 }
 
-export function useForm<T extends ZodObject<ZodRawShape>>(): FormContextType<T> {
-    const context = useContext(FormContext);
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(target: ZodObjectPaths<T>) {
+    const context = useContext<FormValue<T> | null>(FormContext);
     if (!context) {
         throw new Error("useForm must be used within a FormProvider");
-    } else {
-        return context;
     }
-}
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string) => {
+        context.handleChange(e, target);
+    }, [context.handleChange, target]);
+    const value = console.log(getValueFromPath(target, context.formData));
 
-export default FormProvider;
+
+    return { ...context, value: getValueFromPath(target, context.formData) as string, handleChange, error: context.errors[target] as ZodError | undefined };
+}

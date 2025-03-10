@@ -1,34 +1,89 @@
-import './tooltip.scss'
-import { ReactNode } from 'react'
+import './tooltip.scss';
+import { CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { Position } from "../../types/styleTypes";
+import classNameConstructor from "../../utils/classNameConstructor";
 
-interface ToolTipBasics {
-    tooltip: ReactNode;
+type TooltipProps = {
+    classNames?: {
+        container?: string;
+        contentWrapper?: string;
+        tail?: string;
+        tooltip?: string;
+    }
     children: ReactNode;
+    tooltip: ReactNode;
     disabled?: boolean;
-    className?: string;
-}
+    position?: Position;
+    alignPercent?: number;
+    tailAlignPercent?: number;
+};
 
-interface ToolTipsLeft extends ToolTipBasics {
-    left: boolean;
-    right?: never;
-}
+export default function Tooltip({ classNames, children, tooltip, disabled, position = "bottom", alignPercent = 10, tailAlignPercent = 10 }: TooltipProps) {
+    const tooltipRef = useRef<HTMLDivElement | null>(null);
+    const [tooltipDimensions, setTooltipDimensions] = useState({ w: 0, h: 0 });
 
-interface ToolTipsRight extends ToolTipBasics {
-    right: boolean;
-    left?: never;
-}
+    const containerClass = useMemo(() => classNameConstructor(
+        "tooltip-container",
+        classNames?.container
+    ), [classNames?.container]);
+    const contentWrapperClass = useMemo(() => classNameConstructor(
+        "tooltip-content-wrapper",
+        classNames?.contentWrapper
+    ), [classNames?.contentWrapper]);
+    const tailClass = useMemo(() => classNameConstructor(
+        "tooltip-tail",
+        `tooltip-position-${position}`,
+        classNames?.tail
+    ), [classNames?.tail, position]);
+    const tooltipClass = useMemo(() => classNameConstructor(
+        "tooltip",
+        `tooltip-position-${position}`,
+        classNames?.tooltip
+    ), [classNames?.tooltip, position]);
 
-type ToolTipProps = ToolTipsLeft | ToolTipsRight;
+    const tailStyle = useMemo(() => {
+        const style: CSSProperties = {};
+        if (position === "top" || position === "bottom") {
+            const tooltipLeft = `(100% - ${tooltipDimensions.w}px) * ${alignPercent / 100} + 0.5rem`
+            style.left = `calc(${tooltipLeft} + (${tooltipDimensions.w}px - 2rem) * ${tailAlignPercent / 100})`;
+        } else {
+            const tooltipTop = `(100% - ${tooltipDimensions.h}px) * ${alignPercent / 100} + 0.5rem`
+            style.top = `calc(${tooltipTop} + (${tooltipDimensions.h}px - 2rem) * ${tailAlignPercent / 100})`;
+        }
+        return style;
+    }, [position, tooltipDimensions, tailAlignPercent, alignPercent]);
 
-export default function ToolTip({ children, tooltip, right, disabled, className }: ToolTipProps) {
+    const tooltipStyle = useMemo(() => {
+        const style: CSSProperties = {};
+        if (position === "top" || position === "bottom") {
+            style.left = `calc((100% - ${tooltipDimensions.w}px) * ${alignPercent / 100})`;
+        } else {
+            style.top = `calc((100% - ${tooltipDimensions.h}px) * ${alignPercent / 100})`;
+        }
+        return style;
+    }, [position, tooltipDimensions, alignPercent]);
+    useEffect(() => {
+        const tooltip = tooltipRef.current;
+        if (tooltip) {
+            const observer = new ResizeObserver(() => {
+                setTooltipDimensions({ w: tooltip.offsetWidth, h: tooltip.offsetHeight });
+            });
+            observer.observe(tooltip);
+            return () => observer.disconnect();
+        }
+    }, []);
+
     return (
-        <div className={`tooltip-container ${className}`}>
-            <div className="tooltip-content-wrapper">
+        <div className={containerClass}>
+            <div className={contentWrapperClass}>
                 {children}
             </div>
-            {!disabled && <div className={`tooltip ${right ? "tooltip-right" : "tooltip-left"}`} style={right ? { right: "10%" } : { left: "10%" }}>
-                {tooltip}
-            </div>}
+            {!disabled && <>
+                <span className={tailClass} style={tailStyle} />
+                <div className={tooltipClass} ref={tooltipRef} style={tooltipStyle}>
+                    {tooltip}
+                </div>
+            </>}
         </div>
     )
 }

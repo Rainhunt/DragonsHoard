@@ -11,10 +11,15 @@
 
 body {
   color: $text-default;
+  background-color: $background-paragraph;
 
   h1,
   h2,
   h3 {
     color: $text-label;
+  }
+
+  .test {
+    background-color: blue;
   }
 }

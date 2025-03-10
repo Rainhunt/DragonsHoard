@@ -1,22 +1,21 @@
 @use '../../styles/index.module.scss' as *;
 
 .scrolling-container {
-    max-height: 200px;
-    padding: 10px;
+    max-height: 15rem;
+    padding: 0.6rem 1.2rem;
     border: 1px solid $background-hover;
-    border-radius: 8px;
-    overflow-y: auto;
+    border-radius: 0.5rem;
     background-color: $background-parchment;
+    overflow-y: auto;
 
     .scrolling-list {
-        margin: 0;
-        padding: 0;
         list-style: none;
         display: flex;
         flex-wrap: wrap;
-    }
+        gap: 0.5rem;
 
-    .empty-container {
-        color: rgb(138, 136, 108);
+        .empty-item {
+            color: $background-hover;
+        }
     }
 }

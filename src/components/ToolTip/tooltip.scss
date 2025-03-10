@@ -2,54 +2,75 @@
 
 .tooltip-container {
     position: relative;
-    display: inline-block;
 
     .tooltip-content-wrapper {
-        transition: text-shadow 0.3s ease;
+        transition: box-shadow 0.5s ease;
+    }
+
+    .tooltip-tail {
+        position: absolute;
+        border-width: 0.5rem;
+        border-style: solid;
+        border-color: transparent;
+        opacity: 90%;
+        visibility: hidden;
+
+        &.tooltip-position-top {
+            bottom: calc(100% - 0.5rem);
+            border-top-color: $background-secondary;
+        }
+
+        &.tooltip-position-right {
+            left: calc(100% - 0.5rem);
+            border-right-color: $background-secondary;
+        }
+
+        &.tooltip-position-bottom {
+            top: calc(100% - 0.5rem);
+            border-bottom-color: $background-secondary;
+        }
+
+        &.tooltip-position-left {
+            right: calc(100% - 0.5rem);
+            border-left-color: $background-secondary;
+        }
     }
 
     .tooltip {
         position: absolute;
-        bottom: 110%;
-        right: 10%;
-        display: none;
-        width: max-content;
-        padding: 5px 10px;
-        border-radius: 5px;
+        max-width: 100%;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.5rem;
         background-color: $background-secondary;
         opacity: 90%;
-        color: $text-buttons;
-        font-size: 0.7em;
-        font-style: italic;
-    }
+        visibility: hidden;
+        @include overflow-ellipses;
 
-    .tooltip-left::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: $background-secondary transparent transparent;
-    }
+        &.tooltip-position-top {
+            bottom: calc(100% + 0.5rem);
+        }
 
-    .tooltip-right::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        right: 5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: $background-secondary transparent transparent;
+        &.tooltip-position-right {
+            left: calc(100% + 0.5rem);
+        }
+
+        &.tooltip-position-bottom {
+            top: calc(100% + 0.5rem);
+        }
+
+        &.tooltip-position-left {
+            right: calc(100% + 0.5rem);
+        }
     }
 
     &:hover {
         .tooltip-content-wrapper {
-            text-shadow: 2px 2px 5px rgba($text-label, 0.5);
+            box-shadow: 0 0 10px rgba($text-label, 0.5);
         }
 
+        .tooltip-tail,
         .tooltip {
-            display: block;
+            visibility: visible;
         }
     }
 }

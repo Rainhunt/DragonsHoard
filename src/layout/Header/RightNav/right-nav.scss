@@ -1,0 +1,17 @@
+@use '../../../styles/index.module.scss' as *;
+
+.right-nav {
+    display: flex;
+    height: 100%;
+
+    .nav-button {
+        border-radius: 0;
+        background-color: $background-secondary;
+        transition: background-color 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $background-tertiary;
+            color: $background-paragraph;
+        }
+    }
+}

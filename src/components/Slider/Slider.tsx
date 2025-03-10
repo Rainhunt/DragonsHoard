@@ -1,92 +1,112 @@
-import './slider.scss'
-import React, { useState, CSSProperties, MouseEventHandler, useRef, useEffect } from 'react'
+import './slider.scss';
+import { CSSProperties, MouseEvent as MouseEventReact, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import classNameConstructor from "../../utils/classNameConstructor";
 
 type SliderProps = {
-    values: readonly string[]
-    onChange?: (leftIndex: number, rightIndex: number) => void;
-    trackHeight?: CSSProperties["height"];
+    classNames?: {
+        container?: string;
+        track?: string;
+        range?: string;
+        leftThumb?: string;
+        rightThumb?: string;
+    }
     thumbSize?: CSSProperties["width"];
-    color?: CSSProperties["color"];
-    className?: string;
-};
+    isSingle?: boolean;
+    init?: { leftIndex?: number, rightIndex?: number };
+    onChange?: (leftValue: string, rightValue: string, leftIndex?: number, rightIndex?: number, maxIndex?: number) => void;
+} & OR<{ values: string[] }, { min: number, max: number, step?: number }>;
 
-const Slider: React.FC<SliderProps> = ({ values, onChange, trackHeight, thumbSize, className }) => {
-    const [leftIndex, setLeftIndex] = useState<number>(0);
-    const [rightIndex, setRightIndex] = useState<number>(values.length - 1);
-
+export default function Slider({ classNames, thumbSize, values, min, max, step = 1, isSingle, init, onChange }: SliderProps) {
+    const [leftIndex, setLeftIndex] = useState<number>(init?.leftIndex || 0);
+    const [rightIndex, setRightIndex] = useState<number>(init?.rightIndex || 0);
     const sliderRef = useRef<HTMLDivElement | null>(null);
-    const handleThumbMove = (e: MouseEvent, thumbSide: "right" | "left") => {
+    const maxIndex = useMemo(() => values ? (values.length - 1) : (max - min) / step, [values, max, min, step]);
+
+    const containerClass = useMemo(() => classNameConstructor(
+        "slider-container",
+        classNames?.container
+    ), [classNames?.container]);
+    const trackClass = useMemo(() => classNameConstructor(
+        "slider-track",
+        classNames?.track
+    ), [classNames?.track]);
+    const rangeClass = useMemo(() => classNameConstructor(
+        "slider-range",
+        classNames?.range
+    ), [classNames?.range]);
+    const leftThumbClass = useMemo(() => classNameConstructor(
+        "slider-thumb",
+        "left-thumb",
+        isSingle && "display-none",
+        classNames?.leftThumb
+    ), [classNames?.leftThumb]);
+    const rightThumbClass = useMemo(() => classNameConstructor(
+        "slider-thumb",
+        "right-thumb",
+        classNames?.rightThumb
+    ), [classNames?.rightThumb]);
+
+    const leftThumbPosition = useMemo(() => `calc((100% - ${thumbSize || "1rem"}) * ${leftIndex / maxIndex})`, [thumbSize, leftIndex, maxIndex]);
+    const leftThumbStyle = useMemo(() => {
+        const style: CSSProperties = {};
+        style.width = thumbSize || "1rem";
+        style.left = leftThumbPosition;
+        return style;
+    }, [thumbSize, leftThumbPosition]);
+    const rightThumbPosition = useMemo(() => `calc((100% - ${thumbSize || "1rem"}) * ${rightIndex / maxIndex})`, [thumbSize, rightIndex, maxIndex]);
+    const rightThumbStyle = useMemo(() => {
+        const style: CSSProperties = {};
+        style.width = thumbSize || "1rem";
+        style.left = rightThumbPosition;
+        return style;
+    }, [thumbSize, rightThumbPosition]);
+    const rangeStyle = useMemo(() => {
+        const style: CSSProperties = {};
+        style.width = `calc((100% - ${thumbSize}) * ${rightIndex / maxIndex - leftIndex / maxIndex} + ${thumbSize})`;
+        style.left = leftThumbPosition;
+        return style;
+    }, [thumbSize, leftIndex, rightIndex, maxIndex, leftThumbPosition]);
+
+    const handleMouseDown = useCallback((e: MouseEventReact<HTMLDivElement>) => {
+        document.body.style.userSelect = "none";
+
         const slider = sliderRef.current;
         if (!slider) return;
-
         const sliderRect = slider.getBoundingClientRect();
-        const offsetX = e.clientX - sliderRect.left;
-        const newIndex = Math.round((offsetX / sliderRect.width) * (values.length - 1));
 
-        if (newIndex >= 0 && newIndex < values.length) {
-            if (thumbSide === "right") {
-                if (newIndex > leftIndex) setRightIndex(newIndex);
-            } else {
-                if (newIndex < rightIndex) setLeftIndex(newIndex);
-            }
-        };
-    }
+        const thumbSide = e.currentTarget.classList.contains("right-thumb") ? "right" : "left";
+        const thumbWidth = e.currentTarget.clientWidth;
 
-    const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
-        const thumbSide = (e.target as HTMLDivElement).classList.contains("right-thumb") ? "right" : "left"
+        const handleMove = (e: MouseEvent) => {
+            let offsetX = e.clientX - sliderRect.left;
+            if (thumbSide === "right") offsetX -= thumbWidth;
+            const newIndex = Math.round(offsetX / (sliderRect.width - thumbWidth) * maxIndex);
+            const boundIndex = newIndex < 0 ? 0 : newIndex > maxIndex ? maxIndex : newIndex;
+            if (thumbSide === "left") setLeftIndex(newIndex <= rightIndex ? boundIndex : rightIndex);
+            if (thumbSide === "right") setRightIndex(leftIndex <= newIndex ? boundIndex : leftIndex);
+        }
 
-        document.body.style.userSelect = "none"
-        const moveHandler = (event: MouseEvent) => handleThumbMove(event, thumbSide);
-        document.addEventListener('mousemove', moveHandler);
-        document.addEventListener('mouseup', () => {
+        const handleMouseUp = () => {
             document.body.style.userSelect = ""
-            document.removeEventListener('mousemove', moveHandler);
-            document.removeEventListener('mouseup', () => { });
-        });
-    };
-
-    const calculatePosition = (index: number) => {
-        return values.length > 1 ? index / (values.length - 1) * 100 : 0;
-    };
+            document.removeEventListener('mousemove', handleMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleMouseUp);
+    }, [values, min, max, step, rightIndex, leftIndex]);
 
     useEffect(() => {
-        if (onChange) {
-            onChange(leftIndex, rightIndex);
-        }
-    }, [leftIndex, rightIndex, onChange]);
+        if (onChange) values ? onChange(values[leftIndex], values[rightIndex], leftIndex, rightIndex, maxIndex) :
+            onChange((min + step * leftIndex).toString(), (min + step * rightIndex).toString());
+    }, [onChange, leftIndex, rightIndex]);
 
     return (
-        <div className={`slider ${className || ""}`} ref={sliderRef}>
-            <div className="slider-track" style={{ height: trackHeight, width: `calc(100% - ${thumbSize || 0})`, left: `calc(${thumbSize} / 2)` }}>
-                <div
-                    className="slider-range"
-                    style={{
-                        left: `calc(${calculatePosition(leftIndex)}% + ${thumbSize} / 2)`,
-                        width: `calc(${calculatePosition(rightIndex) - calculatePosition(leftIndex)}% - ${thumbSize || 0})`,
-                    }}
-                />
+        <div className={containerClass} ref={sliderRef}>
+            <div className={trackClass}>
+                <div className={rangeClass} style={rangeStyle} />
             </div>
-            <div
-                className="slider-thumb left-thumb"
-                style={{
-                    left: `${calculatePosition(leftIndex)}%`,
-                    width: thumbSize,
-                }}
-                onMouseDown={handleMouseDown}
-            />
-            <div
-                className="slider-thumb right-thumb"
-                style={{
-                    left: `${calculatePosition(rightIndex)}%`,
-                    width: thumbSize
-                }}
-                onMouseDown={handleMouseDown}
-            />
-            <div className="slider-values">
-                <span>{values[leftIndex]}</span> - <span>{values[rightIndex]}</span>
-            </div>
+            <div className={leftThumbClass} style={leftThumbStyle} onMouseDown={handleMouseDown} />
+            <div className={rightThumbClass} style={rightThumbStyle} onMouseDown={handleMouseDown} />
         </div>
-    );
-};
-
-export default Slider;
+    )
+}

@@ -1,20 +1,13 @@
-import './App.css'
-import { BrowserRouter } from 'react-router-dom'
-import Layout from './components/layout/Layout'
-import Router from './routes/Router'
-import LayoutProvider from './context/LayoutProvider'
-import UserProvider from './context/UserProvider'
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes/Router";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
     <BrowserRouter>
-      <UserProvider>
-        <LayoutProvider>
-          <Layout>
-            <Router />
-          </Layout>
-        </LayoutProvider>
-      </UserProvider>
+      <Layout>
+        <Router />
+      </Layout>
     </BrowserRouter>
   )
 }

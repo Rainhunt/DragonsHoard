@@ -1,48 +1,46 @@
 @use '../../styles/index.module.scss' as *;
 
-.drop-down-container {
+.drop-down-label {
     position: relative;
-    width: 100%;
-    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    background-color: $background-primary;
+    color: $text-buttons;
+    cursor: pointer;
 
-    .drop-down-label {
+    @include interactive($background-secondary);
+
+    .drop-down-list {
         position: absolute;
-        left: 0.6rem;
-        top: 50%;
-        color: $text-label;
-        font-size: 1rem;
-        transform: translateY(-50%);
-        transition: all 0.3s ease;
-        pointer-events: none;
-    }
 
-    .drop-down-select {
-        width: 100%;
-        padding: 10px 10px 10px 40px;
-        border: 1px solid $text-select;
-        border-radius: 0.5rem;
-        background-color: $background-paragraph;
-        font-size: 1rem;
-        font-weight: 700;
-        color: $text-select;
-        appearance: none;
-        outline: none;
+        @include position-align("drop-down");
 
-        &:focus {
-            border-color: $background-hover;
+        &.drop-down-column {
+            flex-direction: column;
         }
+
+        display: none;
     }
 
-    .drop-down-select:focus+.drop-down-label,
-    .drop-down-empty {
-        top: 0px;
-        color: $text-label;
-        font-size: 0.75rem;
-        font-weight: 700;
-        transform: translateY(-100%);
-    }
+    &.drop-down-open {
+        &.drop-down-top {
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
 
-    .drop-down-option {
-        color: $text-default;
+        &.drop-down-right {
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+
+        &.drop-down-bottom {
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        &.drop-down-left {
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .drop-down-list {
+            display: flex;
+        }
     }
 }

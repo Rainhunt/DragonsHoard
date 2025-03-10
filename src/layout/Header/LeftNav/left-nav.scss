@@ -1,0 +1,30 @@
+@use '../../../styles/index.module.scss' as *;
+
+.left-nav {
+    display: flex;
+    height: 100%;
+
+    .left-nav-hamburger {
+        height: 50px;
+        aspect-ratio: 1/1;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        :last-child {
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+    }
+
+    .nav-button {
+        border-radius: 0;
+        background-color: $background-secondary;
+        transition: background-color 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $background-tertiary;
+            color: $background-paragraph;
+        }
+    }
+}

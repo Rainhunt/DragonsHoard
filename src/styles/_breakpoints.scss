@@ -1,19 +1,29 @@
-$tablet: 1200px;
-$phone: 768px;
+@use "sass:map";
 
-@mixin tablet {
-    @media (max-width: $tablet) {
-        @content;
+$breakpoints: (
+    "desktop": 1800px,
+    "laptop": 1200px,
+    "tablet": 900px,
+    "mobile": 600px,
+);
+
+@mixin breakpoint($size) {
+    $breakpoint: map.get($breakpoints, $size);
+
+    @if $breakpoint {
+        @media (max-width: $breakpoint) {
+            @content;
+        }
     }
-}
 
-@mixin phone {
-    @media (max-width: $phone) {
-        @content;
+    @else {
+        @warn "Breakpoint '#{$size}' not found";
     }
 }
 
 :export {
-    tablet: $tablet;
-    phone: $phone;
+    desktop: map.get($breakpoints, "desktop");
+    laptop: map.get($breakpoints, "laptop");
+    tablet: map.get($breakpoints, "tablet");
+    mobile: map.get($breakpoints, "mobile");
 }

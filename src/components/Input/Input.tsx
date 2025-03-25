@@ -1,5 +1,5 @@
 import './input.scss';
-import { ChangeEvent, FocusEvent, HTMLAttributes, InputHTMLAttributes, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, FocusEvent, HTMLAttributes, InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from "react";
 import { ValidationError } from "../../types/feedbackTypes";
 import camelToKebab from "../../utils/camelToKebab";
 import classNameConstructor from "../../utils/classNameConstructor";
@@ -62,6 +62,18 @@ export default function Input({ classNames, id, label, attributes, error }: Inpu
         }
         if (attributes?.onChange) attributes.onChange(e);
     }, [error, errors, attributes?.onChange]);
+    useEffect(() => {
+        if (error) setErrors(error.validators.filter(error => {
+            if (typeof attributes?.value === "string") {
+                return !error.condition || !error.condition(attributes.value);
+            }
+        }));
+        if (attributes?.value) {
+            setIsIdle(false);
+        } else {
+            setIsIdle(true);
+        }
+    }, [attributes?.value]);
 
     return (
         <div className={containerClass}>

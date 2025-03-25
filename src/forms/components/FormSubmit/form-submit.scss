@@ -1,0 +1,25 @@
+@use '../../../styles/index.module.scss' as *;
+
+.form-submit {
+    background-color: $text-select;
+    color: $text-label;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+    cursor: default;
+
+    &:not(:disabled) {
+        background-color: $text-label;
+        color: $background-paragraph;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $text-label-hover;
+            transform: scale(1.02);
+        }
+
+        &:active {
+            background-color: $text-label-active;
+            transform: scale(1);
+        }
+    }
+}

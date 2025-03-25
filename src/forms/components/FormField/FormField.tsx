@@ -1,8 +1,8 @@
 import { AnyZodObject, ZodObject, ZodRawShape } from "zod";
-import { ZodObjectPaths } from "../../types/zodTypes";
+import { ZodObjectPaths } from "../../../types/zodTypes";
 import { ChangeEvent, HTMLAttributes, InputHTMLAttributes, useCallback, useEffect } from "react";
-import { useForm } from "../../context/FormProvider";
-import Input from "../../components/Input/Input";
+import { useForm } from "../../../context/FormProvider";
+import Input from "../../../components/Input/Input";
 
 type FormFieldProps<T extends ZodObject<ZodRawShape>> = {
     target: ZodObjectPaths<T>;
@@ -34,13 +34,6 @@ export default function FormField<T extends ZodObject<ZodRawShape> = AnyZodObjec
         form(e);
         if (attributes?.onChange) attributes.onChange(e);
     }, [form, attributes?.onChange]);
-
-    useEffect(() => {
-        console.log(`${id} errors are: ${error?.errors}`);
-    }, [error?.errors]);
-    useEffect(() => {
-        console.log(`${id} value is: ${value}`);
-    }, [value]);
 
     return (
         <Input

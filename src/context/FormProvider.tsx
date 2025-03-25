@@ -16,12 +16,13 @@ type FormValue<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown> = {
 const FormContext = createContext<FormValue | null>(null);
 
 type FormProviderProps<T extends ZodObject<ZodRawShape>, R> = {
+    className: string;
     schema: ZodObject<ZodRawShape>;
     children: ReactNode;
     onSubmit: (formData: z.infer<T>, e?: FormEvent<HTMLFormElement>) => Promise<R>;
 }
 
-export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>({ schema, children, onSubmit }: FormProviderProps<T, R>) {
+export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>({ className, schema, children, onSubmit }: FormProviderProps<T, R>) {
     const [isAwait, setIsAwait] = useState(false);
     const [formData, setFormData] = useState<Partial<z.infer<typeof schema>>>({});
     const [isFormValid, setIsValid] = useState(false);
@@ -31,6 +32,7 @@ export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R 
         const value = typeof e === "string" ? e : e.target.type === "checkbox" ? e.target.checked : e.target.value;
         const schemaPath = target.split(".").join(".shape.");
         const fieldSchema = getValueFromPath(schemaPath, schema) as ZodAny | undefined;
+
         if (!fieldSchema) {
             //error message: No field 'path' found
             console.log(`No field '${target}' found`);
@@ -65,8 +67,6 @@ export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R 
             schema.parse(formData);
             setIsValid(true)
         } catch (err) {
-            //error message: Form is not valid
-            console.log("Form failed validation");
             setIsValid(false);
         }
     }, [schema, formData]);
@@ -91,23 +91,37 @@ export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R 
 
     return (
         <FormContext.Provider value={{ isAwait, formData, handleChange, isFormValid, errors, handleSubmit, handleReset }}>
-            <form onReset={handleReset} onSubmit={handleSubmit}>
+            <form className={className} onReset={handleReset} onSubmit={handleSubmit}>
                 {children}
             </form>
         </FormContext.Provider>
     )
 }
 
-export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(target: ZodObjectPaths<T>) {
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>(): FormValue<T, R>;
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>(target: ZodObjectPaths<T>): {
+    isAwait: boolean;
+    formData: Partial<z.infer<T>>;
+    value: string;
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string) => void;
+    isFormValid: boolean;
+    errors: Record<string, ZodError>;
+    error: ZodError | undefined;
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<R>;
+    handleReset: () => void;
+};
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(target?: ZodObjectPaths<T>) {
     const context = useContext<FormValue<T> | null>(FormContext);
     if (!context) {
         throw new Error("useForm must be used within a FormProvider");
     }
+    if (!target) return context;
     const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string) => {
         context.handleChange(e, target);
     }, [context.handleChange, target]);
-    const value = console.log(getValueFromPath(target, context.formData));
+    const value = useMemo(() => {
+        return getValueFromPath(target, context.formData) as string || "";
+    }, [context.formData]);
 
-
-    return { ...context, value: getValueFromPath(target, context.formData) as string, handleChange, error: context.errors[target] as ZodError | undefined };
+    return { ...context, value: value, handleChange, error: context.errors[target] as ZodError | undefined };
 }

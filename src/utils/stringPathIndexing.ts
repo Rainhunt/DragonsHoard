@@ -1,8 +1,5 @@
 export function getValueFromPath(path: string, object: any): unknown {
-    const indexes = path.split(".");
-    indexes.shift();
-    console.log(`Object is: ${JSON.stringify(object)}`);
-
+    const indexes = path.substring(1).split(".");
     let value = object;
     for (const index of indexes) {
         if (value && typeof value === 'object') {
@@ -15,7 +12,7 @@ export function getValueFromPath(path: string, object: any): unknown {
 }
 
 export function setValueFromPath(path: string, value: any, object: any) {
-    const indexes = path.split(".");
+    const indexes = path.substring(1).split(".");
     const final = indexes.pop();
     let current = object;
 
@@ -32,5 +29,6 @@ export function setValueFromPath(path: string, value: any, object: any) {
     } else {
         throw new Error(`Path not found at ${final} in ${path}`);
     }
+
     return object;
 }

@@ -11,7 +11,12 @@ import Tooltip from "../../components/Tooltip/Tooltip";
 import { useLayout } from "../../layout/Layout";
 
 export default function HomePage() {
-    const { theme } = useLayout();
+    const { theme, page } = useLayout();
+    useEffect(() => {
+        page.reset();
+        page.margins = "10rem";
+        page.alignPageContent = "center";
+    }, []);
 
     return (
         <>
@@ -44,14 +49,16 @@ export default function HomePage() {
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <Slider min={1} max={200} thumbSize="1rem" init={{ leftIndex: 100, rightIndex: 205 }} />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <DropDown label={<label>Butt</label>} openOn="hover">
+            <DropDown label={<label>Mialma</label>} openOn="hover" position="right" align="top">
                 {[
                     <Tooltip key={"test"} tooltip="A Cool Tooltip" position="bottom" alignPercent={50} tailAlignPercent={50}>
+                        <Scroll width="500px">Ha</Scroll>
+                    </Tooltip>,
+                    <Tooltip key={"test2"} tooltip="A Cool Tooltip" position="bottom" alignPercent={50} tailAlignPercent={50}>
                         <Scroll width="500px">Ha</Scroll>
                     </Tooltip>
                 ]}
             </DropDown >
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />

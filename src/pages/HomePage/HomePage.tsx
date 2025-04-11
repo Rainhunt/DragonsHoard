@@ -9,6 +9,10 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Slider from "../../components/Slider/Slider";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import { useLayout } from "../../layout/Layout";
+import SearchableDataProvider from "../../context/SearchableDataProvider";
+import SearchableTable from "../../components/SearchableTable/SearchableTable";
+import SharedStateProvider from "../../context/SharedStateProvider";
+import SearchableDropDown, { SearchableDropDownState } from "../../components/DropDown/SearchableDropDown/SearchableDropDown";
 
 export default function HomePage() {
     const { theme, page } = useLayout();
@@ -64,6 +68,7 @@ export default function HomePage() {
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <LineBreak margin="20px 0" color="red" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
@@ -72,7 +77,28 @@ export default function HomePage() {
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
+            <SearchableDataProvider fetch={async () => [{ _id: "first", h1: "abc", h2: "xyz" }, { _id: "second", h1: "bcd", h2: "grm" }, {
+                _id: "third", h1: "cde", h3: {
+                    a: "buxx"
+                }
+            }]}>
+                <SearchableTable<{ _id: string, h1: string, h2?: string, h3?: { a: string } }> columns={[{
+                    id: "m",
+                    label: "h1",
+                    cellValue: data => data.h1,
+                    sortFunc: (a, b) => a.h1.localeCompare(b.h1)
+                }, {
+                    id: "n",
+                    label: "h2",
+                    cellValue: (data) => <Button text={data.h2 || ""} />,
+                    sortFunc: (a, b) => (a.h2 || "").localeCompare(b.h2 || "")
+                }, {
+                    id: "o",
+                    label: "h3",
+                    cellValue: (data) => data.h3?.a,
+                    sortFunc: (a, b) => (a.h3?.a || "").localeCompare(b.h3?.a || "")
+                }]} />
+            </SearchableDataProvider>
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
             <LineBreak margin="20px 0" taper="right" fade="right" color="green" />

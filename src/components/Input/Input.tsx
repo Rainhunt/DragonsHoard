@@ -5,18 +5,13 @@ import camelToKebab from "../../utils/camelToKebab";
 import classNameConstructor from "../../utils/classNameConstructor";
 
 type InputProps = {
-    classNames?: {
-        container?: string;
-        label?: string;
-        input?: string;
-        errors?: string;
-    };
+    className?: string;
     id: HTMLAttributes<HTMLInputElement>["id"];
     label: {
         text: string;
         isIdle?: "floatAbove" | "hidden" | "inline";
         isActive?: "floatAbove" | "hidden";
-    }
+    };
     attributes?: InputHTMLAttributes<HTMLInputElement>;
     error?: {
         display?: "all" | "first" | "none" | ((errorMessages: string[]) => string);
@@ -25,27 +20,18 @@ type InputProps = {
     };
 }
 
-export default function Input({ classNames, id, label, attributes, error }: InputProps) {
+export default function Input({ className, id, label, attributes, error }: InputProps) {
     const [isIdle, setIsIdle] = useState(true);
     const [errors, setErrors] = useState<ValidationError<string>[]>([]);
 
     const containerClass = useMemo(() => classNameConstructor(
         "text-input-container",
-        classNames?.container
-    ), [classNames?.container]);
+        className
+    ), [className]);
     const labelClass = useMemo(() => classNameConstructor(
         "text-input-label",
-        classNames?.label,
         `text-input-label-${camelToKebab(isIdle ? label.isIdle || "inline" : label.isActive || "floatAbove")}`
-    ), [classNames?.label, isIdle, label.isIdle, label.isActive]);
-    const inputClass = useMemo(() => classNameConstructor(
-        "text-input",
-        classNames?.input
-    ), [classNames?.input]);
-    const errorCLass = useMemo(() => classNameConstructor(
-        "text-input-errors",
-        classNames?.errors
-    ), [classNames?.errors]);
+    ), [isIdle, label.isIdle, label.isActive]);
 
     const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
         setIsIdle(false);
@@ -83,13 +69,13 @@ export default function Input({ classNames, id, label, attributes, error }: Inpu
             <input
                 {...attributes}
                 id={id}
-                className={inputClass}
+                className="text-input"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onChange={handleChange}
             />
             {error?.display !== "none" && errors.length > 0 &&
-                <span className={errorCLass}>
+                <span className="text-input-errors">
                     {error?.display === "first" ?
                         errors[0].message :
                         typeof error?.display === "function" ? error.display(errors.map(error => error.message)) :

@@ -4,7 +4,7 @@ import { createElement, ReactElement, ReactNode, useCallback, useMemo, useRef, u
 import classNameConstructor from '../../utils/classNameConstructor';
 import { PositionAlign } from '../../types/styleTypes';
 
-export type DropDownProps = {
+type DropDownProps = {
     label: ReactElement;
     children: ReactNode;
     openOn: "click" | "hover";

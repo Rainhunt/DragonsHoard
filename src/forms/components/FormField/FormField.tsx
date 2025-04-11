@@ -6,12 +6,7 @@ import Input from "../../../components/Input/Input";
 
 type FormFieldProps<T extends ZodObject<ZodRawShape>> = {
     target: ZodObjectPaths<T>;
-    classNames?: {
-        container?: string;
-        label?: string;
-        input?: string;
-        errors?: string;
-    }
+    className?: string;
     id: HTMLAttributes<HTMLInputElement>["id"];
     label: {
         text: string;
@@ -23,7 +18,7 @@ type FormFieldProps<T extends ZodObject<ZodRawShape>> = {
     displayError?: "all" | "first" | "none" | ((errorMessages: string[]) => string);
 }
 
-export default function FormField<T extends ZodObject<ZodRawShape> = AnyZodObject>({ target, classNames, id, label, initialValue, attributes, displayError }: FormFieldProps<T>) {
+export default function FormField<T extends ZodObject<ZodRawShape> = AnyZodObject>({ target, className, id, label, initialValue, attributes, displayError }: FormFieldProps<T>) {
     const { value, error, handleChange: form } = useForm<T>(target);
 
     useEffect(() => {
@@ -37,7 +32,7 @@ export default function FormField<T extends ZodObject<ZodRawShape> = AnyZodObjec
 
     return (
         <Input
-            classNames={classNames}
+            className={className}
             id={id}
             label={label}
             attributes={{

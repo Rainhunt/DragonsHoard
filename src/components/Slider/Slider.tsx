@@ -3,20 +3,14 @@ import { CSSProperties, MouseEvent as MouseEventReact, useCallback, useEffect, u
 import classNameConstructor from "../../utils/classNameConstructor";
 
 type SliderProps = {
-    classNames?: {
-        container?: string;
-        track?: string;
-        range?: string;
-        leftThumb?: string;
-        rightThumb?: string;
-    }
+    className?: string;
     thumbSize?: CSSProperties["width"];
     isSingle?: boolean;
     init?: { leftIndex?: number, rightIndex?: number };
     onChange?: (leftValue: string, rightValue: string, leftIndex?: number, rightIndex?: number, maxIndex?: number) => void;
 } & OR<{ values: string[] }, { min: number, max: number, step?: number }>;
 
-export default function Slider({ classNames, thumbSize, values, min, max, step = 1, isSingle, init, onChange }: SliderProps) {
+export default function Slider({ className, thumbSize, values, min, max, step = 1, isSingle, init, onChange }: SliderProps) {
     const [leftIndex, setLeftIndex] = useState<number>(init?.leftIndex || 0);
     const [rightIndex, setRightIndex] = useState<number>(init?.rightIndex || 0);
     const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -24,27 +18,14 @@ export default function Slider({ classNames, thumbSize, values, min, max, step =
 
     const containerClass = useMemo(() => classNameConstructor(
         "slider-container",
-        classNames?.container
-    ), [classNames?.container]);
-    const trackClass = useMemo(() => classNameConstructor(
-        "slider-track",
-        classNames?.track
-    ), [classNames?.track]);
-    const rangeClass = useMemo(() => classNameConstructor(
-        "slider-range",
-        classNames?.range
-    ), [classNames?.range]);
+        className
+    ), [className]);
+
     const leftThumbClass = useMemo(() => classNameConstructor(
         "slider-thumb",
         "left-thumb",
         isSingle && "display-none",
-        classNames?.leftThumb
-    ), [classNames?.leftThumb]);
-    const rightThumbClass = useMemo(() => classNameConstructor(
-        "slider-thumb",
-        "right-thumb",
-        classNames?.rightThumb
-    ), [classNames?.rightThumb]);
+    ), [isSingle]);
 
     const leftThumbPosition = useMemo(() => `calc((100% - ${thumbSize || "1rem"}) * ${leftIndex / maxIndex})`, [thumbSize, leftIndex, maxIndex]);
     const leftThumbStyle = useMemo(() => {
@@ -62,7 +43,7 @@ export default function Slider({ classNames, thumbSize, values, min, max, step =
     }, [thumbSize, rightThumbPosition]);
     const rangeStyle = useMemo(() => {
         const style: CSSProperties = {};
-        style.width = `calc((100% - ${thumbSize}) * ${rightIndex / maxIndex - leftIndex / maxIndex} + ${thumbSize})`;
+        style.width = `calc((100% - ${thumbSize || "1rem"}) * ${rightIndex / maxIndex - leftIndex / maxIndex} + ${thumbSize || "1rem"})`;
         style.left = leftThumbPosition;
         return style;
     }, [thumbSize, leftIndex, rightIndex, maxIndex, leftThumbPosition]);
@@ -102,11 +83,11 @@ export default function Slider({ classNames, thumbSize, values, min, max, step =
 
     return (
         <div className={containerClass} ref={sliderRef}>
-            <div className={trackClass}>
-                <div className={rangeClass} style={rangeStyle} />
+            <div className="slider-track">
+                <div className="slider-range" style={rangeStyle} />
             </div>
             <div className={leftThumbClass} style={leftThumbStyle} onMouseDown={handleMouseDown} />
-            <div className={rightThumbClass} style={rightThumbStyle} onMouseDown={handleMouseDown} />
+            <div className="slider-thumb right-thumb" style={rightThumbStyle} onMouseDown={handleMouseDown} />
         </div>
     )
 }

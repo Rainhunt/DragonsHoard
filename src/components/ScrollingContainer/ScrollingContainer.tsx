@@ -3,42 +3,25 @@ import './scrolling-container.scss';
 import { Key, ReactNode, useMemo } from "react";
 
 type ScrollingContainerProps = {
-    classNames?: {
-        container?: string;
-        list?: string;
-        item?: string;
-        emptyItem?: string;
-    };
+    className?: string;
     items: { item: ReactNode, key: Key }[];
     onEmpty: ReactNode;
 }
 
-export default function ScrollingContainer({ classNames, items, onEmpty }: ScrollingContainerProps) {
+export default function ScrollingContainer({ className, items, onEmpty }: ScrollingContainerProps) {
     const containerClass = useMemo(() => classNameConstructor(
         "scrolling-container",
-        classNames?.container
-    ), [classNames?.container]);
-    const listClass = useMemo(() => classNameConstructor(
-        "scrolling-list",
-        classNames?.list
-    ), [classNames?.list]);
-    const itemClass = useMemo(() => classNameConstructor(
-        "scrolling-item",
-        classNames?.item
-    ), [classNames?.item]);
-    const emptyItemClass = useMemo(() => classNameConstructor(
-        "empty-item",
-        classNames?.emptyItem
-    ), [classNames?.emptyItem]);
+        className
+    ), [className]);
 
     return (
         <div className={containerClass}>
-            <ul className={listClass}>
+            <ul className="scrolling-list">
                 {items.length > 0 ? items.map((item) => (
-                    <li className={itemClass} key={item.key}>
+                    <li className="scrolling-item" key={item.key}>
                         {item.item}
                     </li>
-                )) : <li className={emptyItemClass}>{onEmpty}</li>}
+                )) : <li className="empty-item">{onEmpty}</li>}
             </ul>
         </div>
     )

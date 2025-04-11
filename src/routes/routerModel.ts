@@ -1,7 +1,9 @@
 enum ROUTES {
     ROOT = "/",
     HOME = "/",
-    SIGNUP = "/signup"
+    ABOUT = "/about",
+    SIGNUP = "/signup",
+    MONSTERS = "/monsters",
 }
 
 export default ROUTES;

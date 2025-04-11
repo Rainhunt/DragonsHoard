@@ -4,12 +4,7 @@ import { Position } from "../../types/styleTypes";
 import classNameConstructor from "../../utils/classNameConstructor";
 
 type TooltipProps = {
-    classNames?: {
-        container?: string;
-        contentWrapper?: string;
-        tail?: string;
-        tooltip?: string;
-    }
+    className?: string;
     children: ReactNode;
     tooltip: ReactNode;
     disabled?: boolean;
@@ -18,28 +13,22 @@ type TooltipProps = {
     tailAlignPercent?: number;
 };
 
-export default function Tooltip({ classNames, children, tooltip, disabled, position = "bottom", alignPercent = 10, tailAlignPercent = 10 }: TooltipProps) {
+export default function Tooltip({ className, children, tooltip, disabled, position = "bottom", alignPercent = 10, tailAlignPercent = 10 }: TooltipProps) {
     const tooltipRef = useRef<HTMLDivElement | null>(null);
     const [tooltipDimensions, setTooltipDimensions] = useState({ w: 0, h: 0 });
 
     const containerClass = useMemo(() => classNameConstructor(
         "tooltip-container",
-        classNames?.container
-    ), [classNames?.container]);
-    const contentWrapperClass = useMemo(() => classNameConstructor(
-        "tooltip-content-wrapper",
-        classNames?.contentWrapper
-    ), [classNames?.contentWrapper]);
+        className
+    ), [className]);
     const tailClass = useMemo(() => classNameConstructor(
         "tooltip-tail",
         `tooltip-position-${position}`,
-        classNames?.tail
-    ), [classNames?.tail, position]);
+    ), [position]);
     const tooltipClass = useMemo(() => classNameConstructor(
         "tooltip",
         `tooltip-position-${position}`,
-        classNames?.tooltip
-    ), [classNames?.tooltip, position]);
+    ), [position]);
 
     const tailStyle = useMemo(() => {
         const style: CSSProperties = {};
@@ -75,7 +64,7 @@ export default function Tooltip({ classNames, children, tooltip, disabled, posit
 
     return (
         <div className={containerClass}>
-            <div className={contentWrapperClass}>
+            <div className="tooltip-content-wrapper">
                 {children}
             </div>
             {!disabled && <>

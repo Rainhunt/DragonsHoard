@@ -1,0 +1,59 @@
+@use '../../../styles/index.module.scss' as *;
+
+.searchable-drop-down-label.drop-down-label {
+    padding: 0;
+    background: none;
+
+    .text-input-container {
+        margin: 0;
+    }
+
+    .drop-down-list {
+        width: 100%;
+        border-radius: 0 0 1rem 1rem;
+        box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+
+        .drop-down-option {
+            padding: 0.2rem 1rem;
+            border-radius: 0;
+            background-color: $background-parchment;
+            color: $text-label;
+
+            &.drop-down-focused {
+                background-color: $text-label;
+                color: $background-paragraph;
+            }
+
+            &.drop-down-selected {
+                background-color: $background-tertiary;
+                color: $background-paragraph;
+
+                &.drop-down-focused {
+                    background-color: $text-select;
+                }
+            }
+        }
+
+        :last-child {
+            border-radius: 0 0 1rem 1rem;
+        }
+    }
+
+    &.drop-down-open {
+        &.drop-down-top .text-input-container .text-input {
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+
+        &.drop-down-right .text-input-container .text-input {
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+
+        &.drop-down-bottom .text-input-container .text-input {
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        &.drop-down-left .text-input-container .text-input {
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+    }
+}

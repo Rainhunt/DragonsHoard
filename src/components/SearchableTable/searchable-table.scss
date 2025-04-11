@@ -1,0 +1,65 @@
+@use '../../styles/index.module.scss' as *;
+
+.searchable-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    text-align: center;
+
+    th {
+        color: $text-label;
+
+        .table-header-wrapper {
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .sort-by-button {
+                height: 2rem;
+                padding: 0;
+                background: none;
+                color: $text-label;
+
+                div {
+                    height: 0.75rem;
+                    cursor: pointer;
+
+                    &.sort-by-arrow-dim {
+                        color: $background-parchment;
+                    }
+                }
+            }
+        }
+    }
+
+    tbody tr {
+        background-color: $background-paragraph;
+        box-shadow: 0 0.25rem 0.7rem rgba(0, 0, 0, 0.15), inset 0 0 0.125rem rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease, background-color 0.5s ease;
+        overflow-x: scroll;
+
+        &:hover {
+            background-color: $text-buttons;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15), inset 0 0 1rem rgba(0, 0, 0, 0.2);
+        }
+
+        td {
+            height: 3rem;
+            padding: 0.6rem 1rem;
+            border-top: 1px solid #00000025;
+            border-bottom: 1px solid #00000025;
+
+            &:first-child {
+                border-left: 1px solid #00000025;
+            }
+
+            &:last-child {
+                border-right: 1px solid #00000025;
+            }
+
+            @include overflow-ellipses;
+        }
+    }
+}

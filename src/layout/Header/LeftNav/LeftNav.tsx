@@ -13,15 +13,23 @@ export default function LeftNav() {
 
     const buttons = useMemo(() => {
         const { pass: dropDown, reject: navBar } = partitionArray([
-            <Button key="home" text="Home" className="nav-button" onClick={() => navigate(ROUTES.HOME)} />
-        ], (value, index) => {
+            <Button key="home" text="Home" className="nav-button" onClick={() => navigate(ROUTES.HOME)} />,
+            <Button key="about" text="About" className="nav-button" onClick={() => navigate(ROUTES.ABOUT)} />,
+            <Button key="monsters" text="Monsters" className="nav-button" onClick={() => navigate(ROUTES.MONSTERS)} />,
+        ], (_, index) => {
             switch (breakpoint) {
                 case "wideScreen":
-                    return index <= 1;
+                    return false;
                 case "desktop":
                     return false;
-                default:
+                case "laptop":
                     return false;
+                case "tablet":
+                    return true;
+                case "mobile":
+                    return true;
+                default:
+                    return true;
             }
         });
         return { dropDown, navBar }

@@ -1,4 +1,4 @@
-export default function partitionArray<K extends unknown>(array: Array<K>, filter: (value: K, index: number, array: K[]) => boolean) {
+export default function partitionArray<K extends unknown>(array: K[], filter: (value: K, index: number, array: K[]) => boolean) {
     const pass: K[] = [];
     const reject: K[] = [];
     array.forEach((value, index) => {

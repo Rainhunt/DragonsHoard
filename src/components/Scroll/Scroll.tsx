@@ -4,11 +4,7 @@ import classNameConstructor from "../../utils/classNameConstructor";
 import returnEmptyAsUndefined from '../../utils/returnEmptyAsUndefined';
 
 type ScrollProps = {
-    classNames?: {
-        container?: string;
-        bar?: string;
-        body?: string;
-    }
+    className?: string;
     children: ReactNode;
     width?: CSSProperties["width"];
     height?: CSSProperties["height"];
@@ -19,23 +15,11 @@ type ScrollProps = {
     justifyContent?: CSSProperties["justifyContent"];
 }
 
-export default function Scroll({ classNames, children, width, height, padding, backgroundColor, barColor, flexDirection, justifyContent }: ScrollProps) {
+export default function Scroll({ className, children, width, height, padding, backgroundColor, barColor, flexDirection, justifyContent }: ScrollProps) {
     const containerClass = useMemo(() => classNameConstructor(
         "scroll-container",
-        classNames?.container
-    ), [classNames?.container]);
-    const barClass = useMemo(() => classNameConstructor(
-        "scroll-bar",
-        classNames?.bar
-    ), [classNames?.bar]);
-    const bottomBarClass = useMemo(() => classNameConstructor(
-        "bottom-bar",
-        barClass
-    ), [classNames?.bar]);
-    const bodyClass = useMemo(() => classNameConstructor(
-        "scroll-body",
-        classNames?.body
-    ), [classNames?.body]);
+        className
+    ), [className]);
 
     const containerStyle = useMemo(() => {
         const style: CSSProperties = {};
@@ -59,11 +43,11 @@ export default function Scroll({ classNames, children, width, height, padding, b
 
     return (
         <section className={containerClass} style={containerStyle}>
-            <hr className={barClass} style={barStyle} />
-            <div className={bodyClass} style={bodyStyle}>
+            <hr className="scroll-bar" style={barStyle} />
+            <div className="scroll-body" style={bodyStyle}>
                 {children}
             </div>
-            <hr className={bottomBarClass} style={barStyle} />
+            <hr className="scroll-bar bottom-bar" style={barStyle} />
         </section>
     )
 }

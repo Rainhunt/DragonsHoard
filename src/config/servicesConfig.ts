@@ -1,9 +1,9 @@
 interface ServicesConfig {
     apiUrl: string;
-    jwtKey: string;
+    tokenKey: string;
 }
 
 export const servicesConfig: ServicesConfig = {
     apiUrl: "http://localhost:8181/",
-    jwtKey: "user"
+    tokenKey: "user"
 }

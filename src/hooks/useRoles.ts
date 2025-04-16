@@ -11,12 +11,10 @@ export default function useRoles(authorized: PageAccessRoles | PageAccessRoles[]
                 return true;
             case "notLogged":
                 return jwt === null;
-                break;
             case "user":
                 return jwt !== null;
-                break;
             case "admin":
                 return !!user?.isAdmin;
         }
-    })
+    });
 }

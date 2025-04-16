@@ -1,0 +1,19 @@
+@use '../../styles/index.module.scss' as *;
+
+.login-page {
+    padding: 3rem;
+    border-radius: 1rem;
+    background-color: $background-secondary;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .login-header {
+        color: $background-paragraph;
+        text-align: center;
+    }
+
+    .login-form {
+        width: 100%;
+    }
+}

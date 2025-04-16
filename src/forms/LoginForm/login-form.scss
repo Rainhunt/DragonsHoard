@@ -1,0 +1,25 @@
+@use '../../styles/index.module.scss' as *;
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .text-input-container {
+        .text-input-label {
+            color: $text-label;
+
+            &.text-input-label-float-above {
+                color: $background-parchment;
+            }
+        }
+
+        .text-input-errors {
+            color: $background-reset;
+        }
+    }
+
+    .form-submit {
+        margin-top: 0.5rem;
+    }
+}

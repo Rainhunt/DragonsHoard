@@ -3,26 +3,26 @@ import { AnyZodObject, z, ZodAny, ZodError, ZodObject, ZodRawShape } from "zod";
 import { ZodObjectPaths } from "../types/zodTypes";
 import { getValueFromPath, setValueFromPath } from "../utils/stringPathIndexing";
 
-type FormValue<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown> = {
+type FormValue<T extends ZodObject<ZodRawShape> = AnyZodObject> = {
     isAwait: boolean;
     formData: Partial<z.infer<T>>;
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string, path: ZodObjectPaths<T>) => void;
     isFormValid: boolean;
     errors: Record<string, ZodError>;
-    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<R>;
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
     handleReset: () => void;
 }
 
 const FormContext = createContext<FormValue | null>(null);
 
-type FormProviderProps<T extends ZodObject<ZodRawShape>, R> = {
+type FormProviderProps<T extends ZodObject<ZodRawShape>> = {
     className: string;
     schema: ZodObject<ZodRawShape>;
     children: ReactNode;
-    onSubmit: (formData: z.infer<T>, e?: FormEvent<HTMLFormElement>) => Promise<R>;
+    onSubmit: (formData: z.infer<T>, e?: FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>({ className, schema, children, onSubmit }: FormProviderProps<T, R>) {
+export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject>({ className, schema, children, onSubmit }: FormProviderProps<T>) {
     const [isAwait, setIsAwait] = useState(false);
     const [formData, setFormData] = useState<Partial<z.infer<typeof schema>>>({});
     const [isFormValid, setIsValid] = useState(false);
@@ -75,9 +75,8 @@ export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R 
         e.preventDefault();
         if (isFormValid) {
             setIsAwait(true);
-            const response = await onSubmit(formData, e);
+            await onSubmit(formData, e);
             setIsAwait(false);
-            return response;
         } else {
             //error message: Form is not valid
             console.log("Form failed validation");
@@ -98,17 +97,11 @@ export function FormProvider<T extends ZodObject<ZodRawShape> = AnyZodObject, R 
     )
 }
 
-export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>(): FormValue<T, R>;
-export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject, R = unknown>(target: ZodObjectPaths<T>): {
-    isAwait: boolean;
-    formData: Partial<z.infer<T>>;
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(): FormValue<T>;
+export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(target: ZodObjectPaths<T>): Omit<FormValue<T>, "handleChange"> & {
     value: string;
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string) => void;
-    isFormValid: boolean;
-    errors: Record<string, ZodError>;
     error: ZodError | undefined;
-    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<R>;
-    handleReset: () => void;
 };
 export function useForm<T extends ZodObject<ZodRawShape> = AnyZodObject>(target?: ZodObjectPaths<T>) {
     const context = useContext<FormValue<T> | null>(FormContext);

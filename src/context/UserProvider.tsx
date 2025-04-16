@@ -1,13 +1,11 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react"
 import { servicesConfig } from "../config/servicesConfig";
 import { userPayloadSchema, UserSchema } from "../services/requests/users/login/responseValidator";
-import { LoginSchema } from "../services/requests/users/login/requestValidator";
-import { Request } from "../services/requests/Request";
 
 type UserValue = {
     jwt: string | null;
     user: UserSchema | null;
-    login: (loginInfo: LoginSchema) => Promise<void>;
+    login: (jwt: string, user: UserSchema) => void
     logout: () => void;
 }
 
@@ -28,12 +26,7 @@ export default function UserProvider({ children }: UserProviderProps) {
         }
     }, []);
 
-    const login = useCallback(async (loginInfo: LoginSchema) => {
-        const request = new Request("users/login");
-        request.Body = loginInfo;
-        const response = await request.get();
-        const user = userPayloadSchema.parse(response);
-        const jwt = response as string;
+    const login = useCallback((jwt: string, user: UserSchema) => {
         localStorage.setItem(servicesConfig.tokenKey, jwt);
         setJwt(jwt);
         setUser(user);

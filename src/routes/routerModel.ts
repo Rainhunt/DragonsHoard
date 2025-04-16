@@ -3,6 +3,7 @@ enum ROUTES {
     HOME = "/",
     ABOUT = "/about",
     SIGNUP = "/signup",
+    LOGIN = "/login",
     MONSTERS = "/monsters",
 }
 

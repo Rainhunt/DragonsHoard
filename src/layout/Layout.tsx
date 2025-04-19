@@ -48,7 +48,7 @@ export default function Layout({ children }: LayoutProps) {
             style.paddingLeft = pageValues.margins;
             style.paddingRight = pageValues.margins;
         }
-        if (pageValues.offsetTop) style.paddingTop = pageValues.offsetTop;
+        if (pageValues.offsetTop) style.paddingTop = `calc(${pageValues.offsetTop} + 50px)`;
         if (pageValues.backgroundImage) style.backgroundImage = pageValues.backgroundImage;
         style.alignItems = pageValues.alignPageContent;
         return style;

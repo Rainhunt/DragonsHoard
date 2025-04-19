@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import { useSearchableData } from "../../../context/SearchableDataProvider";
-import { MonsterSchema } from "../../../services/requests/monsters/getMonsters/responseValidator";
+import { ShortMonsterSchema } from "../../../services/requests/monsters/getMonsters/responseValidator";
 
 export default function SearchFilter() {
-    const { setFilterParameters } = useSearchableData<MonsterSchema>();
+    const { setFilterParameters } = useSearchableData<ShortMonsterSchema>();
 
     const [value, setValue] = useState<string>("");
     useEffect(() => {

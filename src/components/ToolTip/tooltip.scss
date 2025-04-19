@@ -14,6 +14,7 @@
         border-color: transparent;
         opacity: 90%;
         visibility: hidden;
+        z-index: 1;
 
         &.tooltip-position-top {
             bottom: calc(100% - 0.5rem);
@@ -44,7 +45,12 @@
         background-color: $background-secondary;
         opacity: 90%;
         visibility: hidden;
+        z-index: 1;
         @include overflow-ellipses;
+
+        &:hover {
+            max-width: max-content;
+        }
 
         &.tooltip-position-top {
             bottom: calc(100% + 0.5rem);

@@ -8,8 +8,10 @@ import useLogin from '../../services/requests/users/login/useLogin';
 const { FormField } = getFormComponents<typeof loginRequestSchema>();
 
 export default function LoginForm() {
+    const login = useLogin();
+
     return (
-        <FormProvider<typeof loginRequestSchema> className="login-form" schema={loginRequestSchema} onSubmit={useLogin}>
+        <FormProvider<typeof loginRequestSchema> className="login-form" schema={loginRequestSchema} onSubmit={login}>
             <FormField target=".email" id="loginEmail" label={{
                 text: "Email*"
             }} displayError="first" attributes={{ type: "email" }} />

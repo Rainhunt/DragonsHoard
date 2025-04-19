@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const monsterSchema = z.object({
+export const shortMonsterSchema = z.object({
     _id: z.string(),
     alignment: z.string(),
     biome: z.string(),
@@ -13,6 +13,6 @@ export const monsterSchema = z.object({
     type: z.string()
 });
 
-export const monstersSchema = z.array(monsterSchema);
+export const monstersSchema = z.array(shortMonsterSchema);
 
-export type MonsterSchema = z.infer<typeof monsterSchema>;
+export type ShortMonsterSchema = z.infer<typeof shortMonsterSchema>;

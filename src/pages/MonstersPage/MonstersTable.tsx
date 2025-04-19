@@ -2,9 +2,11 @@ import { useCallback, useMemo, useState } from "react";
 import Button from "../../components/Button/Button";
 import DropDown from "../../components/DropDown/DropDown";
 import SearchableTable, { SearchableTableColumn } from "../../components/SearchableTable/SearchableTable";
-import { MonsterSchema } from "../../services/requests/monsters/getMonsters/responseValidator";
+import { ShortMonsterSchema } from "../../services/requests/monsters/getMonsters/responseValidator";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../routes/routerModel";
 
-const columns: SearchableTableColumn<MonsterSchema>[] = [{
+const columns: SearchableTableColumn<ShortMonsterSchema>[] = [{
     id: "name",
     label: "Name",
     cellValue: (monster) => monster.name,
@@ -53,7 +55,8 @@ const columns: SearchableTableColumn<MonsterSchema>[] = [{
 }];
 
 export default function MonstersTable() {
-    const [selectedColumns, setSelectedColumns] = useState<SearchableTableColumn<MonsterSchema>[]>(columns);
+    const navigate = useNavigate();
+    const [selectedColumns, setSelectedColumns] = useState<SearchableTableColumn<ShortMonsterSchema>[]>(columns);
     const toggleColumn = useCallback((id: string) => {
         setSelectedColumns(prev => {
             const index = prev.findIndex(column => column.id === id);
@@ -64,17 +67,17 @@ export default function MonstersTable() {
             }
         })
     }, [columns]);
-    const buttonsColumn = useMemo<SearchableTableColumn<MonsterSchema>>(() => ({
+    const buttonsColumn = useMemo<SearchableTableColumn<ShortMonsterSchema>>(() => ({
         id: "buttons",
         label: <DropDown label={<div className="left-nav-hamburger">{"\u2630"}</div>} openOn="hover">
             {columns.map(column => <Button key={column.id} className="nav-button" onClick={() => toggleColumn(column.id)}>{column.label}</Button>)}
         </DropDown>,
-        cellValue: () => <>
-            <Button text="Edit" />
+        cellValue: (monster) => <>
+            <Button text="View" onClick={() => navigate(`${ROUTES.MONSTER}/${monster._id}`)} />
         </>
     }), [columns, toggleColumn]);
 
     return (
-        <SearchableTable<MonsterSchema> columns={[...selectedColumns, buttonsColumn]}></SearchableTable>
+        <SearchableTable<ShortMonsterSchema> columns={[...selectedColumns, buttonsColumn]}></SearchableTable>
     )
 }

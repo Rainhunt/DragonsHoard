@@ -4,7 +4,8 @@ enum ROUTES {
     ABOUT = "/about",
     SIGNUP = "/signup",
     LOGIN = "/login",
-    MONSTERS = "/monsters",
+    MONSTER = "/monster",
+    MONSTERS = "/monsters"
 }
 
 export default ROUTES;

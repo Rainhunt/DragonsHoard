@@ -1,0 +1,40 @@
+@use '../../styles/index.module.scss' as *;
+
+.scroll-container.monster-statblock {
+    width: 100%;
+
+    .scroll-body {
+        display: block;
+        column-count: 2;
+
+        .first-column {
+            break-inside: avoid;
+        }
+
+        .stat-wrapper {
+            padding: 0 0.25rem;
+            border-radius: 0.25rem;
+            color: $text-label;
+        }
+
+        .inline-stat {
+            display: inline-block;
+        }
+
+        .stat-title {
+            margin-right: 0.5rem;
+            color: $text-label;
+            font-weight: 700;
+        }
+
+        .tooltip-content-wrapper {
+            padding: 0 0.25rem;
+            border-radius: 0.25rem;
+            color: $text-label;
+        }
+
+        .tooltip {
+            color: $background-paragraph;
+        }
+    }
+}

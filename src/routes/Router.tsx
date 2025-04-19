@@ -7,6 +7,7 @@ import AboutPage from "../pages/AboutPage/AboutPage";
 import MonstersPage from "../pages/MonstersPage/MonstersPage";
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import MonsterStatblockPage from "../pages/MonsterStatblockPage/MonsterStatblockPage";
 
 export default function Router() {
     return (
@@ -15,6 +16,7 @@ export default function Router() {
             <Route path={ROUTES.ABOUT} element={<AboutPage />} />
             <Route path={ROUTES.SIGNUP} element={<ProtectedRoute element={<SignupPage />} authorized={["notLogged", "admin"]} redirect={ROUTES.HOME} />} />
             <Route path={ROUTES.LOGIN} element={<ProtectedRoute element={<LoginPage />} authorized={["notLogged", "admin"]} redirect={ROUTES.HOME} />} />
+            <Route path={`${ROUTES.MONSTER}/:id`} element={<MonsterStatblockPage />} />
             <Route path={ROUTES.MONSTERS} element={<MonstersPage />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>

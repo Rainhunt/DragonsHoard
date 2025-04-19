@@ -1,0 +1,13 @@
+@use '../../../styles/index.module.scss' as *;
+
+.ability-scores-wrapper {
+    color: $text-label;
+    display: flex;
+    justify-content: space-evenly;
+
+    .ability-scores-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

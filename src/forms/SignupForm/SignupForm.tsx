@@ -8,8 +8,10 @@ import useSignup from '../../services/requests/users/signup/signup';
 const { FormField } = getFormComponents<typeof signupRequestSchema>();
 
 export default function SignupForm() {
+    const signup = useSignup();
+
     return (
-        <FormProvider<typeof signupRequestSchema> className="signup-form" schema={signupRequestSchema} onSubmit={useSignup}>
+        <FormProvider<typeof signupRequestSchema> className="signup-form" schema={signupRequestSchema} onSubmit={signup}>
             <FormField target=".username" id="signupUsername" label={{
                 text: "Username*"
             }} displayError="first" />

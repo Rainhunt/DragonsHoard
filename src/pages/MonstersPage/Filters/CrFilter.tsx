@@ -17,10 +17,9 @@ export default function CrFilter() {
     const handleChange = useCallback((left: string, right: string) => setRange({ low: left, high: right }), []);
 
     return (
-        <div>
+        <div className="column-container">
             <Slider values={values} onChange={handleChange} init={{ rightIndex: 42 }} />
-            <span>Low: {range.low}</span>
-            <span>High: {range.high}</span>
+            <span style={{ height: "2.5rem" }}>Low: {range.low}</span>
         </div>
     )
 }

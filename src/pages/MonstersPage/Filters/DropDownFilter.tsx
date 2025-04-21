@@ -34,7 +34,7 @@ export default function DropDownFilter<T extends { _id: string } = { _id: string
     const removeOption = useCallback((option: string) => setSelectedOptions(prev => prev.filter(selected => selected !== option)), []);
 
     return (
-        <div>
+        <div className="column-container">
             <SearchableDropDown id={`${id as string}-filter`} label={{ text: label }} children={options as string[]} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
             <ScrollingContainer items={selectedOptions.map(id => ({
                 key: id,

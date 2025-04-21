@@ -6,6 +6,10 @@
 
     .text-input-container {
         margin: 0;
+
+        .text-input {
+            transition: all 0.3s ease-in-out;
+        }
     }
 
     .drop-down-list {

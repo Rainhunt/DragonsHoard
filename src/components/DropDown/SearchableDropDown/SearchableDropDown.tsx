@@ -84,6 +84,7 @@ export default function SearchableDropDown({ className, id, label, selectedOptio
             {filteredOptions.map(option =>
                 <option
                     key={option}
+                    onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleSelect(option)}
                     className={classNameConstructor(
                         "drop-down-option",

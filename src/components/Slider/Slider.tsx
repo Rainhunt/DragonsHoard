@@ -8,7 +8,7 @@ type SliderProps = {
     isSingle?: boolean;
     init?: { leftIndex?: number, rightIndex?: number };
     onChange?: (leftValue: string, rightValue: string, leftIndex?: number, rightIndex?: number, maxIndex?: number) => void;
-} & OR<{ values: string[] }, { min: number, max: number, step?: number }>;
+} & OR<{ values: readonly string[] }, { min: number, max: number, step?: number }>;
 
 export default function Slider({ className, thumbSize, values, min, max, step = 1, isSingle, init, onChange }: SliderProps) {
     const [leftIndex, setLeftIndex] = useState<number>(init?.leftIndex || 0);

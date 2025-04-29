@@ -8,6 +8,7 @@ import MonstersPage from "../pages/MonstersPage/MonstersPage";
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MonsterStatblockPage from "../pages/MonsterStatblockPage/MonsterStatblockPage";
+import GameTablePage from "../pages/GameTablePage/GameTablePage";
 
 export default function Router() {
     return (
@@ -18,6 +19,7 @@ export default function Router() {
             <Route path={ROUTES.LOGIN} element={<ProtectedRoute element={<LoginPage />} authorized={["notLogged", "admin"]} redirect={ROUTES.HOME} />} />
             <Route path={`${ROUTES.MONSTER}/:id`} element={<MonsterStatblockPage />} />
             <Route path={ROUTES.MONSTERS} element={<MonstersPage />} />
+            <Route path={ROUTES.GAME_TABLE} element={<ProtectedRoute element={<GameTablePage />} authorized={["user", "admin"]} redirect={ROUTES.HOME} />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     )

@@ -19,4 +19,8 @@ body {
   h3 {
     color: $text-label;
   }
+
+  canvas {
+    display: block;
+  }
 }

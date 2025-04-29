@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 type SearchableDataValue<T extends { _id: string } = { _id: string }> = {
     rootData: T[];
@@ -20,7 +20,7 @@ export default function SearchableDataProvider<T extends { _id: string } = { _id
 
     const [rootData, setRootData] = useState<T[]>([]);
     useEffect(() => {
-        const getRootData = async () => {
+        (async () => {
             try {
                 const response = await fetch();
                 if (response) {
@@ -32,25 +32,20 @@ export default function SearchableDataProvider<T extends { _id: string } = { _id
                 setFailedToFetch(true);
                 console.log(`Error fetching data: ${err}`);
             }
-        }
-        getRootData();
+        })()
     }, [fetch]);
 
     const sortData = useCallback((compareFn?: (a: T, b: T) => number) => {
         setRootData((data) => [...data].sort(compareFn));
     }, []);
-
     const [filterParameters, setFilterParameters] = useState<Record<string, (data: T[]) => T[]>>({});
-    const [filteredData, setFilteredData] = useState<T[]>([]);
-    useEffect(() => {
+    const filteredData = useMemo(() => {
         let data = [...rootData];
         for (const key in filterParameters) {
             data = filterParameters[key](data);
         }
-        setFilteredData(data);
+        return data;
     }, [rootData, filterParameters]);
-
-
 
     return (
         <SearchableDataContext.Provider value={{ rootData, filteredData, sortData, setFilterParameters, failedToFetch }}>

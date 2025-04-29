@@ -1,6 +1,7 @@
 import './layout.scss';
 import { createContext, CSSProperties, ReactNode, useContext, useMemo, useState } from "react"
 import Header from "./Header/Header";
+import returnEmptyAsUndefined from '../utils/returnEmptyAsUndefined';
 
 type LayoutValue = {
     theme: {
@@ -15,6 +16,7 @@ type LayoutValue = {
         set backgroundImage(value: CSSProperties["backgroundImage"]);
         get alignPageContent(): CSSProperties["alignItems"];
         set alignPageContent(value);
+        set noHeader(value: boolean);
         reset: () => void;
     }
 }
@@ -34,13 +36,17 @@ export default function Layout({ children }: LayoutProps) {
         margins: "10%",
         offsetTop: "50px",
         backgroundImage: undefined,
-        alignPageContent: "left"
+        alignPageContent: "left",
+        noHeader: false,
+        noFooter: false,
     }), []);
     const [pageValues, setPageValues] = useState<{
         margins: CSSProperties["margin"];
         offsetTop: CSSProperties["marginTop"];
         backgroundImage: CSSProperties["backgroundImage"];
         alignPageContent: CSSProperties["alignItems"];
+        noHeader: boolean;
+        noFooter: boolean;
     }>(initialLayout);
     const mainStyle = useMemo(() => {
         const style: CSSProperties = {};
@@ -51,7 +57,7 @@ export default function Layout({ children }: LayoutProps) {
         if (pageValues.offsetTop) style.paddingTop = `calc(${pageValues.offsetTop} + 50px)`;
         if (pageValues.backgroundImage) style.backgroundImage = pageValues.backgroundImage;
         style.alignItems = pageValues.alignPageContent;
-        return style;
+        return returnEmptyAsUndefined(style);
     }, [pageValues]);
 
     const theme = useMemo(() => ({
@@ -66,12 +72,13 @@ export default function Layout({ children }: LayoutProps) {
         set backgroundImage(value: CSSProperties["backgroundImage"]) { setPageValues(prev => ({ ...prev, backgroundImage: value })) },
         get alignPageContent() { return pageValues.alignPageContent },
         set alignPageContent(value) { setPageValues(prev => ({ ...prev, alignPageContent: value })) },
+        set noHeader(value: boolean) { setPageValues(prev => ({ ...prev, noHeader: value })) },
         reset: () => setPageValues(initialLayout)
     }), [themeValues]);
 
     return (
         <LayoutContext.Provider value={{ theme, page }}>
-            <Header />
+            {!pageValues.noHeader && <Header />}
             <main style={mainStyle}>
                 {children}
             </main>

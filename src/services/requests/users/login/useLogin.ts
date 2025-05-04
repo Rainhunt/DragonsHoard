@@ -3,6 +3,7 @@ import { useUser } from "../../../../context/UserProvider";
 import { Request } from "../../Request";
 import { LoginSchema } from "./requestValidator";
 import { userPayloadSchema } from "./responseValidator";
+import retryWithBackoff from "../../../../utils/retryWithBackoff";
 
 export default function useLogin() {
     const { login } = useUser();
@@ -10,7 +11,7 @@ export default function useLogin() {
         try {
             const request = new Request("users/login");
             request.Body = loginInfo;
-            const response = await request.post();
+            const response = await retryWithBackoff(request.post);
             const user = userPayloadSchema.parse(response);
             const jwt = response as string;
             login(jwt, user);

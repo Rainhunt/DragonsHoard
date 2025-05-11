@@ -1,33 +1,17 @@
-import { Application, Assets, Sprite } from 'pixi.js';
+import './index.scss';
+import { Application } from 'pixi.js';
+import decodeTMX from './scenes/game/TilemapLayer/decodeTMX';
+import createTileset from './scenes/game/TilemapLayer/createTileset';
+import createTilemapMesh from './scenes/game/TilemapLayer/createTilemapMesh';
 
 (async () => {
-    // Create a new application
     const app = new Application();
+    await app.init({ backgroundAlpha: 0, resizeTo: window, canvas: document.getElementById('root') as HTMLCanvasElement });
 
-    // Initialize the application with a transparent background
-    await app.init({ backgroundAlpha: 0, resizeTo: window });
+    const map = await decodeTMX("/desert.tmx");
+    const tileset = Array.isArray(map.tileset) ? map.tileset : [map.tileset];
+    const { renderTexture, uvMap } = await createTileset(app.renderer, 2, 2, ...tileset);
 
-    // Append the application canvas to the document body
-    document.body.appendChild(app.canvas);
-
-    // Load the bunny texture
-    const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
-
-    // Create a new Sprite with the texture
-    const bunny = new Sprite(texture);
-
-    // Center the sprite's anchor point
-    bunny.anchor.set(0.5);
-
-    // Move the sprite to the center of the screen
-    bunny.x = app.screen.width / 2;
-    bunny.y = app.screen.height / 2;
-
-    app.stage.addChild(bunny);
-
-    // Listen for animate update
-    app.ticker.add(() => {
-        // Just for fun, let's rotate our bunny over time!
-        bunny.rotation += 0.1;
-    });
+    const layer = createTilemapMesh(map, renderTexture, uvMap);
+    app.stage.addChild(layer)
 })();

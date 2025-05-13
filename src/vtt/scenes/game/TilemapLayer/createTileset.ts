@@ -1,4 +1,4 @@
-import { Assets, Graphics, Rectangle, Renderer, RenderTexture, Sprite, Texture } from "pixi.js";
+import { Assets, Rectangle, Renderer, RenderTexture, Sprite, Texture } from "pixi.js";
 import { TMXTileset } from "./TMXInterface";
 
 export default async function createTileset(renderer: Renderer, textureSpacing: number, textureMargin: number, ...tilesets: TMXTileset[]) {
@@ -7,7 +7,6 @@ export default async function createTileset(renderer: Renderer, textureSpacing: 
     const textureHeight = height + 2 * textureMargin;
 
     const renderTexture = RenderTexture.create({ width: textureWidth, height: textureHeight, scaleMode: "nearest" });
-    renderer.render({ target: renderTexture, container: new Graphics().rect(0, 0, textureWidth, textureHeight).fill("green") })
 
     const uvMap = new Map<number, Float32Array>();
     let u = textureMargin;

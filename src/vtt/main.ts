@@ -1,5 +1,5 @@
 import './index.scss';
-import { Application, Graphics, Rectangle } from 'pixi.js';
+import { Application, Rectangle } from 'pixi.js';
 import TilemapLayer from './scenes/game/TilemapLayer/TilemapLayer';
 import DraggableSystem from './systems/DraggableSystem';
 

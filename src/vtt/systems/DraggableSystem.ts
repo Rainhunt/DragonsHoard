@@ -16,7 +16,6 @@ export default class DraggableSystem {
     static add(container: Container, options?: DraggableOptions) {
         if (!this.app) throw new Error("DraggableSystem must be initialized before being called");
         this.draggables.set(container, new Draggable(this.app, container, options));
-        console.log(this.draggables);
     }
 
     static remove(container: Container) {

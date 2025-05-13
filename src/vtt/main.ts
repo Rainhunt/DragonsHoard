@@ -1,17 +1,20 @@
 import './index.scss';
-import { Application } from 'pixi.js';
-import decodeTMX from './scenes/game/TilemapLayer/decodeTMX';
-import createTileset from './scenes/game/TilemapLayer/createTileset';
-import createTilemapMesh from './scenes/game/TilemapLayer/createTilemapMesh';
+import { Application, Graphics, Rectangle } from 'pixi.js';
+import TilemapLayer from './scenes/game/TilemapLayer/TilemapLayer';
+import DraggableSystem from './systems/DraggableSystem';
+
+const gameConfig = {
+    backgroundColor: "pink"
+};
 
 (async () => {
     const app = new Application();
-    await app.init({ backgroundAlpha: 0, resizeTo: window, canvas: document.getElementById('root') as HTMLCanvasElement });
+    await app.init({ backgroundColor: gameConfig.backgroundColor, resizeTo: window, canvas: document.getElementById('root') as HTMLCanvasElement });
+    app.stage.eventMode = "static";
+    app.stage.hitArea = new Rectangle(0, 0, app.screen.width, app.screen.height);
+    DraggableSystem.init(app);
 
-    const map = await decodeTMX("/desert.tmx");
-    const tileset = Array.isArray(map.tileset) ? map.tileset : [map.tileset];
-    const { renderTexture, uvMap } = await createTileset(app.renderer, 2, 2, ...tileset);
-
-    const layer = createTilemapMesh(map, renderTexture, uvMap);
-    app.stage.addChild(layer)
+    const tilemapLayer = new TilemapLayer(app, "/desert.tmx");
+    tilemapLayer.init();
+    tilemapLayer.appendTo(app.stage);
 })();

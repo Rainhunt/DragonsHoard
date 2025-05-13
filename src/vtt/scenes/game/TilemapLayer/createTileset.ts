@@ -1,8 +1,6 @@
 import { Assets, Graphics, Rectangle, Renderer, RenderTexture, Sprite, Texture } from "pixi.js";
 import { TMXTileset } from "./TMXInterface";
 
-export type UVQuad = [number, number, number, number, number, number, number, number];
-
 export default async function createTileset(renderer: Renderer, textureSpacing: number, textureMargin: number, ...tilesets: TMXTileset[]) {
     const [width, height] = getTextureDimensions(textureSpacing, tilesets);
     const textureWidth = width + 2 * textureMargin;
@@ -11,7 +9,7 @@ export default async function createTileset(renderer: Renderer, textureSpacing: 
     const renderTexture = RenderTexture.create({ width: textureWidth, height: textureHeight, scaleMode: "nearest" });
     renderer.render({ target: renderTexture, container: new Graphics().rect(0, 0, textureWidth, textureHeight).fill("green") })
 
-    const uvMap = new Map<number, UVQuad>();
+    const uvMap = new Map<number, Float32Array>();
     let u = textureMargin;
     let v = textureMargin;
     for (const tileset of tilesets) {
@@ -25,7 +23,20 @@ export default async function createTileset(renderer: Renderer, textureSpacing: 
             sprite.position.set(u, v);
             renderer.render({ container: sprite, target: renderTexture, clear: false });
 
-            uvMap.set(firstgid + i, [u / textureWidth, v / textureHeight, (u + tilewidth) / textureWidth, v / textureHeight, (u + tilewidth) / textureWidth, (v + tileheight) / textureHeight, u / textureWidth, (v + tileheight) / textureHeight]);
+            const uv = new Float32Array(8);
+            const u0 = u / textureWidth;
+            const v0 = v / textureHeight;
+            const u1 = (u + tilewidth) / textureWidth;
+            const v1 = (v + tileheight) / textureHeight;
+            uv[0] = u0;
+            uv[1] = v0;
+            uv[2] = u1;
+            uv[3] = v0;
+            uv[4] = u1;
+            uv[5] = v1;
+            uv[6] = u0;
+            uv[7] = v1;
+            uvMap.set(firstgid + i, uv);
             u += tilewidth + textureSpacing;
             if (u + tilewidth + textureMargin > width || i + 1 === tilecount) {
                 u = textureMargin;

@@ -30,7 +30,7 @@ export default class TilemapLayer extends Layer {
     }
 
     protected async getAssets() {
-        const map = await decodeTMX("/desert.tmx");
+        const map = await decodeTMX(this.state.url);
         const tileset = Array.isArray(map.tileset) ? map.tileset : [map.tileset];
         const { renderTexture, uvMap } = await createTileset(this.state.app.renderer, 2, 2, ...tileset);
         this.assets = {

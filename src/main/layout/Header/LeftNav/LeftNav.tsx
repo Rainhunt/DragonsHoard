@@ -16,7 +16,7 @@ export default function LeftNav() {
             <Button key="home" text="Home" className="nav-button" onClick={() => navigate(ROUTES.HOME)} />,
             <Button key="about" text="About" className="nav-button" onClick={() => navigate(ROUTES.ABOUT)} />,
             <Button key="monsters" text="Monsters" className="nav-button" onClick={() => navigate(ROUTES.MONSTERS)} />,
-            <Button key="monsters" text="Table" className="nav-button" onClick={() => window.location.href = "/table/"} />,
+            <Button key="my-games" text="My Games" className="nav-button" onClick={() => window.location.href = "/table/"} />,
         ], (_, index) => {
             switch (breakpoint) {
                 case "wideScreen":

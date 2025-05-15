@@ -16,14 +16,14 @@ export default function MonstersPage() {
     useEffect(() => {
         page.reset();
         page.alignPageContent = "center";
-        page.backgroundImage = "url(/background-placeholder.png)";
+        page.backgroundImage = "url(/monster-codex-placeholder.jpg)";
     }, []);
     const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
 
     return (
         <SearchableDataProvider fetch={async () => await getMonsters()}>
             <h1>Monsters</h1>
-            <Scroll className="monster-filters-container" width="100%" backgroundColor="#E7D6A2E0">
+            <Scroll className="monster-filters-container" width="100%">
                 <div className="monster-filters">
                     <DropDownFilter<ShortMonsterSchema> id="biome" label="Environment" />
                     <DropDownFilter<ShortMonsterSchema> id="size" label="Size" />
@@ -38,7 +38,7 @@ export default function MonstersPage() {
                     </>}
                 </div>
             </Scroll>
-            <Scroll backgroundColor="#F1E5D1E0">
+            <Scroll className="monsters-scroll">
                 <MonstersTable />
             </Scroll>
         </SearchableDataProvider>

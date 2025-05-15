@@ -1,142 +1,63 @@
+import './home-page.scss';
 import { useEffect } from "react";
-import Button from "../../components/Button/Button";
-import DropDown from "../../components/DropDown/DropDown";
-import Input from "../../components/Input/Input";
-import LineBreak from "../../components/LineBreak/LineBreak";
-import Scroll from "../../components/Scroll/Scroll";
-import ScrollingContainer from "../../components/ScrollingContainer/ScrollingContainer";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import Slider from "../../components/Slider/Slider";
-import Tooltip from "../../components/Tooltip/Tooltip";
 import { useLayout } from "../../layout/Layout";
-import SearchableDataProvider from "../../context/SearchableDataProvider";
-import SearchableTable from "../../components/SearchableTable/SearchableTable";
-import SharedStateProvider from "../../context/SharedStateProvider";
-import SearchableDropDown, { SearchableDropDownState } from "../../components/DropDown/SearchableDropDown/SearchableDropDown";
+import Scroll from "../../components/Scroll/Scroll";
+import LineBreak from "../../components/LineBreak/LineBreak";
+import Button from "../../components/Button/Button";
 
 export default function HomePage() {
-    const { theme, page } = useLayout();
+    const { page } = useLayout();
     useEffect(() => {
         page.reset();
-        page.margins = "10rem";
+        page.backgroundImage = "url(/background-placeholder.png)";
         page.alignPageContent = "center";
     }, []);
 
     return (
-        <>
-            <Input id="test" label={{
-                text: "My Incredibly Loooooooooooooongggggg Label"
-            }} error={{
-                validators: [
-                    {
-                        message: "Name must be longer than 2 characters",
-                        condition: (input) => input.length > 2
-                    },
-                    {
-                        message: "Name must contain a 'w'",
-                        condition: (input) => input.includes("w")
-                    },
-                ]
-            }} />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <Button text="My Button" onClick={() => theme.hideHeaderOnScroll = !theme.hideHeaderOnScroll} />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <Scroll justifyContent="center">
-                <div>
-                    Ha
+        <div className="home-page">
+            <Scroll className="main">
+                <h1>Dragon's Hoard</h1>
+                <h2>The Complete D&D Toolbox</h2>
+                <LineBreak height="1px" margin="1rem" />
+                <p>
+                    Welcome to Dragon's Hoard, your ultimate D&D toolbox, designed to streamline your gameplay and enhance your adventures. With powerful tools, a growing collection of SRD content, and a customizable experience, Dragon's Hoard is your all-in-one hub for creating, managing, and exploring your Dungeons & Dragons world.
+                </p>
+                <LineBreak height="1px" margin="1rem" />
+                <div className="links">
+                    <Scroll>
+                        <h3>Play a Game</h3>
+                        <p>
+                            Use our VTT to easily create and run your games, with our intuitive, powerful UI.
+                        </p>
+                        <Button text="My Games" />
+                    </Scroll>
+                    <Scroll>
+                        <h3>Codex</h3>
+                        <p>
+                            Find any resource in the 5e SRD! The most powerful tool for finding and referencing the rules you need!
+                        </p>
+                        <Button text="Monsters" />
+                    </Scroll>
                 </div>
             </Scroll>
-            <ScrollingContainer items={[
-            ]} onEmpty={"Nothing to see here"} />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <SearchBar onEnter={(value) => console.log(value)} placeholder="Search..." />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <Slider min={1} max={200} thumbSize="1rem" init={{ leftIndex: 100, rightIndex: 205 }} />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <DropDown label={<label>Mialma</label>} openOn="hover" position="right" align="top">
-                {[
-                    <Tooltip key={"test"} tooltip="A Cool Tooltip" position="bottom" alignPercent={50} tailAlignPercent={50}>
-                        <Scroll width="500px">Ha</Scroll>
-                    </Tooltip>,
-                    <Tooltip key={"test2"} tooltip="A Cool Tooltip" position="bottom" alignPercent={50} tailAlignPercent={50}>
-                        <Scroll width="500px">Ha</Scroll>
-                    </Tooltip>
-                ]}
-            </DropDown >
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" color="red" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <SearchableDataProvider fetch={async () => [{ _id: "first", h1: "abc", h2: "xyz" }, { _id: "second", h1: "bcd", h2: "grm" }, {
-                _id: "third", h1: "cde", h3: {
-                    a: "buxx"
-                }
-            }]}>
-                <SearchableTable<{ _id: string, h1: string, h2?: string, h3?: { a: string } }> columns={[{
-                    id: "m",
-                    label: "h1",
-                    cellValue: data => data.h1,
-                    sortFunc: (a, b) => a.h1.localeCompare(b.h1)
-                }, {
-                    id: "n",
-                    label: "h2",
-                    cellValue: (data) => <Button text={data.h2 || ""} />,
-                    sortFunc: (a, b) => (a.h2 || "").localeCompare(b.h2 || "")
-                }, {
-                    id: "o",
-                    label: "h3",
-                    cellValue: (data) => data.h3?.a,
-                    sortFunc: (a, b) => (a.h3?.a || "").localeCompare(b.h3?.a || "")
-                }]} />
-            </SearchableDataProvider>
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <LineBreak margin="20px 0" taper="right" fade="right" color="green" />
-            <Input id="garb" label={{
-                text: "Number?",
-                isIdle: "hidden",
-                isActive: "floatAbove"
-            }} error={{
-                display: "first",
-                validators: [
-                    {
-                        message: "Name must low red",
-                        condition: (input) => {
-                            console.log(input);
-                            return input.startsWith("#ff");
-                        }
-                    }
-                ]
-            }} attributes={{ type: "date" }} />
-        </>
+            <Scroll className="coming-soon">
+                <h3>Coming Soon</h3>
+                <p>
+                    Exciting things are on the way for Dragon's Hoard! We're working hard to bring you the ultimate D&D toolbox, and here's a sneak peek at what's coming soon:
+                </p>
+                <ul>
+                    <li>
+                        <strong>VTT (Virtual Tabletop)</strong> - Our VTT is under continuous development and will continue to add features that provide a seamless, interactive experience for your campaigns.
+                    </li>
+                    <li>
+                        <strong>Full SRD Access</strong> - Currently featuring monsters, we'll soon expand to include the full SRD for spells, items, races, classes, and more!
+                    </li>
+                    <li>
+                        <strong>Customizable Site Themes</strong> - Personalize your Dragon's Hoard experience with new themes to match your playstyle and preferences.
+                    </li>
+                </ul>
+                Stay tuned as we continue to build the ultimate companion for your adventures!
+            </Scroll>
+        </div>
     )
 }

@@ -2,6 +2,10 @@
 
 .monster-filters-container {
     margin-bottom: 3rem;
+
+    .scroll-body {
+        background-color: #E7D6A2E0;
+    }
 }
 
 .monster-filters {
@@ -39,5 +43,13 @@
             font-weight: 700;
             @include interactive($text-label-hover, $text-label-active, 1.03);
         }
+    }
+}
+
+.monsters-scroll {
+    margin-bottom: 2rem;
+
+    .scroll-body {
+        background-color: #F1E5D1E0;
     }
 }

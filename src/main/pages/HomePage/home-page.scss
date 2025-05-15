@@ -1,0 +1,54 @@
+@use '../../styles/index.module.scss' as *;
+
+.home-page {
+    .main {
+        margin-bottom: 2rem;
+
+        .scroll-body {
+            padding: 2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .links {
+                display: flex;
+                justify-content: space-evenly;
+
+                .scroll-container {
+                    width: 45%;
+
+                    h3 {
+                        font-size: 1.5rem;
+                    }
+
+                    p {
+                        margin: 1rem 0;
+                    }
+
+                    button {
+                        width: 100%;
+                        background-color: $text-label;
+                        font-size: 1rem;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+
+    .coming-soon {
+        margin-bottom: 2rem;
+
+        .scroll-body {
+            padding: 2rem 3rem;
+        }
+    }
+}

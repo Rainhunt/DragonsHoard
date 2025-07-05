@@ -1,10 +1,10 @@
 import { Application, RenderTexture } from "pixi.js";
 import Layer from "../../../components/Layer";
-import { TMXMap } from "./TMXInterface";
 import createTileset from "./createTileset";
-import decodeTMX from "./decodeTMX";
 import createTilemapMesh from "./createTilemapMesh";
 import DraggableSystem from "../../../systems/DraggableSystem";
+import parseTMX, { mapSchema } from "./parseTMX";
+import { z } from "zod";
 
 interface TilemapLayerState {
     app: Application;
@@ -12,7 +12,7 @@ interface TilemapLayerState {
 }
 
 interface TilemapLayerAssets {
-    map?: TMXMap;
+    map?: z.infer<typeof mapSchema>;
     tilset?: RenderTexture;
     uvMap?: Map<number, Float32Array>;
 }
@@ -30,7 +30,7 @@ export default class TilemapLayer extends Layer {
     }
 
     protected async getAssets() {
-        const map = await decodeTMX(this.state.url);
+        const map = await parseTMX(this.state.url);
         const tileset = Array.isArray(map.tileset) ? map.tileset : [map.tileset];
         const { renderTexture, uvMap } = await createTileset(this.state.app.renderer, 2, 2, ...tileset);
         this.assets = {
@@ -55,6 +55,6 @@ export default class TilemapLayer extends Layer {
     }
 
     protected failedToInit(err: unknown): void {
-        throw new Error("Method not implemented.");
+        console.log(err);
     }
 }

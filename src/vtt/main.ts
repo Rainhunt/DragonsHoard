@@ -4,7 +4,7 @@ import TilemapLayer from './scenes/game/TilemapLayer/TilemapLayer';
 import DraggableSystem from './systems/DraggableSystem';
 
 const gameConfig = {
-    backgroundColor: "pink"
+    backgroundColor: "#733935"
 };
 
 (async () => {

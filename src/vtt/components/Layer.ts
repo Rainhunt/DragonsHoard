@@ -8,7 +8,6 @@ export default abstract class Layer {
         parent.addChild(this.container);
     }
 
-    protected abstract getAssets(): Promise<void>;
     async init() {
         try {
             await retryWithBackoff(this.getAssets.bind(this));
@@ -17,6 +16,8 @@ export default abstract class Layer {
             this.failedToInit(err);
         }
     }
+
+    protected abstract getAssets(): Promise<void>;
     protected abstract setup(): void;
     protected abstract failedToInit(err: unknown): void;
 

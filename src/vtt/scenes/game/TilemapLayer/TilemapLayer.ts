@@ -13,7 +13,7 @@ interface TilemapLayerState {
 
 interface TilemapLayerAssets {
     map?: z.infer<typeof mapSchema>;
-    tilset?: RenderTexture;
+    tileset?: RenderTexture;
     uvMap?: Map<number, Float32Array>;
 }
 
@@ -35,17 +35,17 @@ export default class TilemapLayer extends Layer {
         const { renderTexture, uvMap } = await createTileset(this.state.app.renderer, 2, 2, ...tileset);
         this.assets = {
             map,
-            tilset: renderTexture,
+            tileset: renderTexture,
             uvMap
         }
     }
 
     protected setup() {
-        if (this.assets.map && this.assets.tilset && this.assets.uvMap) {
+        if (this.assets.map && this.assets.tileset && this.assets.uvMap) {
             this.container.eventMode = "static";
             DraggableSystem.add(this.container);
 
-            const meshes = createTilemapMesh(this.assets.map, this.assets.tilset, this.assets.uvMap);
+            const meshes = createTilemapMesh(this.assets.map, this.assets.tileset, this.assets.uvMap);
             for (const mesh of meshes) {
                 this.container.addChild(mesh);
             }

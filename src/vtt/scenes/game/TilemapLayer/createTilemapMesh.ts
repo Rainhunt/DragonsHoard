@@ -1,7 +1,8 @@
 import { MeshSimple, RenderTexture } from "pixi.js";
-import { TMXMap } from "./TMXInterface";
+import { mapSchema } from "./parseTMX";
+import { z } from "zod";
 
-export default function createTilemapMesh(map: TMXMap, texture: RenderTexture, uvMap: Map<number, Float32Array>) {
+export default function createTilemapMesh(map: z.infer<typeof mapSchema>, texture: RenderTexture, uvMap: Map<number, Float32Array>) {
     const { width, height, tilewidth, tileheight } = map["@_"];
     const meshes: MeshSimple[] = [];
     const layers = Array.isArray(map.layer) ? map.layer : [map.layer];

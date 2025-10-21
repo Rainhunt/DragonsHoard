@@ -6,6 +6,8 @@ enum ROUTES {
     LOGIN = "/login",
     MONSTER = "/monster",
     MONSTERS = "/monsters",
+    MYGAMES = "/games",
+    GAMEPORTAL = "/game",
     TABLE = "/table"
 }
 

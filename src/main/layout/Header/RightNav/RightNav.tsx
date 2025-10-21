@@ -14,7 +14,7 @@ export default function RightNav() {
     return (
         <nav className="right-nav">
             {isLoggedIn ?
-                <DropDown label={<span className="nav-button"><Button text="Profile" onClick={() => navigate(ROUTES.ABOUT)} /></span>} openOn="hover">
+                <DropDown label={<span className="nav-button"><Button text="Profile" className="profile-button" onClick={() => navigate(ROUTES.ABOUT)} /></span>} openOn="hover">
                     <Button text="Logout" className="nav-button" onClick={logout} />
                 </DropDown> :
                 <>

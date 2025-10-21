@@ -1,7 +1,8 @@
 import { Assets, Rectangle, Renderer, RenderTexture, Sprite, Texture } from "pixi.js";
-import { TMXTileset } from "./TMXInterface";
+import { z } from "zod";
+import { tilesetSchema } from "./parseTMX";
 
-export default async function createTileset(renderer: Renderer, textureSpacing: number, textureMargin: number, ...tilesets: TMXTileset[]) {
+export default async function createTileset(renderer: Renderer, textureSpacing: number, textureMargin: number, ...tilesets: z.infer<typeof tilesetSchema>[]) {
     const [width, height] = getTextureDimensions(textureSpacing, tilesets);
     const textureWidth = width + 2 * textureMargin;
     const textureHeight = height + 2 * textureMargin;
@@ -49,7 +50,7 @@ export default async function createTileset(renderer: Renderer, textureSpacing: 
     return { renderTexture, uvMap };
 }
 
-function getTextureDimensions(spacing: number, tilesets: TMXTileset[]) {
+function getTextureDimensions(spacing: number, tilesets: z.infer<typeof tilesetSchema>[]) {
     let area = 0;
     for (const tileset of tilesets) {
         area += tileset["@_"].tilecount * (tileset["@_"].tilewidth + spacing) * (tileset["@_"].tileheight + spacing);

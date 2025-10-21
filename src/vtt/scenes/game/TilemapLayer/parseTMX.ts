@@ -23,7 +23,7 @@ const imageSchema = z.object({
     })
 });
 
-const tilesetSchema = z.object({
+export const tilesetSchema = z.object({
     "@_": z.object({
         firstgid: z.number(),
         name: z.string(),

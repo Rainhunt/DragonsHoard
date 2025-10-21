@@ -12,6 +12,19 @@
         &:hover {
             background-color: $background-tertiary;
             color: $background-paragraph;
+
+            .profile-button {
+                background-color: $background-tertiary;
+            }
+        }
+
+        .profile-button {
+            background-color: $background-secondary;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .nav-button {
+            width: 100%;
         }
     }
 }

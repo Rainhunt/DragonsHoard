@@ -22,7 +22,7 @@ export default function MonsterStatblockPage() {
         }
         page.reset();
         page.alignPageContent = "center";
-        page.backgroundImage = "url(/background-placeholder.png)";
+        page.backgroundImage = `url(${import.meta.env.BASE_URL}background-placeholder.png)`;
         if (id) fetch(id);
     }, []);
 

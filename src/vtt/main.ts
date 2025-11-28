@@ -14,7 +14,7 @@ const gameConfig = {
     app.stage.hitArea = new Rectangle(0, 0, app.screen.width, app.screen.height);
     DraggableSystem.init(app);
 
-    const tilemapLayer = new TilemapLayer(app, "/desert.tmx");
+    const tilemapLayer = new TilemapLayer(app, `${import.meta.env.BASE_URL}desert.tmx`);
     tilemapLayer.init();
     tilemapLayer.appendTo(app.stage);
 })();

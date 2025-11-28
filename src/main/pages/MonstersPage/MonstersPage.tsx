@@ -16,7 +16,7 @@ export default function MonstersPage() {
     useEffect(() => {
         page.reset();
         page.alignPageContent = "center";
-        page.backgroundImage = "url(/monster-codex-placeholder.jpg)";
+        page.backgroundImage = `url(${import.meta.env.BASE_URL}monster-codex-placeholder.jpg)`;
     }, []);
     const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
 

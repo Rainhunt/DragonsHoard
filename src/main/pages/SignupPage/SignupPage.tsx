@@ -9,7 +9,7 @@ export default function SignupPage() {
         page.reset();
         page.offsetTop = "20vh";
         page.margins = "35%";
-        page.backgroundImage = "url(/background-placeholder.png)";
+        page.backgroundImage = `url(${import.meta.env.BASE_URL}background-placeholder.png)`;
     }, []);
     return (
         <div className="signup-page">

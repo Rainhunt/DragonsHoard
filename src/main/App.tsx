@@ -5,7 +5,7 @@ import UserProvider from "./context/UserProvider";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.MODE === "production" ? "/DragonsHoard" : "/"}>
       <UserProvider>
         <Layout>
           <Router />

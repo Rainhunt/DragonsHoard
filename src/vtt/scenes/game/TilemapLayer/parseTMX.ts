@@ -70,7 +70,7 @@ export const mapSchema = z.preprocess(tmx => new XMLParser(options).parse(tmx).m
     tileset: valueOrArray(z.object({ "@_": z.object({ source: z.string().optional(), firstgid: z.number() }) }).transform(async (input, ctx) => {
         if (input["@_"].source) {
             try {
-                const response = await (await fetch(`/${input["@_"].source}`)).text();
+                const response = await (await fetch(`${import.meta.env.BASE_URL}${input["@_"].source}`)).text();
                 const tsx = new XMLParser(options).parse(response).tileset;
                 const tileset = { ...tsx, "@_": { ...tsx["@_"], firstgid: input["@_"].firstgid } };
                 return tilesetSchema.parse(tileset);

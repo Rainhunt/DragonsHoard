@@ -9,7 +9,7 @@ export default function HomePage() {
     const { page } = useLayout();
     useEffect(() => {
         page.reset();
-        page.backgroundImage = "url(/background-placeholder.png)";
+        page.backgroundImage = `url(${import.meta.env.BASE_URL}background-placeholder.png)`;
         page.alignPageContent = "center";
     }, []);
 

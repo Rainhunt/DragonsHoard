@@ -13,7 +13,7 @@ export default async function createTileset(renderer: Renderer, textureSpacing: 
     let u = textureMargin;
     let v = textureMargin;
     for (const tileset of tilesets) {
-        const image = await Assets.load(`http://localhost:5173/${tileset.image["@_"].source}`);
+        const image = await Assets.load(`${import.meta.env.BASE_URL}${tileset.image["@_"].source}`);
         const { firstgid, name, tilewidth, tileheight, spacing, margin, columns, tilecount } = tileset["@_"];
         if (tilewidth > width) throw new Error(`${name}'s tiles are too wide for the container`);
         for (let i = 0; i < tilecount; i++) {
